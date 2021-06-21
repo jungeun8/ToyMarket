@@ -35,4 +35,12 @@ private SqlSessionFactory sqlSessionFactory;
 		session.close();
 		return totalRows;
 	}
+	
+	public Products getProductDetail(int productNo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		Products product = session.selectOne("products.getProductDetail", productNo);
+		session.close();
+		return product;
+	}
+	
 }

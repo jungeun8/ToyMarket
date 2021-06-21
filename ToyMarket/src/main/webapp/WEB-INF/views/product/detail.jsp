@@ -86,7 +86,7 @@
 						<br/>
 						<br/>
 						<br/>
-						<div>
+						<div id="product-description">
 							<img src="//img-cf.kurly.com/shop/data/goodsview/20210609/gv40000191340_1.jpg" class="pb-4">
 							
 							<p class="text-center fs-4">땡초의 알싸함을 더해 풍성한 맛</p>

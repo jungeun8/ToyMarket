@@ -17,44 +17,75 @@
 				width: 1050px !important;
     			margin: 0 auto !important;
 			}
+			
+			#cardA:link {
+				color: black;
+				text-decoration: none;
+			}
+			
+			#cardA:visited {
+				color: black;
+				text-decoration: none;
+			}
+			
+			#cardA:hover {
+				color: black;
+				text-decoration: none;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
+			<div class="row mb-2">
 				<div class="col-12 pt-4 border px-4">
 					<div class="d-flex align-items-end">
 						<div class="py-2 bd-highlight">신상품</div>
 					</div>
+				</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-12">
 					<div class="d-flex justify-content-between">
 						<div>전체보기</div>
 						<div>
-							<select class="form-select-sm" aria-label="Default select example">
-								<option value="1" selected>추천순</option>
-								<option value="2">신상품순</option>
-								<option value="3">인기상품순</option>
-								<option value="3">혜택순</option>
-								<option value="3">낮은 가격순</option>
-								<option value="3">높은 가격순</option>
+							<select class="form-select-sm" style="border-style: none;" aria-label="Default select example" id="sort" onchange="refreshList()">
+								<option value="신상품순" ${param.sort eq '신상품순' ? 'selected' : '' }>신상품순</option>
+								<option value="인기상품순" ${param.sort eq '인기상품순' ? 'selected' : '' }>인기상품순</option>
+								<option value="혜택순" ${param.sort eq '혜택순' ? 'selected' : '' }>혜택순</option>
+								<option value="낮은가격순" ${param.sort eq '낮은가격순' ? 'selected' : '' }>낮은가격순</option>
+								<option value="높은가격순" ${param.sort eq '높은가격순' ? 'selected' : '' }>높은가격순</option>
 							</select>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-12 border px-4">
 					<div>
 						<div class="row row-cols-1 row-cols-md-3">
-							<c:forEach var="product" items="${products}">
-								<div class="col py-5" id="productList">
-									<div class="card h-100" id="card">
-										<img src="${product.image}" class="card-img-top" alt="...">
-										<div class="card-body">
-											<h5 class="card-title">[${product.brand}] ${product.name}</h5>
-											<h4 class="bold">${product.price}원</h4>
-											<p class="card-text light"><font size="2" color="#A9A9A9">${product.subTitle }</font></p>
-										</div>
+							<c:choose>
+								<c:when test="${empty products}">
+									<div class="d-flex justify-content-center">
+										<p class="fs-3">상품 리스트가 없습니다.</p>
 									</div>
-								</div>
-							</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="product" items="${products}">
+										<div class="col py-5" id="productList">
+											<a href="detail?productNo=${product.no}" id="cardA">
+												<div class="card h-100" id="card">
+													<img src="${product.image}" class="card-img-top" alt="...">
+													<div class="card-body">
+														<h5 class="card-title">[${product.brand}] ${product.name}</h5>
+														<h4 class="bold">${product.price}원</h4>
+														<p class="card-text light"><font size="2" color="#A9A9A9">${product.subTitle}</font></p>
+													</div>
+												</div>
+											</a>
+										</div>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<c:if test="${pagination.totalRows gt 0 }">
 							<div class="row mb-2">
@@ -80,10 +111,9 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			function getProductList() {
-				
-				var divEl = document.querySelector("#productList #card");
-				divEl.innerHTML = "";
+			function refreshList() {
+				var sortValue = document.getElementById("sort").value;
+				location.href = "list?sort=" + sortValue;
 			}
 		</script>
 	</body>
