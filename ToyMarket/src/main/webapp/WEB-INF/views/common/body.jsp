@@ -7,12 +7,13 @@
 	<div id="eventCarousel">
 		<div id="carouselExampleSlidesOnly" class="carousel slide"
 			data-bs-ride="carousel">
-			<div class="carousel-inner">
+			<div class="carousel-inner bodyContentFrame" style="background: purple">
 				<div class="carousel-item active">
-					<img src="..." class="d-block w-100" alt="...">
+					<img src="/resources/images/meat.png" class="d-block w-100 carouselImg" alt="...">
+					<h2 class="carouselTxt">지금가입하면 500p</h2>
 				</div>
 				<div class="carousel-item">
-					<img src="..." class="d-block w-100" alt="...">
+					<img src="/resources/images/meat.png" class="d-block w-100" alt="...">
 				</div>
 				<div class="carousel-item">
 					<img src="..." class="d-block w-100" alt="...">
@@ -22,23 +23,23 @@
 	</div>
 
 	<div id="productList" >
-	<div class="row" >
-		<div class="col-xs-6 col-md-3" >
-			<a href="" class="thumbnail" style="margin:0px auto 0px"> <img src="/resources/images/meat.png" alt="...">
-			</a>
+		<div class="row" >
+			<div class="col-xs-6 col-md-3" >
+				<a href="" class="thumbnail" style="margin:0px auto 0px"> <img src="/resources/images/meat.png" alt="...">
+				</a>
+			</div>
+			<div class="col-xs-6 col-md-3" >
+				<a href="#" class="thumbnail"> <img src="/resources/images/meat.png" alt="...">
+				</a>
+			</div>
+			<div class="col-xs-6 col-md-3" >
+				<a href="#" class="thumbnail"> <img src="/resources/images/meat.png" alt="...">
+				</a>
+			</div>
+			<div class="col-xs-6 col-md-3" >
+				<a href="#" class="thumbnail"> <img src="/resources/images/meat.png" alt="...">
+				</a>
+			</div>
 		</div>
-		<div class="col-xs-6 col-md-3" >
-			<a href="#" class="thumbnail"> <img src="/resources/images/meat.png" alt="...">
-			</a>
-		</div>
-		<div class="col-xs-6 col-md-3" >
-			<a href="#" class="thumbnail"> <img src="/resources/images/meat.png" alt="...">
-			</a>
-		</div>
-		<div class="col-xs-6 col-md-3" >
-			<a href="#" class="thumbnail"> <img src="/resources/images/meat.png" alt="...">
-			</a>
-		</div>
-	</div>
 	</div>
 </main>
