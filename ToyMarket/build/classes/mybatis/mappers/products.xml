@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="products">
+
+	<select id="getTotalRows" parameterType="map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			toy_products
+	</select>
+
+	<select id="getAllProducts"  parameterType="map" resultType="com.toymarket.vo.Products">
+		SELECT 
+			product_no 					as no,
+			category_no 				as categoryNo,
+			product_brand 				as brand,
+			product_name 				as name,
+			product_price 				as price,
+			product_discount_price 		as discountPrice,
+			product_discount_YN 		as discountYN,
+			product_like_count 			as likeCount,
+			product_sell_unit 			as sellUnit,
+			product_weight 				as weight,
+			product_morning_delivery_YN as morningDeliveryYN,
+			product_description 		as description,
+			product_stock 				as stock,
+			product_created_date 		as createdDate,
+			product_status 				as status,
+			product_image 				as image,
+			product_sort 				as sort,
+			product_sub_title 			as subTitle
+		FROM (
+			SELECT
+				row_number() OVER (ORDER BY product_no DESC) rn,
+				product_no, category_no, product_brand, product_name, product_price, product_discount_price, product_discount_YN,
+				product_like_count, product_sell_unit, product_weight, product_morning_delivery_YN, product_description,
+				product_stock, product_created_date, product_status, product_image, product_sort, product_sub_title
+			FROM
+				toy_products
+		)
+		WHERE
+			rn BETWEEN #{beginIndex} AND #{endIndex}	
+	</select>
+	
+</mapper>
