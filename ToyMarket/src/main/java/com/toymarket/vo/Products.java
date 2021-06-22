@@ -10,11 +10,11 @@ public class Products {
 	private String name;
 	private int price;
 	private int discountRate;
-	private char discountYN;
+	private String discountYN;
 	private int likeCount;
 	private String sellUnit;
 	private String weight;
-	private char moringDeliveryYN;
+	private String moringDeliveryYN;
 	private String description;
 	private int stock;
 	private Date createdDate;
@@ -72,11 +72,11 @@ public class Products {
 		this.discountRate = discountRate;
 	}
 
-	public char getDiscountYN() {
+	public String getDiscountYN() {
 		return discountYN;
 	}
 
-	public void setDiscountYN(char discountYN) {
+	public void setDiscountYN(String discountYN) {
 		this.discountYN = discountYN;
 	}
 
@@ -104,11 +104,11 @@ public class Products {
 		this.weight = weight;
 	}
 
-	public char getMoringDeliveryYN() {
+	public String getMoringDeliveryYN() {
 		return moringDeliveryYN;
 	}
 
-	public void setMoringDeliveryYN(char moringDeliveryYN) {
+	public void setMoringDeliveryYN(String moringDeliveryYN) {
 		this.moringDeliveryYN = moringDeliveryYN;
 	}
 

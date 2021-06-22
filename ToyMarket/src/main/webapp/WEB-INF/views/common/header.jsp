@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
 	<div class="row" style="background-color: purple">
 		<div class="col-12 text-end usermenu">

@@ -13,8 +13,8 @@
 	<link href="../../resources/css/jhw-css.css" rel="stylesheet" type="text/css"></link>
 
 </head>
-<body>
-	<div class="container">
+<body id="jhw">
+	<div class="container" >
 		<div id="header">
 			<%@ include file="../common/header.jsp"%>
 		</div>
@@ -26,7 +26,7 @@
 		<div id="footer">
 			<%@ include file="../common/footer.jsp"%>
 		</div>
-	</div>
+	</div>	
 	<script type="text/javascript">
 		function loginCheckAlert(){
 			var el = document.getElementById("btn-basket");

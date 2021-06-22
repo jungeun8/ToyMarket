@@ -10,12 +10,17 @@
 	margin-bottom: 50px;
 }
 
-body {
+#jhw-body {
 	font-weight: bolder;
 }
 .bodyContentFrame{
 	height: 301px;
 	width: 1050px;
+	margin: 0px auto 0px;
+}
+
+.carouselForm{
+	height: 200px;	
 	margin: 0px auto 0px;
 }
 
@@ -87,7 +92,7 @@ body {
 	position: relative;
 }
 
-ul {
+#jhw-ul {
 	list-style: none;
 }
 
@@ -96,7 +101,7 @@ ul {
 	align-items: flex-start;
 }
 
-img {
+#jhw-img {
 	border: 0px;
 	margin: 0px auto 0px;
 }
