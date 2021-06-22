@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,18 +53,20 @@
 							</tr>
 						</thead>
 						<tbody >
-							<tr>
-							<td>전체상품목록</td>
-							</tr>
-							<tr>
-							<td>육류</td>
-							</tr>
-							<tr>
-							<td>야채류</td>
-							</tr>
-							<tr>
-							<td>어류</td>
-							</tr>
+						<c:choose>
+							<c:when test="${empty categoryName }">등록된 카테고리가 존재하지 않습니다.</c:when>
+						
+							<c:otherwise>
+								<tr>
+								<td>전체상품목록</td>
+								</tr>
+								<c:forEach var="category" items="${categoryName }" varStatus="loop">
+									<tr>
+									<td>${category.name }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						</tbody>
 					</table>
 				</div>
@@ -70,7 +74,6 @@
 					<table class="table table-light table-hover table-text text-center align-middle" >
 						<thead>
 							<tr>
-								
 								<th>
 								<div class="form-check">
   									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -85,10 +88,27 @@
 								<th>제조사</th>
 								<th>판매상태</th>
 								<th>재고량</th>
-								<th><select></select>정렬</th>
+								<th>
+								<select>
+								<option selected>기본순</option>
+								<option value="1">상품명순</option>
+								<option value="2">상품번호순</option>
+								<option value="3">제조사별</option>
+								</select>
+								정렬
+								</th>
 							</tr>
 						</thead>
 						<tbody class="align-middle">
+						<c:choose>
+							<c:when test="${empty products }">
+								<tr>
+									<td colspan="9" class="text-center">등록된 상품이 존재하지 않습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+							<c:forEach var="products" items="${products }" varStatus="loop">
+							<!-- 상품primary키 값으로 상품 디테일 페이지(업데이트)로 보내주기 -->
 							<tr>
 								<td>
 								<div class="form-check">
@@ -98,65 +118,19 @@
   									</label>
 								</div>
 								</td>
-								<td>101</td>
-								<td><img alt="" src="resources/img/MarketKurly.png" style="weight : 100px; height : 60px"></td>
-								<td>T-bone 스테이크</td>
-								<td>스테이크집</td>
-								<td>판매중</td>
-								<td>10개</td>
-								<td><button type="button" class="btn btn-outline-danger">삭제</button></td>
-							</tr>
-							<tr>
+								<td>${products.no }</td>
+								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: cover;"></td>
+								<td onclick="location.href='/adminproductupdate'">${products.name }</td>
+								<td>${products.brand }</td>
+								<td>${products.status }</td>
+								<td>${products.stock }</td>
 								<td>
-								<div class="form-check">
-  									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  									<label class="form-check-label" for="flexCheckDefault">
-    									선택
-  									</label>
-								</div>
+								<a class="btn btn-outline-danger"  href="/adminproduct/delete?deleteNo=${products.no }">삭제</a>
 								</td>
-								<td>101</td>
-								<td><img alt="" src="resources/img/MarketKurly.png" style="weight : 100px; height : 60px"></td>
-								<td>T-bone 스테이크</td>
-								<td>스테이크집</td>
-								<td>판매중</td>
-								<td>10개</td>
-								<td></td>
 							</tr>
-							<tr>
-								<td>
-								<div class="form-check">
-  									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  									<label class="form-check-label" for="flexCheckDefault">
-    									선택
-  									</label>
-								</div>
-								</td>
-								<td>101</td>
-								<td><img alt="" src="resources/img/MarketKurly.png" style="weight : 100px; height : 60px; vertical-align:bottom"></td>
-								<td>T-bone 스테이크</td>
-								<td>스테이크집</td>
-								<td>판매중</td>
-								<td>10개</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>
-								<div class="form-check">
-  									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  									<label class="form-check-label" for="flexCheckDefault">
-    									선택
-  									</label>
-								</div>
-								</td>
-								<td>101</td>
-								<td><img alt="" src="resources/img/MarketKurly.png" style="weight : 100px; height : 60px"></td>
-								<td>T-bone 스테이크</td>
-								<td>스테이크집</td>
-								<td>판매중</td>
-								<td>10개</td>
-								<td></td>
-							</tr>
+							</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						</tbody>
 					</table>
 				</div>

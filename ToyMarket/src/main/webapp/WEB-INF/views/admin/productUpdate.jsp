@@ -65,7 +65,7 @@
                                 <option value="3">Three</option>
                             </select>
                             <div class="form-floating mb-3">                                
-                                <input type="text" class="form-control" id="floatingInput" placeholder="제조사">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="상품명">
                                 <!-- label값에 각 상품의 등록된 정보를 뿌려주기 -->
                                 <label for="floatingInput">스테이크</label>
                             </div>                            

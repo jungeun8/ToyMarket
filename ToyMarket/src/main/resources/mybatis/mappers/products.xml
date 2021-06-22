@@ -42,5 +42,35 @@
 		WHERE
 			rn BETWEEN #{beginIndex} AND #{endIndex}	
 	</select>
+	<select id="getAllProductsWithCategory" resultType="com.toymarket.vo.Products">
+		SELECT 
+			p.product_no 					as no,
+			p.category_no 					as categoryNo,
+            c.category_name             	as categoryName,
+			p.product_brand 				as brand,
+			p.product_name 					as name,
+			p.product_price 				as price,
+			p.product_discount_price 		as discountPrice,
+			p.product_discount_YN 			as discountYN,
+			p.product_like_count 			as likeCount,
+			p.product_sell_unit 			as sellUnit,
+			p.product_weight 				as weight,
+			p.product_morning_delivery_YN 	as morningDeliveryYN,
+			p.product_description 			as description,
+			p.product_stock 				as stock,
+			p.product_created_date 			as createdDate,
+			p.product_status 				as status,
+			p.product_image 				as image,
+			p.product_sort 					as sort,
+			p.product_sub_title 			as subTitle
+		FROM toy_products P, toy_categories C
+        where p.category_no = c.CATEGORY_NO
+		ORDER BY product_no DESC	
+	</select>
+	
+	<delete id="deleteById" parameterType="int">
+		delete  toy_products
+		where product_no = #{value}
+	</delete>
 	
 </mapper>

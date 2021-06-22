@@ -61,7 +61,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.OracleDriver" />
 				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-				<property name="username" value="hr" />
+				<property name="username" value="ToyMarket" />
 				<property name="password" value="zxcv1234" />
 			</dataSource>
 		</environment>
@@ -71,6 +71,7 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/users.xml"/>
 		<mapper resource="mybatis/mappers/products.xml"/>
+		<mapper resource="mybatis/mappers/category.xml"/>
     	<mapper resource="mybatis/mappers/order.xml"/>
     	<mapper resource="mybatis/mappers/cart.xml"/>
 	</mappers>
