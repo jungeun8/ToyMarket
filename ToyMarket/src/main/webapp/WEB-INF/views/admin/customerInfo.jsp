@@ -55,6 +55,10 @@
     		font-weight: bolder; 
     		color: #5F0080;
     	}
+    	#button2{ 
+    		border: 2px solid #5F0080; 
+    		color: #5F0080;
+    	}
  	 	
  	 	
  	 </style>
@@ -148,10 +152,11 @@
 					<colgroup>
 						<col width="9%">
 						<col width="15%">
-						<col width="20%">
-						<col width="20%">
-						<col width="13%">
-						<col width="15%">
+						<col width="18%">
+						<col width="18%">
+						<col width="10%">
+						<col width="12%">
+						<col width="10%">
 						<col width="*%">
 					</colgroup>
 					<thead>
@@ -163,6 +168,7 @@
 							<th>이름</th>
 							<th>아이디</th>
 							<th>성별</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -176,12 +182,13 @@
 								<c:forEach var="customer" items="${customers }">
 									<tr>
 										<td><input type="checkbox" name="customerNo" value="${customer.no }" /></td>
-										<td><a href="javascript:goToDetail(${customer.no })">${customer.no }</a></td>
+										<td>${customer.no }</td>
 										<td><fmt:formatDate value="${customer.createdDate }" pattern="yyyy-MM-dd"/></td>
 										<td>${customer.birth }</td>
 										<td>${customer.name }</td>
 										<td>${customer.id }</td>
 										<td>${customer.gender }</td>
+										<td><a class="btn btn-sm" id="button2" href="admincustomerdetail?no=&page=${pagination.pageNo }&name=${param.name }&fage=${param.fage }&sage=${param.sage }&id=${param.id }&gender=${param.gender}"> 보기</a></td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -196,15 +203,15 @@
 			<div class="col-12">
 				<ul class="pagination justify-content-center">
 					<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : '' }">
-						<a class="page-link" href="javascript:goToPage(${pagination.pageNo - 1 })">이전</a>
+						<a class="page-link" href="admincustomerinfo?no=&page=${pagination.pageNo - 1 }&name=${param.name }&fage=${param.fage }&sage=${param.sage }&id=${param.id }&gender=${param.gender}">이전</a>
 					</li>
 					<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
 						<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
-							<a class="page-link" href="javascript:goToPage(${num })">${num }</a>
+							<a class="page-link" href="admincustomerinfo?no=&page=${num }&name=${param.name }&fage=${param.fage }&sage=${param.sage }&id=${param.id }&gender=${param.gender}">${num }</a>
 						</li>
 					</c:forEach>
 					<li  class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : '' }">
-						<a class="page-link" href="javascript:goToPage(${pagination.pageNo + 1 })">다음</a>
+						<a class="page-link" href="admincustomerinfo?no=&page=${pagination.pageNo + 1 }&name=${param.name }&fage=${param.fage }&sage=${param.sage }&id=${param.id }&gender=${param.gender}">다음</a>
 					</li>
 				</ul>
 			</div>
@@ -228,6 +235,11 @@
 		document.querySelector("#form-search").submit();
 	}
 	
+	
+	
+	
+	// 여기부분은 시간이 남으면 하자 지금은 힘들다 시간이 남으면 get 방식을 post방식으로 바꿔보기
+	/*
 	function goToPage(pageNo) {
 		var text1 = document.querySelector("input[name='name']").value;
 		var text2 = document.querySelector("input[name='id']").value;
@@ -268,6 +280,8 @@
 		document.querySelector("#form-search").submit();
 	}
 	
+	<td><a href="javascript:goToDetail(${customer.no })">${customer.no }</a></td>
+	*/
 
 </script>
 </body>
