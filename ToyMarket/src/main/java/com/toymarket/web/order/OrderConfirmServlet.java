@@ -37,17 +37,29 @@ public class OrderConfirmServlet extends HttpServlet {
 		HttpSession sessionUser = req.getSession();
 		User user = (User) sessionUser.getAttribute("LOGINED_USER_INFO");
 		
-		//String userId = user.getUserId();
+
+		 
+		// 요청받은 아이템들 배열에 담기 (총 몇건인지 알기위해 아이템들 배열에 넣음)
 		String[] orderProductList = req.getParameterValues("items");
+		// 메일 전송을 위해 필요한 객체 
 		String userMail = user.getEmail();
+		
+		// 총 주문한 상품 개수 담기 (화면 표현)
 		int itemCount = orderProductList.length;
+		// 주문한 이름 정보 가져오기 (화면 표현)
 		String userName = user.getName();
 		
-		// 배송지정보
+		// 배송지정보 수정한 것
 		String address1 = req.getParameter("address1");
+		String address2 = req.getParameter("address2");
 		
-		//orderDao.insertOrder();
+		// guide 결제금액 가져오기
 		
+		// guide 가져온 상품, 결제금액, 배송지정보를 orderDao.insertOrder의 파라미터 타입인 order객체를 생성하여 그안에 데이터를 저장한다.
+		
+		// guide 주문하는 곳에 결제하기 버튼 누르면 주문상품 db에 저장하기 start
+		//orderDao.insertOrder(order); <= Order객체를 전달해줄것
+
 		//적립금 넣어주기.
 		//orderDao.updatePoint(userId, updatePoint);
 		

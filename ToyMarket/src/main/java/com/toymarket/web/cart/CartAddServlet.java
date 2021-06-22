@@ -55,7 +55,7 @@ public class CartAddServlet extends HttpServlet {
 				//장바구니 서블을 호출한다.
 				
 		
-				req.getRequestDispatcher("/cart/list?userid="+userId).forward(req, rep);
+				req.getRequestDispatcher("/cart/list").forward(req, rep);
 		
 	}
 }

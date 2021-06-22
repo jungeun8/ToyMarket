@@ -43,6 +43,6 @@ public class CartCountServlet extends HttpServlet {
 			// 전달받은 것은 dao에 넘겨준다.	
 			cartDao.updateCart(cartCount);
 
-			req.getRequestDispatcher("/cart/list?userid="+userId).forward(req, rep);
+			req.getRequestDispatcher("/cart/list").forward(req, rep);
 	}
 }
