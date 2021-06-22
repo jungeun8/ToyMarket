@@ -11,7 +11,7 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
-	<x>0</x>
+	<x>140</x>
 	<y>102</y>
 	<default_color>
 		<r>128</r>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2021-06-15 10:39:33</creation_date>
-			<updated_date>2021-06-22 12:51:42</updated_date>
+			<updated_date>2021-06-22 16:13:57</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -581,7 +581,7 @@
 			<char_semantics>false</char_semantics>
 			<description></description>
 			<logical_name>비밀글여부</logical_name>
-			<physical_name>INQUIRY_SECIRIT_YN</physical_name>
+			<physical_name>INQUIRY_SECRIT_YN</physical_name>
 			<type>character(n)</type>
 		</word>
 		<word>
@@ -1899,7 +1899,7 @@
 			<connections>
 				<relation>
 					<id>3</id>
-					<source>11</source>
+					<source>8</source>
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1921,7 +1921,7 @@
 				</relation>
 				<relation>
 					<id>4</id>
-					<source>8</source>
+					<source>11</source>
 					<target>3</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2183,7 +2183,7 @@
 				<normal_column>
 					<id>20</id>
 					<referenced_column>44</referenced_column>
-					<relation>4</relation>
+					<relation>3</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2217,7 +2217,7 @@
 				<normal_column>
 					<id>21</id>
 					<referenced_column>63</referenced_column>
-					<relation>3</relation>
+					<relation>4</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>

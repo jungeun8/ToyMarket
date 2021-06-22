@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -9,10 +10,12 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		<link href="../../resources/css/jhw-css.css" rel="stylesheet" type="text/css"></link>
 		<style type="text/css">
-			.container {
+			#divSize {
 				width: 1050px !important;
     			margin: 0 auto !important;
+    			padding-top: 25px;
 			}
 			
 			.form-check-input:checked {
@@ -23,19 +26,22 @@
 	</head>
 	<body>
 		<div class="container">
+			<%@ include file="../common/header.jsp"%>
+		</div>
+		<div id="divSize">
 			<div class="row">
-				<div class="col-12 border">
+				<div class="col-12">
 					<div id="cart-put" class="d-flex justify-content-between">
 						<div class="col-5">
-							<img alt="상품 대표이미지" src="https://img-cf.kurly.com/shop/data/goods/1623216767987y0.jpg" class="img-thumbnail">
+							<img alt="상품 대표이미지" src="<c:out value="${product.image}"/>" class="img-thumbnail">
 						</div>
 						<div class="col-7 ps-5">
 							<div class="pt-2 pb-3" id="productName">
-								<p class="fs-3"><strong>[쉐푸드] 땡초 참치마요 삼각김밥</strong></p>
-								<p class="fs-6">땡초의 알싸함을 더해 풍성한 맛</p>
+								<p class="fs-3"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
+								<p class="fs-6"><c:out value="${product.subTitle}"/></p>
 							</div>
 							<div class="pb-4">
-								<p class="fs-3">1,200원</p>
+								<p class="fs-3"><c:out value="${product.price}"/>원</p>
 							</div>
 							<div class="row mb-4 border-top border-bottom" id="productInfo">
 								<div class="col-4">
@@ -46,12 +52,12 @@
 									<p class="py-3">구매수량</p>
 								</div>
 								<div class="col-8">
-									<p class="py-3">1개</p>
-									<p class="py-3">112g</p>
-									<p class="py-3">샛별배송/택배배송</p>
+									<p class="py-3"><c:out value="${product.sellUnit}"/></p>
+									<p class="py-3"><c:out value="${product.weight}"/></p>
+									<p class="py-3"><c:out value="${product.morningDeliveryMessage}"/></p>
 									<p class="py-3">냉장/종이포장</p>
 									<div class="py-3 input-group">
-										<input type="hidden" id="productPrice" value="1200">
+										<input type="hidden" id="productPrice" value="<c:out value="${product.price}"/>">
 										<button type="button" class="btn btn-outline-success btn-sm fa fa-minus"  id="decrease"></button>
  										<button type="button" class="btn btn-outline btn-sm" id="number" disabled>1</button>
 										<button type="button" class="btn btn-outline-success btn-sm fa fa-plus"  id="increase" ></button>

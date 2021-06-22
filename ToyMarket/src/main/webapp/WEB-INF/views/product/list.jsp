@@ -12,8 +12,9 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		<link href="../../resources/css/jhw-css.css" rel="stylesheet" type="text/css"></link>
 		<style type="text/css">
-			.container {
+			#divSize{
 				width: 1050px !important;
     			margin: 0 auto !important;
 			}
@@ -36,8 +37,11 @@
 	</head>
 	<body>
 		<div class="container">
+			<%@ include file="../common/header.jsp"%>
+		</div>
+		<div id="divSize">
 			<div class="row mb-2">
-				<div class="col-12 pt-4 border px-4">
+				<div class="col-12 pt-4">
 					<div class="d-flex align-items-end">
 						<div class="py-2 bd-highlight">신상품</div>
 					</div>
@@ -60,7 +64,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12 border px-4">
+				<div class="col-12 px-4">
 					<div>
 						<div class="row row-cols-1 row-cols-md-3">
 							<c:choose>
@@ -71,7 +75,7 @@
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="product" items="${products}">
-										<div class="col py-5" id="productList">
+										<div class="py-5" id="productList">
 											<a href="detail?productNo=${product.no}" id="cardA">
 												<div class="card h-100" id="card">
 													<img src="${product.image}" class="card-img-top" alt="...">

@@ -10,11 +10,11 @@ public class Products {
 	private String name;
 	private int price;
 	private int discountRate;
-	private char discountYN;
+	private String discountYN;
 	private int likeCount;
 	private String sellUnit;
 	private String weight;
-	private char moringDeliveryYN;
+	private String morningDeliveryYN;
 	private String description;
 	private int stock;
 	private Date createdDate;
@@ -72,11 +72,11 @@ public class Products {
 		this.discountRate = discountRate;
 	}
 
-	public char getDiscountYN() {
+	public String getDiscountYN() {
 		return discountYN;
 	}
 
-	public void setDiscountYN(char discountYN) {
+	public void setDiscountYN(String discountYN) {
 		this.discountYN = discountYN;
 	}
 
@@ -102,14 +102,6 @@ public class Products {
 
 	public void setWeight(String weight) {
 		this.weight = weight;
-	}
-
-	public char getMoringDeliveryYN() {
-		return moringDeliveryYN;
-	}
-
-	public void setMoringDeliveryYN(char moringDeliveryYN) {
-		this.moringDeliveryYN = moringDeliveryYN;
 	}
 
 	public String getDescription() {
@@ -158,5 +150,20 @@ public class Products {
 
 	public void setSubTitle(String subTitle) {
 		this.subTitle = subTitle;
+	}
+
+	public String getMorningDeliveryYN() {
+		return morningDeliveryYN;
+	}
+	
+	public String getMorningDeliveryMessage() {
+		if ("N".equals(morningDeliveryYN)) {
+			return "택배배송";
+		}
+		return "샛별배송";
+	}
+
+	public void setMorningDeliveryYN(String morningDeliveryYN) {
+		this.morningDeliveryYN = morningDeliveryYN;
 	}
 }

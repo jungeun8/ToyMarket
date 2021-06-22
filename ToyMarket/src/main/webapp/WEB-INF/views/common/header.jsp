@@ -41,7 +41,6 @@
 
 	<!-- 메뉴 -->
 	<nav class="navbar navbar-expand-md navbar-light bg-light">
-		<div class="container">
 			<div class="col-6">
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -101,7 +100,6 @@
 					</c:choose>
 				</div>
 			</div>
-		</div>
 	</nav>
 </header>
 
