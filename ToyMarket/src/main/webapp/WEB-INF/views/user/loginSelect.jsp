@@ -54,7 +54,7 @@
         Kakao.API.request({
           url: '/v2/user/me',		// 사용자 정보를 가져옴(토큰을 받음) 24시간동안 탭끄기전까지
           success: function(res) {
-            //alert(JSON.stringify(res))	// 지우고 다이렉트로 어디로 보낼지 post로 정하기(비밀정보는 get으로보내면 안됨) 
+            //alert(JSON.stringify(res))	 
            	document.getElementById("user-id").value = res.id;
            	document.getElementById("user-name").value = res.properties.nickname;
            	gopagePost();

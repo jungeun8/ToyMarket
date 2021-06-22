@@ -21,6 +21,16 @@ private SqlSessionFactory sqlSessionFactory;
 		return instance; 
 	}
 	
+	
+	// jhw 추가
+	public List<Products> getDiscountedProducts()
+	{
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Products> discountedProducts = session.selectList("getDiscountedProducts");
+		session.close();
+		return discountedProducts;
+	}
+	
 	public List<Products> getAllProducts(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();
 		List<Products> products = session.selectList("products.getAllProducts", param);

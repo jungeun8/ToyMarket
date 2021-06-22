@@ -17,37 +17,62 @@
 		<%@include file="../common/header.jsp" %>
 	</header>
 	<main>
-<!-- 		<div class="row mb-3">  -->
-<!-- 			<div class="col-12"> -->
-<!-- 				<h3 class="border p-3 bg-light">마켓컬리 회원가입</h3> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<%-- 			<c:if test="${param.fail eq 'idoverlap' }"> --%>
-<!-- 				<div class="col-6 offset-3"> -->
-<!-- 					<div class="alert alert-danger"> -->
-<!-- 						<strong>이미 사용중인 아이디 입니다.</strong>  -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:if> --%>
-<%-- 			<c:if test="${param.fail eq 'emailoverlap' }"> --%>
-<!-- 				<div class="col-6 offset-3"> -->
-<!-- 					<div class="alert alert-danger"> -->
-<!-- 						<strong>이미 사용중인 이메일 입니다.</strong>  -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:if> --%>
+		<div class="row mb-3"> 
+			<div class="col-12">
+				<h3 class="border p-3 bg-light">마켓컬리 회원가입</h3>
+			</div>
+		</div>
+			<c:if test="${param.fail eq 'idOverlap' }">
+				<div class="col-12">
+					<div class="alert alert-danger">
+						<strong>이미 사용중인 아이디입니다.</strong> 
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${param.fail eq 'emailOverlap' }">
+				<div class="col-12">
+					<div class="alert alert-danger">
+						<strong>이미 사용중인 이메일입니다.</strong> 
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${param.fail eq 'phoneOverlap' }">
+				<div class="col-12">
+					<div class="alert alert-danger">
+						<strong>이미 사용중인 전화번호입니다.</strong> 
+					</div>
+				</div>
+			</c:if>
 		<div class="row">
 			<div class="col-12">
 				<form id="register-form" action="register" method="post" class="border p-3 bg-light">
+				
 					<div class="form-group">
 					<!-- 카카오로 타고 들어왔을때 블럭 처리 -->
-						<label>아이디</label>
-						<input type="text" class="form-control" id="user-id" name="id" value="${param.id}"/>
+					<c:choose>
+						<c:when test="${param.iskakao eq 'yes' }">
+						<input type="hidden" id="is-kakao" name="iskakao" value="yes" />
+							<label>아이디</label>
+							<input type="text" class="form-control" id="user-id" name="id" value="${param.id}" readonly />
+						</c:when>
+		   				<c:otherwise>
+		   					<label>아이디</label>
+		   					<input type="text" class="form-control" id="user-id" name="id" />
+		   				</c:otherwise>
+		   			</c:choose>
 					</div>
 					<div class="form-group">
 					<!-- 카카오로 타고 들어왔을때 블럭 처리 -->
-						<label>이름</label>
-						<input type="text" class="form-control" id="user-name" name="name" value="${param.name}" />
+					<c:choose>
+						<c:when test="${param.iskakao eq 'yes' }">
+							<label>이름</label>
+							<input type="text" class="form-control" id="user-name" name="name" value="${param.name}" readonly />
+						</c:when>	
+						<c:otherwise>
+							<label>이름</label>
+							<input type="text" class="form-control" id="user-name" name="name" />
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<div class="form-group">
 						<label>이메일</label>
@@ -82,22 +107,13 @@
 	
 	<script type="text/javascript">
 		function checkForm() {
-			// 아이디 입력필드의 유효성 체크하기
+			// 입력필드의 유효성 체크하기
+// 			var idOverlap = getParameter("idOverlap");
 
-// 			var fail = request.getParameter("fail");
-// 			if ("fail".equals(idoverlap)) {
-// 				alert("이미 사용중인 아이디 입니다.");
-// 				userIdEl.value = "";
-// 				userIdEl.focus();
-// 				return;
+// 			if (idOverlap === "idOverlap") {
+// 				alert("이미 사용중인 아이디입니다.");
 // 			}
-// 			var userIdEl= document.getElementById("user-id");
-// 			if (userIdEl.value = 서버의 유저id) {
-// 				alert("이미 사용중인 아이디 입니다.");
-// 				userIdEl.value = "";
-// 				userIdEl.focus();
-// 				return;
-// 			}
+			
 			var userIdEl= document.getElementById("user-id");	
 			if (!userIdEl.value.trim()) { 
 				alert("아이디는 필수입력값입니다.");
@@ -120,19 +136,13 @@
 				userEmailEl.focus();
 				return;
 			}
+			
 			var userEmailEl= document.getElementById("user-email");	
 			if (!userEmailEl.value.trim()) { 
 				alert("이메일은 필수입력값입니다.");
 				userEmailEl.focus();
 				return;
 			}
-// 			var userIdEl= document.getElementById("user-email");
-// 			if (userIdEl.value = 서버의 user-email) {
-// 				alert("이미 사용중인 이메일 입니다.");
-// 				userEmailEl.value = "";
-// 				userEmailEl.focus();
-// 				return;
-// 			}
 			var passwordEl = document.getElementById("user-pwd");
 			var passwordConfirmEl = document.getElementById("user-pwd-confirm");
 			if (passwordEl.value != passwordConfirmEl.value) {
@@ -153,7 +163,6 @@
 				alert("개인정보 동의여부는 반드시 체크해야 합니다.");
 				return;
 			}
-			
 			document.getElementById("register-form").submit();		
 		}
 	</script>

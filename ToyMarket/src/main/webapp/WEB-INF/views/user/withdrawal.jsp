@@ -65,7 +65,7 @@
 <script type="text/javascript">
 	function checkForm() {
 		
-		// 아이디를 관련
+		// 아이디 관련
 		var userIdEl= document.getElementById("user-id");	
 		if (!userIdEl.value.trim()) { 
 			alert("아이디를 적어주세요.");
