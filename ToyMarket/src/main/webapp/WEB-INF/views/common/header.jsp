@@ -1,36 +1,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8"%>
-
+<%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
 	<div class="row" style="background-color: purple">
 		<div class="col-12 text-end usermenu">
-			<!-- 유저메뉴 -->
-			<ul class="navbar-nav">
-		   		<c:choose>
-		   			<c:when test="${empty LOGINED_USER_INFO }">
-		      			<li class="nav-item">
-		        			<a href="/user/loginSelect" class="btn" style="color: white; font-weight: bold">로그인</a>
-		        			<a href="/user/register" class="btn" style="color: white; font-weight: bold">회원가입</a>
-		      			</li>
-		   			</c:when>
-		   			<c:otherwise>
-		      			<li class="nav-item">
-		      				<a href="나의주문내역 링크" class="btn" style="color: white; font-weight: bold">나의 주문내역</a>
-		      				<a href="나의장바구니 링크" class="btn" style="color: white; font-weight: bold">나의 장바구니</a>
-		      				<a href="/board/list" class="btn" style="color: white; font-weight: bold">문의 게시판</a>
-		        			<a href="/user/detail" class="btn" style="color: white; font-weight: bold">회원정보 수정</a>
-		        			<a href="/user/logout" class="btn" style="color: white; font-weight: bold">로그아웃</a>
-		      			</li>
-		   			</c:otherwise>
-		   		</c:choose>
-		   	</ul>
+		<ul class="navbar-nav">
+			<c:choose>
+				<c:when test="${empty LOGINED_USER_INFO }">
+					 <li class="nav-item">
+	                       <a href="/user/loginSelect" class="btn" style="color: white; font-weight: bold">로그인</a>
+	                       <a href="/user/register" class="btn" style="color: white; font-weight: bold">회원가입</a>
+	                 </li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item">
+	                        <a href="나의주문내역 링크" class="btn" style="color: white; font-weight: bold">나의 주문내역</a>
+	                        <a href="나의장바구니 링크" class="btn" style="color: white; font-weight: bold">나의 장바구니</a>
+	                        <a href="/board/list" class="btn" style="color: white; font-weight: bold">문의 게시판</a>
+	                       	<a href="/user/detail" class="btn" style="color: white; font-weight: bold">회원정보 수정</a>
+	                       	<a href="/user/logout" class="btn" style="color: white; font-weight: bold">로그아웃</a>
+							<a href="#mypage" class="btn" style="color: white; font-weight: bold">
+								<c:out value="${LOGINED_USER_INFO.id }"/>
+							</a>
+	                </li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 		</div>
 	</div>
 	<!-- 홈 -->
-	<div class="row" style="background-color: light">
+	<div class="row" style="background-color: light">	
 		<div class="col-12">
 			<h1>
-				<a href="/home"><img src="resources/images/kurlyLogo2.png"
+				<a href="/home"><img src="/resources/images/kurlyLogo2.png"
 					width="100" class="logo img-rounded img-fluid" alt="rr"></a>
 			</h1>
 		</div>
@@ -65,6 +67,7 @@
 				</div>
 			</div>
 			<div class="col-2"></div>
+			
 			<!-- 검색창 -->
 			<div class="col-3 mt-2 ml-2">
 				<div class="input-group" style="float: right">
@@ -79,13 +82,23 @@
 			<!-- 장바구니 이미지 -->
 			<div class="col-1 mx-4">
 				<div class="col-1 mt-2">
-					<a href="#">
-						<button class="btn btn-outline-secondary" style="border: 0px"
-							type="button" id="button-addon2">
-							<img src="resources/images/basket.png" class="img-rounded"
-								alt="장바구니img">
-						</button>
-					</a>
+					<!-- 임시로 경로 search로, 이렇게 해야하는지? -->
+					<c:choose>
+						<c:when test="${empty LOGINED_USER_INFO }">
+							<a href="/home">
+								<button class="btn btn-outline-secondary" style="border: 0px" type="button" id ="btn-basket">
+									<img src="/resources/images/basket.png" class="img-rounded" alt="장바구니img" onclick="loginCheckAlert()">
+								</button>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/search">								
+								<button class="btn btn-outline-secondary" style="border: 0px" type="button" id ="btn-basket">
+									<img src="/resources/images/basket.png" class="img-rounded" alt="장바구니img">
+								</button>
+							</a>
+						</c:otherwise>     
+					</c:choose>
 				</div>
 			</div>
 		</div>
