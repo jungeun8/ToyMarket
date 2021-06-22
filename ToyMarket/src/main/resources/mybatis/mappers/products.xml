@@ -17,7 +17,7 @@
 			product_brand 				as brand,
 			product_name 				as name,
 			product_price 				as price,
-			product_discount_price 		as discountPrice,
+			product_discount_rate 		as discountRate,
 			product_discount_YN 		as discountYN,
 			product_like_count 			as likeCount,
 			product_sell_unit 			as sellUnit,
@@ -28,18 +28,17 @@
 			product_created_date 		as createdDate,
 			product_status 				as status,
 			product_image 				as image,
-			product_sort 				as sort,
 			product_sub_title 			as subTitle
 		FROM (
 			SELECT
 				<if test="sort == '신상품순'"> row_number() OVER (ORDER BY product_no DESC) rn,</if>
 				<if test="sort == '인기상품순'"> row_number() OVER (ORDER BY product_like_count DESC) rn,</if>
-				<if test="sort == '혜택순'"> row_number() OVER (ORDER BY product_discount_price DESC) rn,</if>
+				<if test="sort == '혜택순'"> row_number() OVER (ORDER BY product_discount_rate DESC) rn,</if>
 				<if test="sort == '낮은가격순'"> row_number() OVER (ORDER BY product_price ASC) rn,</if>
 				<if test="sort == '높은가격순'"> row_number() OVER (ORDER BY product_price DESC) rn,</if>
-				product_no, category_no, product_brand, product_name, product_price, product_discount_price, product_discount_YN,
+				product_no, category_no, product_brand, product_name, product_price, product_discount_rate, product_discount_YN,
 				product_like_count, product_sell_unit, product_weight, product_morning_delivery_YN, product_description,
-				product_stock, product_created_date, product_status, product_image, product_sort, product_sub_title
+				product_stock, product_created_date, product_status, product_image, product_sub_title
 			FROM toy_products
 		
 		)
@@ -54,7 +53,7 @@
 			p.product_brand 				as brand,
 			p.product_name 					as name,
 			p.product_price 				as price,
-			p.product_discount_price 		as discountPrice,
+			p.product_discount_rate 		as discountRate,
 			p.product_discount_YN 			as discountYN,
 			p.product_like_count 			as likeCount,
 			p.product_sell_unit 			as sellUnit,
@@ -65,7 +64,6 @@
 			p.product_created_date 			as createdDate,
 			p.product_status 				as status,
 			p.product_image 				as image,
-			p.product_sort 					as sort,
 			p.product_sub_title 			as subTitle
 		FROM toy_products P, toy_categories C
         where p.category_no = c.CATEGORY_NO
@@ -84,7 +82,7 @@
 			product_brand 				as brand,
 			product_name 				as name,
 			product_price 				as price,
-			product_discount_price 		as discountPrice,
+			product_discount_rate 		as discountRate,
 			product_discount_YN 		as discountYN,
 			product_like_count 			as likeCount,
 			product_sell_unit 			as sellUnit,
@@ -95,7 +93,6 @@
 			product_created_date 		as createdDate,
 			product_status 				as status,
 			product_image 				as image,
-			product_sort 				as sort,
 			product_sub_title 			as subTitle
 		FROM
 			toy_products

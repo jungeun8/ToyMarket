@@ -9,7 +9,7 @@ public class Products {
 	private String brand;
 	private String name;
 	private int price;
-	private int discountPrice;
+	private int discountRate;
 	private char discountYN;
 	private int likeCount;
 	private String sellUnit;
@@ -20,7 +20,6 @@ public class Products {
 	private Date createdDate;
 	private String status;
 	private String image;
-	private String sort;
 	private String subTitle;
 	
 	public Products() {}
@@ -65,12 +64,12 @@ public class Products {
 		this.price = price;
 	}
 
-	public int getDiscountPrice() {
-		return discountPrice;
+	public int getDiscountRate() {
+		return discountRate;
 	}
 
-	public void setDiscountPrice(int discountPrice) {
-		this.discountPrice = discountPrice;
+	public void setDiscountRate(int discountRate) {
+		this.discountRate = discountRate;
 	}
 
 	public char getDiscountYN() {
@@ -151,14 +150,6 @@ public class Products {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public String getSort() {
-		return sort;
-	}
-
-	public void setSort(String sort) {
-		this.sort = sort;
 	}
 
 	public String getSubTitle() {
