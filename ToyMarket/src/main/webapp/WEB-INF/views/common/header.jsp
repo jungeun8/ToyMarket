@@ -31,7 +31,7 @@
 	<div class="row" style="background-color: light">
 		<div class="col-12">
 			<h1>
-				<a href="/home"><img src="resources/images/kurlyLogo2.png"
+				<a href="/home"><img src="/resources/images/kurlyLogo2.png"
 					width="100" class="logo img-rounded img-fluid" alt="rr"></a>
 			</h1>
 		</div>
@@ -83,7 +83,7 @@
 					<a href="#">
 						<button class="btn btn-outline-secondary" style="border: 0px"
 							type="button" id="button-addon2">
-							<img src="resources/images/basket.png" class="img-rounded"
+							<img src="/resources/images/basket.png" class="img-rounded"
 								alt="장바구니img">
 						</button>
 					</a>

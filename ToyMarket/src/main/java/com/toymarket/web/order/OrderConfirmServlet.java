@@ -16,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.toymarket.dao.order.OrderDao;
 import com.toymarket.utils.MyAuthentication;
+import com.toymarket.vo.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -33,14 +34,17 @@ public class OrderConfirmServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 		
 		//front에서 파라미터 받기
-//		HttpSession session = req.getSession();
-//		User user = (User) session.getAttribute("LOGIN_USER");
+		HttpSession sessionUser = req.getSession();
+		User user = (User) sessionUser.getAttribute("LOGINED_USER_INFO");
 		
 		//String userId = user.getUserId();
-		String orderProductList = req.getParameter("orderProductList");
-		String userMail = "3eun7@naver.com";
-		String itemCount = "3";
-		String userName ="정은";
+		String[] orderProductList = req.getParameterValues("items");
+		String userMail = user.getEmail();
+		int itemCount = orderProductList.length;
+		String userName = user.getName();
+		
+		// 배송지정보
+		String address1 = req.getParameter("address1");
 		
 		//orderDao.insertOrder();
 		

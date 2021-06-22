@@ -3,6 +3,8 @@ package com.toymarket.web.order;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import com.toymarket.vo.User;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,14 +19,15 @@ public class AddressServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 		
+
+		//front에서 파라미터 받기
 		HttpSession session = req.getSession();
-		// 로그인 후 장바구니 이용가능 
-		
-		//login student = (Student) session.getAttribute("LOGIN_USER");
-		//if (student == null) {
-		//	resp.sendRedirect("../login?fail=deny&job=" + URLEncoder.encode("과정신청", "utf-8"));
-		//	return;
-		//}
+		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		if (user == null) { // 만약로그인이 안되어있다면 그아래에 sendRedirect가 로그인안되어있음
+			rep.sendRedirect("/user/login");
+			return;
+		}
+				
 		
 		
 		req.getRequestDispatcher("/WEB-INF/views/api/jusoPopup.jsp").forward(req, rep);
