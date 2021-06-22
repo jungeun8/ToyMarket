@@ -55,7 +55,6 @@
 						<tbody >
 						<c:choose>
 							<c:when test="${empty categoryName }">등록된 카테고리가 존재하지 않습니다.</c:when>
-						
 							<c:otherwise>
 								<tr>
 								<td>전체상품목록</td>
@@ -120,7 +119,7 @@
 								</td>
 								<td>${products.no }</td>
 								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: cover;"></td>
-								<td onclick="location.href='/adminproductupdate'">${products.name }</td>
+								<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
 								<td>${products.brand }</td>
 								<td>${products.status }</td>
 								<td>${products.stock }</td>

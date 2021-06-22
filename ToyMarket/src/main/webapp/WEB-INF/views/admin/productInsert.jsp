@@ -36,13 +36,14 @@
 	<%@ include file="../common/adminHeader.jsp" %>
             <main>
                 <div class="container">
-                <form method="post" action="insert">
+                <form method="post" action="productinsert">
                     <div class="row">
                         <span class="border-bottom border-2 border-dark"><h1>상품추가</h1></span>
                         <div class="col-6">
                             <div class="mb-3 mt-3">
                                 <label for="formFile" class="form-label"><h3>상품 이미지 추가</h3></label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" accept="img/*" id="uplodeImg" onchange="setThumbnail(event)">
+                                <div id="image_container" class="border"></div>
                               </div>
                         </div>
                         <div class="col-6">
@@ -67,7 +68,7 @@
                                     <label for="floatingInput">상품가격</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="floatingInput" placeholder="할인율" min="0" max="100" step="5">
+                                    <input type="number" class="form-control" id="floatingInput" placeholder="할인율" min="0" max="100" >
                                     <label for="floatingInput">할인율</label>
                                 </div>
                                 <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
@@ -113,5 +114,17 @@
               </div>	
 		</main>
 	</div>
+<script> function setThumbnail(event) { 
+	var reader = new FileReader(); 
+		
+	reader.onload = function(event){ 
+			
+	var img = document.createElement("img"); 
+	img.setAttribute("src", event.target.result);
+	document.querySelector("div#image_container").appendChild(img); 
+	}; 
+		
+	reader.readAsDataURL(event.target.files[0]); } 
+</script>
 </body>
 </html>
