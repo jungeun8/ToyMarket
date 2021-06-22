@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+
+
+<select id="getCartByUserNo" parameterType="string" resultType="com.toymarket.vo.cart.Cart">
+		select cart_no 				as no,
+				product_no 			as productNo,
+				product_buy_price 	as buyPrice,
+				product_amount		as amount,
+				customer_no 		as customerNo,
+				cart_created_date 	as createdDate,
+                (select product_name from toy_products where product_no = toy_cart.product_no) as productName 
+		from toy_cart
+		where customer_no = (select customer_no from toy_customer where customer_id = #{value})
+	</select>
+	
+	
+<delete id="deleteCart" parameterType="HashMap">
+		delete from toy_cart
+		where product_no = #{productNo} and customer_no = (select customer_no from toy_customer where customer_id = #{userId})
+</delete>
+
+
+<insert id="insertCart" parameterType="com.toymarket.dto.cart.CartAddDto">
+	insert into toy_cart
+	(cart_no, product_no, product_buy_price, product_amount, customer_no, cart_created_date )
+	values 
+	(cart_seq.nextval, #{productNo}, #{buyPrice}, #{amount}, (select customer_no from toy_customer where customer_id = #{userId}) , sysDate )
+</insert>
+
+
+<update  id="updateCart" parameterType="HashMap">
+	update toy_cart
+	set
+		product_amount	= #{amount}
+	where cart_no = #{cartNo}
+		
+</update>
+
+
+
+</mapper>
