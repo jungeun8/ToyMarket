@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="users">
+
+	<insert id="insertUser" parameterType="com.toymarket.vo.User">
+		insert into sample_users
+		(user_id, user_password, user_name, user_email, user_phone)
+		values
+		(#{id}, #{password}, #{name}, #{email}, #{phone})
+	</insert>
+	
+	<select id="getUserById" parameterType="string" resultType="com.toymarket.vo.User">
+		select
+			user_id 			as id,
+			user_password 		as password,
+			user_name 			as name,
+			user_email 			as email,
+			user_phone 			as phone,
+			user_status 		as status,
+			user_created_date 	as createdDate
+		from sample_users
+		where user_id = #{value}
+	</select>
+	
+	<select id="getAllUsers" resultType="com.toymarket.vo.User">
+		select
+			user_id 			as id,
+			user_password 		as password,
+			user_name 			as name,
+			user_email 			as email,
+			user_phone 			as phone,
+			user_status 		as status,
+			user_created_date 	as createdDate
+		from sample_users
+	</select>
+	
+	<update id="updateUserInfo" parameterType="com.toymarket.vo.User">
+		update
+			sample_users
+		set	
+			user_password 		= #{password},
+			user_name 			= #{name},
+			user_email 			= #{email},
+			user_phone 			= #{phone}
+		where user_id = #{id}
+	</update>
+	
+	<update id="deleteUserInfo" parameterType="String">
+		update 
+			sample_users
+		set
+			user_status = 'disabled',
+			user_deleted_date = SYSDATE
+		where user_id = #{id}	
+	</update>
+	
+<!-- 	<delete id="deleteUserInfo" parameterType="com.toymarket.vo.User"> -->
+<!-- 		delete -->
+<!-- 		from sample_users -->
+<!-- 		where user_id = #{value} -->
+<!-- 	</delete> -->
+</mapper>
+
+
+
+
+

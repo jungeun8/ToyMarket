@@ -44,7 +44,7 @@
  			</nav>
  		</div>
  		<div>
- 		<button type="button" class="btn btn-outline-primary btn-sm" onclick="">로그아웃</button>
+ 		<a href="/user/logout" class="btn btn-secondary">로그아웃</a>
  		</div>
  	</div>
  	</nav>
