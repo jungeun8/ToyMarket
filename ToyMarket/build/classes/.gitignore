@@ -1,2 +1,6 @@
 /com/
+<<<<<<< HEAD
+=======
+/log4j.properties
+>>>>>>> dev-PJH
 /mybatis/
