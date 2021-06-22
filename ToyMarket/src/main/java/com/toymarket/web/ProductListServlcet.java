@@ -32,10 +32,14 @@ public class ProductListServlcet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// 페이지 번호 조회하기
 		int pageNo = NumberUtils.toInt(req.getParameter("page"), 1);
-		
+		String sort = req.getParameter("sort");
 		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
 		Map<String, Object> param = new HashMap<String, Object>();
 		
+		if (sort == null) {
+			sort = "신상품순";
+		}
+		param.put("sort", sort);
 		// 게시글 조회하기
 		param.put("beginIndex", (pageNo -1)*ROWS_PER_PAGE + 1);
 		param.put("endIndex", pageNo * ROWS_PER_PAGE);
