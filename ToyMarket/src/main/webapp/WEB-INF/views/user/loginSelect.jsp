@@ -14,7 +14,7 @@
   	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-        Kakao.init('27eb5552bb8304bd00826ac106012f37');
+        Kakao.init('462d788e255fdcdb4d15f3147b2698f0');
 
         // SDK 초기화 여부를 판단합니다.
         console.log(Kakao.isInitialized());
@@ -55,7 +55,7 @@
         Kakao.API.request({
           url: '/v2/user/me',		// 사용자 정보를 가져옴(토큰을 받음) 24시간동안 탭끄기전까지
           success: function(res) {
-            //alert(JSON.stringify(res))	// 지우고 다이렉트로 어디로 보낼지 post로 정하기(비밀정보는 get으로보내면 안됨) 
+            //alert(JSON.stringify(res))	 
            	document.getElementById("user-id").value = res.id;
            	document.getElementById("user-name").value = res.properties.nickname;
            	gopagePost();

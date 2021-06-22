@@ -7,7 +7,7 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script>
         // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-        Kakao.init('27eb5552bb8304bd00826ac106012f37');
+        Kakao.init('462d788e255fdcdb4d15f3147b2698f0');
 
         // SDK 초기화 여부를 판단합니다.
         console.log(Kakao.isInitialized());
