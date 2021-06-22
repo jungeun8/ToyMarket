@@ -27,94 +27,96 @@
 			</div>
 		</div>
 	<div id="body">
+	
+		<form action="/order/confirm" method="get" id="order">
 		<div class="card-body pb-0">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3">주문상품</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
-								<tr>
-									<td>${order.itemName }</td>
-									<td>${order.price }</td>
-								</tr>
-							</c:forEach>
-							</tbody>
-						</table>
-						</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">주문상품</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
+					<tr>
+						<td>${order.itemName }</td>
+						<td>${order.price }</td>
+						<input type="hidden" name="items" value="${order.itemName }"/>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div class="card-body pb-0">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">주문자 정보</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<tr>
+						<td>보내는 분</td>
+						<td>${user.name }</td>
+					</tr>
+					<tr>
+						<td>휴대폰</td>
+						<td>${user.phone }</td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td>${user.email }</td>
+					</tr>
+				
+				</tbody>
+			</table>
+		</div>
+								
+		<div class="card-body pb-0">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="4">배송지 정보</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<tr>
+						<td>배송지</td>
+						<td id="address1">${orderList.address1 }</td>
+						<td id="address2">${orderList.address2 }</td>
+						<input type="hidden" name="address1" value="${orderList.address1 }"/>
+						<input type="hidden" name="address2" value="${orderList.address2 }"/>
+						<td><button type="button" class="btn btn-primary" onclick="goPopup()">수정</button></td>
+					</tr>
+				
+				</tbody>
+			</table>
+		</div>		
 						
-
-<div class="card-body pb-0">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3">주문자 정보</th>
-								</tr>
-							</thead>
-							<tbody>
-							
-								<tr>
-									<td>보내는 분</td>
-									<td>${orderList.address1 }</td>
-								</tr>
-								<tr>
-									<td>휴대폰</td>
-									<td>${orderList.address1 }</td>
-								</tr>
-								<tr>
-									<td>이메일</td>
-									<td>${orderList.address1 }</td>
-								</tr>
-							
-							</tbody>
-						</table>
-						</div>
-						
-						
-<div class="card-body pb-0">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="4">배송지 정보</th>
-								</tr>
-							</thead>
-							<tbody>
-							
-								<tr>
-									<td>배송지</td>
-									<td id="address1">${orderList.address1 }</td>
-									<td id="address2">${orderList.address2 }</td>
-									<td><button type="button" class="btn btn-primary" onclick="goPopup()">수정</button></td>
-								</tr>
-							
-							</tbody>
-						</table>
-						</div>
-						
-						
-<div class="card-body pb-0">
-						<table class="table">
-							<thead>
-								<tr>
-									<th colspan="3">개인정보 수집/제공</th>
-								</tr>
-							</thead>
-							<tbody>
-							
-								<tr>
-									<td>${order.itemName }</td>
-									<td>${order.price }</td>
-								</tr>
-						
-							</tbody>
-						</table>
-						</div>
-						
-	<div>
-		<button type="button" onclick="location.href='/order/confirm'" class="btn btn-primary">결제하기</button>
-	</div>
+		<div class="card-body pb-0">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">개인정보 수집/제공</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<tr>
+						<td>${order.itemName }</td>
+						<td>${order.price }</td>
+					</tr>
+			
+				</tbody>
+			</table>
+		</div>
+	</form>	
+			
+		<div>
+			<button type="submit" form="order" class="btn btn-primary">결제하기</button>
+		</div>
 </div>
 
 	<div id="footer">
@@ -137,6 +139,10 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 
 	document.getElementById("address1").innerHTML = roadFullAddr;
 	document.getElementById("address2").innerHTML = addrDetail;
+	
+	// 모든 폼 입력값이 유효한 입력값임으로 서버로 제출되게한다.
+	//document.getElementById("order").submit();
+	
 }
 
 </script>
