@@ -51,7 +51,7 @@
 		 	com.sample.vo.Item의 별칭은 item이 된다.	 
 		 	com.sample.vo.UserOrderHistory의 별칭은 UserOrderHistory이 된다.	 
 		 -->
-		 <package name="com.sample.vo"/>
+		 <package name="com.toymarket.vo."/>
 	</typeAliases>
 	
 	<!-- 데이터베이스 연결정보 설정 -->
@@ -61,7 +61,7 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="oracle.jdbc.OracleDriver" />
 				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
-				<property name="username" value="Toymarket" />
+				<property name="username" value="hr" />
 				<property name="password" value="zxcv1234" />
 			</dataSource>
 		</environment>
@@ -69,6 +69,6 @@
 	
 	<!-- 사용자정의 매퍼파일 등록 -->
 	<mappers>
-		<mapper resource="mybatis/mappers/products.xml"/>
+		<mapper resource="mybatis/mappers/users.xml"/>
 	</mappers>
 </configuration>
