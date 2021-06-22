@@ -1,6 +1,7 @@
 package com.toymarket.web;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -24,6 +25,9 @@ public class RegisterServlet extends HttpServlet {
 	
 	// POST방식의 /register 요청이 왔을 때 실행되는 메소드
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 카카오 사용자인지 조회
+		String iskakao = req.getParameter("iskakao");
+		
 		// 폼 입력값을 요청파라미터로 조회
 		String id = req.getParameter("id");
 		String password = req.getParameter("password");
@@ -31,35 +35,41 @@ public class RegisterServlet extends HttpServlet {
 		String email = req.getParameter("email");
 		String phone = req.getParameter("phone");
 		
-		// 카카오 사용자의 경우 패스워드를 안받기때문에 id와 name값을 받아서 registerform로 넘어감
-		if (password == null) {
-			req.getRequestDispatcher("/WEB-INF/views/user/registerform.jsp?id="+id+"&name="+name).forward(req, resp);
-		}
-		
 		// SAMPLE_USERS 테이블에 대한 CRUD 기능이 구현된 UserDao객체를 획득한다.
 		UserDao userDao = UserDao.getInstance();
 		
-		User savedUser = userDao.getUserById(id);
-		
-		List<User> allUser = userDao.getAllUsers();
-		
-//		for (User users : allUser) {
-//			if (users.getId().equals(id)) {
-//				resp.sendRedirect("/user/register?fail=idoverlap");
-//			}
-//			else if (users.getEmail().equals(email)) {
-//				resp.sendRedirect("/user/register?fail=emailoverlap");
-//			} 
-//		}	
-		// 가입하려는 아이디가 이미 있을때
-		if (savedUser != null) {
-			resp.sendRedirect("/user/register?fail=idoverlap");
+		// 아이디 중복확인
+		User savedUserId = userDao.getUserById(id);
+		if (savedUserId != null) {
+			if ("yes".equals(iskakao)) {
+				resp.sendRedirect("register?fail=idOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
+			} else {
+				resp.sendRedirect("register?fail=idOverlap");
+			}
+			return;
 		}
 		
-		// 가입하려는 이메일이 이미 있을때
-//		if (savedUser != null) {
-//			resp.sendRedirect("/user/register?fail=emailoverlap");
-//		}
+		// 이메일 중복확인
+		User savedUserEmail = userDao.getUserByEmail(email);
+		if (savedUserEmail != null) {
+			if ("yes".equals(iskakao)) {
+				resp.sendRedirect("register?fail=emailOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
+			} else {
+				resp.sendRedirect("register?fail=emailOverlap");
+			}
+			return;
+		}
+		
+		// 전화번호 중복확인
+		User savedUserPhone = userDao.getUserByPhone(phone);
+		if (savedUserPhone != null) {
+			if ("yes".equals(iskakao)) {
+				resp.sendRedirect("register?fail=phoneOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
+			} else {
+				resp.sendRedirect("register?fail=phoneOverlap");
+			}
+			return;
+		}
 		
 		// 비밀번호를 암호화하기
 		String sha256Password = DigestUtils.sha256Hex(password);

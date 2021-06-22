@@ -50,11 +50,6 @@ public class UserWithdrawalServlet extends HttpServlet {
 		// deleteUserInfo실행해서 사용자정보를 탈퇴상태로 변경한다.
 		userDao.deleteUserInfo(id);
 		
-		// 사용자정보가 존재하지 않으면 로그인폼을 재요청
-//		if (savedUser == null) {
-//			resp.sendRedirect("/user/login?fail=invalid");
-//			return;
-//		}
 		//세션을 폐기한다.
 		HttpSession session = req.getSession(false);
 		session.invalidate();

@@ -37,9 +37,10 @@ public class LoginServlet extends HttpServlet {
 		UserDao userDao = UserDao.getInstance();
 		User savedUser = userDao.getUserById(id);
 		
-		// 카카오사용자인지 조회 and 아니라면 회원가입으로 id와 이름을 받아서 넘어감
+		// 카카오사용자인지 조회 and 아니라면 회원가입으로 iskakao,id,이름을 받아서 넘어감
 		if (iskakao.equals("yes") && savedUser == null) {
-			req.getRequestDispatcher("/WEB-INF/views/user/registerform.jsp?id="+id+"&name="+name).forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/user/registerform.jsp?iskakao="+iskakao+"&id="+id+"&name="+name).forward(req, resp);
+			return;
 		}
 		
 		// 사용자정보가 존재하지 않으면 로그인폼을 재요청
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		// 탈퇴처리된 사용자라면 로그인폼을 재요청
-		if (!savedUser.getStatus().equals("active")) {
+		if (!savedUser.getStatus().equals("N")) {
 			resp.sendRedirect("/user/login?fail=drop");
 			return;
 		}
