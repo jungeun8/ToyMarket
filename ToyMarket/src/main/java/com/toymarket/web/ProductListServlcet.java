@@ -36,9 +36,11 @@ public class ProductListServlcet extends HttpServlet {
 		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
 		Map<String, Object> param = new HashMap<String, Object>();
 		
+		// 받아오는 sort값이 null 이면 기본값으로 "신상품순"을 준다.
 		if (sort == null) {
 			sort = "신상품순";
 		}
+		// 리스트 정렬
 		param.put("sort", sort);
 		// 게시글 조회하기
 		param.put("beginIndex", (pageNo -1)*ROWS_PER_PAGE + 1);

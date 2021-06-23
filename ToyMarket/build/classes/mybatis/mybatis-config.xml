@@ -71,6 +71,7 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/users.xml"/>
 		<mapper resource="mybatis/mappers/products.xml"/>
+		<mapper resource="mybatis/mappers/productInquiry.xml"/>
 		<mapper resource="mybatis/mappers/category.xml"/>
     	<mapper resource="mybatis/mappers/order.xml"/>
     	<mapper resource="mybatis/mappers/cart.xml"/>

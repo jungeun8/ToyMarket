@@ -9,7 +9,7 @@ public class Products {
 	private String brand;
 	private String name;
 	private int price;
-	private int discountRate;
+	private Double discountRate;
 	private String discountYN;
 	private int likeCount;
 	private String sellUnit;
@@ -64,11 +64,11 @@ public class Products {
 		this.price = price;
 	}
 
-	public int getDiscountRate() {
+	public Double getDiscountRate() {
 		return discountRate;
 	}
 
-	public void setDiscountRate(int discountRate) {
+	public void setDiscountRate(Double discountRate) {
 		this.discountRate = discountRate;
 	}
 

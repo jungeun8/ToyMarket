@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -10,6 +11,8 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		<!-- ajax 날짜 포맷 관련 cdn -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 		<link href="../../resources/css/jhw-css.css" rel="stylesheet" type="text/css"></link>
 		<style type="text/css">
 			#divSize {
@@ -41,7 +44,7 @@
 								<p class="fs-6"><c:out value="${product.subTitle}"/></p>
 							</div>
 							<div class="pb-4">
-								<p class="fs-3"><c:out value="${product.price}"/>원</p>
+								<p class="fs-3"><fmt:formatNumber value="${product.price}" pattern="#,###.##" />원</p>
 							</div>
 							<div class="row mb-4 border-top border-bottom" id="productInfo">
 								<div class="col-4">
@@ -311,8 +314,8 @@
 									<font size="2">배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.</font>
 								</div>
 							</div>
-							<div id="review-table">
-								<table class="table table-hover border-top">
+							<div>
+								<table class="table table-hover border-top" id="inquiry-table">
 									<colgroup>
 										<col width="55%">
 										<col width="15%">
@@ -327,44 +330,7 @@
 											<th class="text-center py-3">답변상태</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td class="py-3">문의제목제목</td>
-											<td class="text-center py-3">하동건</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">답변대기</td>
-										</tr>
-										<tr>
-											<td class="py-3">문의제목제목</td>
-											<td class="text-center py-3">이동규</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">답변대기</td>
-										</tr>
-										<tr>
-											<td class="py-3">문의제목제목</td>
-											<td class="text-center py-3">이태원</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">답변대기</td>
-										</tr>
-										<tr>
-											<td class="py-3">문의제목제목</td>
-											<td class="text-center py-3">박진혁</td>
-											<td class="text-center py-3">2021-06-14</td>
-											<td class="text-center py-3">답변완료</td>
-										</tr>
-										<tr>
-											<td class="py-3">문의제목제목</td>
-											<td class="text-center py-3">김정은</td>
-											<td class="text-center py-3">2021-06-14</td>
-											<td class="text-center py-3">답변완료</td>
-										</tr>
-										<tr>
-											<td class="py-3">비밀글입니다. <i class="fas fa-lock"></i></td>
-											<td class="text-center py-3">정호원</td>
-											<td class="text-center py-3">2021-06-13</td>
-											<td class="text-center py-3">답변완료</td>
-										</tr>
-									</tbody>
+									<tbody></tbody>
 								</table>
 								<div class="d-flex justify-content-between">
 									<div></div>
@@ -406,7 +372,7 @@
 																</td>
 																<td class="d-flex align-items-center">
 																	<div class="h-100">
-																		<p class="fs-5"><strong>[쉐푸드]땡초 참치마요 삼각김밥</strong></p>
+																		<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
 																	</div>
 																</td>
 															</tr>
@@ -490,6 +456,79 @@
 				productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
 			};
 			/* 구매수량 증감식 끝 */
+			
+			/* 가운데 이름 마스킹처리 시작 */
+			var maskingName = function(strName) {
+				if (strName.length > 2) {
+					var originName = strName.split('');
+					originName.forEach(function(name, i) {
+						if (i === 0 || i === originName.length - 1) return;
+						originName[i] = '*'; 
+					});
+					var joinName = originName.join();
+					return joinName.replace(/,/g,'');
+				} else {
+					var pattern = /.$/; // 정규식
+					return strName.replace(pattern, '*');
+				}
+			}
+			/* 가운데 이름 마스킹처리 끝 */
+			
+			/* Ajax 문의리스트 시작 */
+			var productNo = '<c:out value="${product.no}"/>';
+			var userName = '<c:out value="${user.name}"/>';
+			getInquiryList(productNo);
+			function getInquiryList(productNo) {
+				
+				// 조회된 문의정보가 추가될 tbody 엘리먼트 획득하기
+				var tbodyEl = document.querySelector("#inquiry-table tbody");
+				tbodyEl.innerHTML = "";
+				
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onreadystatechange = function() {
+					// 서버로부터 성공적인 응답을 받았을 때만 응답데이터를 처리하는 수행문이 실행되게 함
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// 서버가 보낸 응답데이터(JSON표기법으로 작성된 텍스트데이터) 획득하기
+						var jsonTextData = xhr.responseText;
+						// JSON표기법으로 작성된 텍스트를 자바스크립트의 배열로 변환하기
+						// (응답데이터가 json 배열 표기법으로 작성되어 있기 때문에 자바스크립트의 배열로 변환됨)
+						var inquiryList = JSON.parse(jsonTextData);
+						
+						// 배열의 처음부터 끝까지 반복하면서 사원정보로 <tr/>, <td/> 태그를 생성하기
+						var rows = "";
+						for (var i = 0; i < inquiryList.length; i++) {
+							var inq = inquiryList[i];
+							
+							rows += "<tr>";
+							if ('N' === inq.secretYN) {
+								rows += "<td class='py-3'>" + inq.title + "</td>";
+							} else if ('Y' === inq.secretYN && userName === inq.customerName) {
+								rows += "<td class='py-3' style='color:blue'>" + inq.title + "</td>";
+							} else {
+								rows += "<td class='py-3' style='color:#A9A9A9'>비밀글입니다.<i class='fas fa-lock'></i></td>";
+							}
+							rows += "<td class='text-center py-3'>" + maskingName(inq.customerName) + "</td>";
+							rows += "<td class='text-center py-3'>" + moment(inq.createdDate).format('YYYY-MM-DD') + "</td>";
+							rows += "<td class='text-center py-3'>" + inq.status + "</td>";
+							rows += "</tr>";
+						}
+						
+						// <tbody> 엘리먼트에 <tr>, <td>태그로 구성된 HTML 컨텐츠를 추가하기
+						tbodyEl.innerHTML = rows;
+					}
+				}
+				
+				// XMLHttpRequest 객체 초기화
+				xhr.open("GET", "inquiry/list?productNo=" + productNo);
+				// 서버로 HTTP요청 보내기
+				xhr.send();
+			}
+			
+			
+			/* Ajax 문의리스트 끝 */
 		</script>
 	</body>
 </html>
