@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 		<!-- ajax 날짜 포맷 관련 cdn -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -334,90 +334,103 @@
 								</table>
 								<div class="d-flex justify-content-between">
 									<div></div>
-									<div id="review-pagenation" class="">
-										<nav aria-label="Page navigation example">
-											<ul class="pagination">
-												<li class="page-item">
-													<a class="page-link" href="#" aria-label="Previous">
-														<span aria-hidden="true"><i class="fas fa-angle-left"></i></span>
-													</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#" aria-label="Next">
-														<span aria-hidden="true"><i class="fas fa-angle-right"></i></span>
-													</a>
-												</li>
-											</ul>
-										</nav>
-									</div>
-									<div class="">
-										<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalInquiry">문의하기</button>
-										<!-- Modal -->
-										<div class="modal fade" id="modalInquiry" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-											<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-												<div class="modal-content p-4">
-													<div class="modal-header border-bottom">
-														<h5 class="modal-title fs-3" id="staticBackdropLabel">상품 문의하기</h5>
-														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-													</div>
-													<div class="modal-body border-bottom">
-														<table class="table table-borderless">
-															<colgroup>
-																<col width="20%">
-																<col width="80%">
-															</colgroup>
-															<tr>
-																<td class="h-100">
-																	<img alt="상품 대표이미지" src="https://img-cf.kurly.com/shop/data/goods/1623216767987y0.jpg" class="img-thumbnail" style="width:100px; height:100px;">
-																</td>
-																<td class="d-flex align-items-center">
-																	<div class="h-100">
-																		<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="py-2">
-																	<p class="fs-5">제목</p>
-																</td>
-																<td class="py-2">
-																	<input type="text" class="form-control" placeholder="제목을 입력해주세요"/>
-																</td>
-															</tr>
-															<tr>
-																<td class="py-2">
-																	<p class="fs-5">내용</p>
-																</td>
-																<td class="py-2">
-																	<textarea class="form-control" style="height: 300px;" 
-																	placeholder="상품문의 작성 전 확인해 주세요
-																				답변은 영업일 기준 2~3일 소요됩니다.
-																				해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.
-																				배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.">
-																	</textarea>
-																</td>
-															</tr>
-															<tr>
-																<td class="py-2">
-																</td>
-																<td class="py-2">
-																	<div class="form-check form-switch">
-																		<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-																		<label class="form-check-label" for="flexSwitchCheckDefault">비밀글로 문의하기</label>
-																	</div>
-																</td>
-															</tr>
-														</table>
-													</div>
-													<div class="modal-footer d-flex justify-content-center">
-													  <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">취소</button>
-													  <button type="button" class="btn btn-outline-success btn-lg">등록</button>
-													</div>
+									<div id="inquiry-pagenation">
+										<c:if test="${pagination.totalRows gt 0 }">
+											<div class="row mb-2">
+												<div class="col-12">
+													<ul class="pagination justify-content-center">
+														<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : ''}">
+															<a class="page-link" href="list?page=${pagination.pageNo - 1 }">이전</a>
+														</li>
+														<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
+															<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
+																<a class="page-link" href="list?page=${num }">${num }</a>
+															</li>
+														</c:forEach>
+														<li class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : ''}">
+															<a class="page-link" href="list?page=${pagination.pageNo + 1 }">다음</a>
+														</li>
+													</ul>
 												</div>
 											</div>
-										</div>
-										<!-- Modal end -->
+										</c:if>
 									</div>
+									<c:choose>
+										<c:when test="${empty user}">
+											<div>
+												
+											</div>
+										</c:when>
+										
+										<c:otherwise>
+											<div>
+												<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalInquiry">문의하기</button>
+												<!-- Modal -->
+												<div class="modal fade" id="modalInquiry" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+														<div class="modal-content p-4">
+															<form method="post" id="inquiryInsert">
+																<input type="hidden" name="customerNo" id="customerNo" value="<c:out value='${user.no}'/>"/>
+																<input type="hidden" name="productNo" id="productNo" value="<c:out value='${product.no}'/>"/>
+																<div class="modal-header border-bottom">
+																	<h5 class="modal-title fs-3" id="staticBackdropLabel">상품 문의하기</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body border-bottom">
+																	<table class="table table-borderless">
+																		<colgroup>
+																			<col width="20%">
+																			<col width="80%">
+																		</colgroup>
+																		<tr>
+																			<td class="h-100">
+																				<img alt="상품 대표이미지" src="https://img-cf.kurly.com/shop/data/goods/1623216767987y0.jpg" class="img-thumbnail" style="width:100px; height:100px;">
+																			</td>
+																			<td class="d-flex align-items-center">
+																				<div class="h-100">
+																					<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
+																				</div>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2">
+																				<p class="fs-5">제목</p>
+																			</td>
+																			<td class="py-2">
+																				<input type="text" class="form-control" name="title" id="InquiryTitle" placeholder="제목을 입력해주세요"/>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2">
+																				<p class="fs-5">내용</p>
+																			</td>
+																			<td class="py-2">
+																				<textarea class="form-control" name="content" id="InquiryContent" style="height: 300px;" placeholder=""></textarea>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2"></td>
+																			<td class="py-2">
+																				<div class="form-check form-switch">
+																					<input class="form-check-input" type="checkbox" name="secretYN" id="secretYN">
+																					<label class="form-check-label" for="secretYN">비밀글로 문의하기</label>
+																				</div>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+																<div class="modal-footer d-flex justify-content-center">
+																  <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">취소</button>
+																  <button type="button" id="insertInquiry" class="btn btn-outline-success btn-lg">등록</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+												<!-- Modal end -->
+											</div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
@@ -483,6 +496,8 @@
 				// 조회된 문의정보가 추가될 tbody 엘리먼트 획득하기
 				var tbodyEl = document.querySelector("#inquiry-table tbody");
 				tbodyEl.innerHTML = "";
+				var divEl = document.querySelector("#inquiry-pagenation");
+				divEl.innerHTML = "";
 				
 				// XMLHttpRequest 객체 생성
 				var xhr = new XMLHttpRequest();
@@ -495,7 +510,9 @@
 						var jsonTextData = xhr.responseText;
 						// JSON표기법으로 작성된 텍스트를 자바스크립트의 배열로 변환하기
 						// (응답데이터가 json 배열 표기법으로 작성되어 있기 때문에 자바스크립트의 배열로 변환됨)
-						var inquiryList = JSON.parse(jsonTextData);
+						var data = JSON.parse(jsonTextData);
+						var inquiryList = data.inquiryList;
+						var pagination = data.pagination;
 						
 						// 배열의 처음부터 끝까지 반복하면서 사원정보로 <tr/>, <td/> 태그를 생성하기
 						var rows = "";
@@ -518,6 +535,28 @@
 						
 						// <tbody> 엘리먼트에 <tr>, <td>태그로 구성된 HTML 컨텐츠를 추가하기
 						tbodyEl.innerHTML = rows;
+						
+						var rows2 = "";
+						<c:if test="${pagination.totalRows gt 0 }">
+							rows2 += "<div class='row mb-2'>";
+							rows2 += "<div class='col-12'>";
+							rows2 += "<ul class='pagination justify-content-center'>"; 
+							rows2 += "<li class='page-item ${pagination.pageNo le 1 ? 'disabled' : '' }'>";
+							rows2 += "<a class='page-link' href='list?page=${pagination.pageNo - 1 }'>이전</a>";
+							rows2 += "</li>"; 
+							<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
+								rows2 += "<li class='page-item ${pagination.pageNo eq num ? 'active' : '' }'>";
+								rows2 += "<a class='page-link' href='list?page=${num }'>${num }</a>";
+								rows2 += "</li>";
+							</c:forEach>
+							rows2 += "<li class='page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : '' }'>";
+							rows2 += "<a class='page-link' href='list?page=${pagination.pageNo + 1 }'>다음</a>";
+							rows2 += "</li>"; 
+							rows2 += "</ul>"; 
+							rows2 += "</div>"; 
+							rows2 += "</div>"; 
+						</c:if>
+						divEl.innerHTML = rows2;
 					}
 				}
 				
@@ -526,9 +565,41 @@
 				// 서버로 HTTP요청 보내기
 				xhr.send();
 			}
-			
-			
 			/* Ajax 문의리스트 끝 */
+			
+			/* Ajax 문의등록 시작 */
+			$('#insertInquiry').click(function() {
+				var productNo = document.getElementById('productNo').value;
+				var customerNo = document.getElementById('customerNo').value;
+				var InquiryTitle = document.getElementById('InquiryTitle').value;
+				var InquiryContent = document.getElementById('InquiryContent').value;
+				var secretYN = document.getElementById('secretYN').value;
+				
+				if ('on' === secretYN) {
+					secretYN = 'Y';
+				} else {
+					secretYN = 'N';					
+				}
+				
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onload = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+					} else {
+						console.error(xhr.responseText);
+					}
+				};
+				xhr.open('POST', 'inquiry/insert');
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("productNo=" + productNo + "&customerNo=" + customerNo + "&title=" + InquiryTitle + "&content=" + InquiryContent + "&secretYN=" + secretYN);
+				
+				getInquiryList(productNo);
+				$('#modalInquiry').modal("hide");
+			});
+			/* Ajax 문의등록 끝 */
 		</script>
 	</body>
 </html>
