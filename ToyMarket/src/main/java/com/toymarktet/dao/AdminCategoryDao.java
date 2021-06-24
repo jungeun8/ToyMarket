@@ -27,4 +27,11 @@ public class AdminCategoryDao {
 		return categoryName;
 	}
 	
+	public Category getCategory() {
+		SqlSession session = sqlsessionFactory.openSession();
+		Category categories = session.selectOne("products.getCategory");
+		session.close();
+		return categories;
+	}
+	
 }

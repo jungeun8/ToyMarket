@@ -1,11 +1,13 @@
 package com.toymarktet.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.toymarket.utils.MybatisUtils;
+import com.toymarket.vo.Category;
 import com.toymarket.vo.Products;
 
 public class AdminProductDao {
@@ -35,5 +37,18 @@ private SqlSessionFactory sqlSessionFactory;
 		return deleteProducts;
 	}
 	
-
+	public int getTotalRows(Map<String, Object> param) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int totalRows = session.selectOne("products.getTotalRowsWithSearching", param);
+		session.close();
+		return totalRows;
+	}
+	
+	public List<Products> getAllProductsList(Map<String, Object> param){
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Products> products = session.selectList("products.getAllProductsList", param);
+		session.close();
+		return products;
+	}
+	
 }

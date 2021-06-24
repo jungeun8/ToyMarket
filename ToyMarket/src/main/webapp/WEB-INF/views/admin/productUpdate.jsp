@@ -94,6 +94,11 @@
                                 <option value="1">Y</option>
                                 <option value="2">N</option>
                             </select>
+                            <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
+                                    <option selected>샛별배송여부</option>
+                                    <option value="1">Y</option>
+                                    <option value="2">N</option>
+                            </select>
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" id="floatingInput" placeholder="상품가격" min="0">
                                 <label for="floatingInput">재고량</label>

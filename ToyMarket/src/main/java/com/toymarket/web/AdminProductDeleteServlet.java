@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 	
 
-@WebServlet("/adminproduct/delete")
+@WebServlet("/admin/product/delete")
 public class AdminProductDeleteServlet extends HttpServlet{
 	
 	private AdminProductDao adminProductDao = AdminProductDao.getInstance();
@@ -22,6 +22,6 @@ public class AdminProductDeleteServlet extends HttpServlet{
 		int no = Integer.parseInt(req.getParameter("deleteNo"));
 		adminProductDao.deleteProductsbyNo(no);
 		
-		resp.sendRedirect("/adminproductmain");
+		resp.sendRedirect("/admin/product/list");
 	}
 }

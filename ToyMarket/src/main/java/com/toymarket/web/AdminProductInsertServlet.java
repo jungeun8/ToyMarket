@@ -8,10 +8,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/adminproductinsert")
+@WebServlet("/admin/product/insert")
 public class AdminProductInsertServlet extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/views/admin/productInsert.jsp").forward(req, resp);
+		req.getRequestDispatcher("../../WEB-INF/views/admin/productInsert.jsp").forward(req, resp);
 	}
 }

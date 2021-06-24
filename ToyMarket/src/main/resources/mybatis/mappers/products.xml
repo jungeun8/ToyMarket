@@ -9,7 +9,27 @@
 		FROM
 			toy_products
 	</select>
-
+	
+	<select id="getTotalRowsWithSearching" parameterType="map" resultType="int">
+		select
+			count(*)
+		from
+			toy_products
+		
+		<where>
+			 <choose>
+		 		<when test="opt != null and opt == 'name'">
+		 			product_name like '%' || #{keyword} || '%'
+		 		</when>
+		 		<when test="opt != null and opt == 'brand'">
+		 			and product_ brand like '%' || #{keyword} || '%'
+		 		</when>
+		 	</choose>
+		 </where>
+	</select>
+	
+	
+	
 	<select id="getAllProducts2" resultType="com.toymarket.vo.Products">
 		SELECT 
 			product_no 					as no,
@@ -69,27 +89,71 @@
 	</select>
 	<select id="getAllProductsWithCategory" resultType="com.toymarket.vo.Products">
 		SELECT 
-			p.product_no 					as no,
-			p.category_no 					as categoryNo,
-            c.category_name             	as categoryName,
-			p.product_brand 				as brand,
-			p.product_name 					as name,
-			p.product_price 				as price,
-			p.product_discount_rate 		as discountRate,
-			p.product_discount_YN 			as discountYN,
-			p.product_like_count 			as likeCount,
-			p.product_sell_unit 			as sellUnit,
-			p.product_weight 				as weight,
-			p.product_morning_delivery_YN 	as morningDeliveryYN,
-			p.product_description 			as description,
-			p.product_stock 				as stock,
-			p.product_created_date 			as createdDate,
-			p.product_status 				as status,
-			p.product_image 				as image,
-			p.product_sub_title 			as subTitle
-		FROM toy_products P, toy_categories C
-        where p.category_no = c.CATEGORY_NO
+			product_no 					as no,
+			category_no 				as categoryNo,
+			product_brand 				as brand,
+			product_name 				as name,
+			product_price 				as price,
+			product_discount_rate 		as discountRate,
+			product_discount_YN 		as discountYN,
+			product_like_count 			as likeCount,
+			product_sell_unit 			as sellUnit,
+			product_weight 				as weight,
+			product_morning_delivery_YN as morningDeliveryYN,
+			product_description 		as description,
+			product_stock 				as stock,
+			product_created_date 		as createdDate,
+			product_status 				as status,
+			product_image 				as image,
+			product_sub_title 			as subTitle
+		FROM 
+			toy_products
+		where
+			category_no = #{value}
+        
 		ORDER BY product_no DESC	
+	</select>
+	
+	<select id="getAllProductsList" parameterType="map" resultType="com.toymarket.vo.Products">
+		SELECT 
+			product_no 						as no,
+			category_no 					as categoryNo,
+			product_brand 					as brand,
+			product_name 					as name,
+			product_price 					as price,
+			product_discount_rate 			as discountRate,
+			product_discount_YN 			as discountYN,
+			product_like_count 				as likeCount,
+			product_sell_unit 				as sellUnit,
+			product_weight 					as weight,
+			product_morning_delivery_YN 	as morningDeliveryYN,
+			product_description 			as description,
+			product_stock 					as stock,
+			product_created_date 			as createdDate,
+			product_status 					as status,
+			product_image 					as image,
+			product_sub_title 				as subTitle
+		FROM (
+			select
+				row_number() over (order by product_no desc) rn,
+				product_no, category_no, product_brand, product_name, product_price, product_discount_rate, product_discount_YN, product_like_count,
+				product_sell_unit, product_weight, product_morning_delivery_YN, product_description, product_stock, product_created_date, product_status,
+				product_image, product_sub_title
+			from 
+				toy_products
+				<where>
+					<choose>
+		 				<when test="opt != null and opt == 'name'">
+		 						product_name like '%' || #{keyword} || '%'
+		 				</when>
+		 				<when test="opt != null and opt == 'brand'">
+		 					and product_ brand like '%' || #{keyword} || '%'
+		 				</when>
+		 			</choose>
+		 		</where>
+		)
+		where 
+			rn between #{beginIndex} and #{endIndex}
 	</select>
 	
 	<delete id="deleteById" parameterType="int">
@@ -121,4 +185,32 @@
 		WHERE
 			product_no = #{value}
 	</select>
+	
+	<select id="getCategory" resultType="com.toymarket.vo.Category">
+		select
+			category_no		as no
+		from
+			toy_categories
+	</select>
+	
+	<update id="updateProducts" parameterType="Products">
+		update toy_products
+		set
+			category_no				as no,
+			product_brand			as brand,
+			product_name 				as name,
+			product_price 				as price,
+			product_discount_rate 		as discountRate,
+			product_discount_YN 		as discountYN,
+			product_sell_unit 			as sellUnit,
+			product_weight 				as weight,
+			product_morning_delivery_YN as morningDeliveryYN,
+			product_description 		as description,
+			product_stock 				as stock,
+			product_created_date 		as createdDate,
+			product_status 				as status,
+			product_image 				as image,
+			product_sub_title 			as subTitle
+			
+	</update>
 </mapper>
