@@ -34,11 +34,13 @@ public class OrderServlet extends HttpServlet {
 		String[] itemNoArray = req.getParameterValues("itemNo");
 		
 		List<CartItemDto> items = new ArrayList<CartItemDto>();
+		
+		//  총금액과 총수량을 담을 변수를 선언한다.
+		
+		
 		for(String itemNo : itemNoArray) { // 체크된 상품번호를 이용하여 상품정보를 조회
 			items.add(orderDao.getItemDataByItemNo(itemNo));
-			
-			//  총금액과 총수량을 담을 변수를 선언한다.
-			
+
 			// 가격계산 start
 			// 조회한 items에서 가격과 수량을 이용해 가격을 계산하고 총가격, 총수량 변수에 합산한다.
 		}

@@ -46,9 +46,18 @@ public class CartListServlet extends HttpServlet {
 		// 고객의 아이디를 dao에 전달하여 아이템목록을 받는다.
 		cartItems = cartDao.getCartByUserNo(userId);
 		
+		//  총금액과 총수량을 담을 변수를 선언한다.
+		
+		for(Cart cart : cartItems) { // 체크된 상품번호를 이용하여 상품정보를 조회			
+			// 가격계산 start
+			// 조회한 items에서 가격과 수량을 이용해 가격을 계산하고 총가격, 총수량 변수에 합산한다.
+		}
+		
+		
 		// 해당 변수를 프론트에 넘겨준다.
 		req.setAttribute("cartItems", cartItems);
-				
+		req.setAttribute("user", user); // 주문자 정보	
+		
 		
 		
 		req.getRequestDispatcher("/WEB-INF/views/customer/cart.jsp").forward(req, rep);	

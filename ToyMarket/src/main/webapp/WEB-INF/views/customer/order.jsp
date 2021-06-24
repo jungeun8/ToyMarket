@@ -39,9 +39,10 @@
 				<tbody>
 				<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
 					<tr>
+						<td><img width= "100px" height= "75px" src="${order.itemImage }" alt="${order.itemName }"></td>
 						<td>${order.itemName }</td>
 						<td>${order.price }</td>
-						<input type="hidden" name="items" value="${order.itemName }"/>
+						<input type="hidden" name="items" value="${order.itemNo }"/>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -93,36 +94,50 @@
 				
 				</tbody>
 			</table>
-		</div>		
-						
-		<div class="card-body pb-0">
-			<table class="table">
-				<thead>
-					<tr>
-						<th colspan="3">개인정보 수집/제공</th>
-					</tr>
-				</thead>
-				<tbody>
-				
-					<tr>
-						<td>${order.itemName }</td>
-						<td>${order.price }</td>
-					</tr>
+		</div>	
+		
+		<div class="row mb-3" style="margin-top:5%">
+				<div class="col-6 border p-3 bg-light">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>상품금액</th>
+								<th>540000</th>
+							</tr>
+							<tr>
+								<th>상품할인금액</th>
+								<th>12000</th>
+							</tr>
+							
+						</thead>
+						<tbody>
+							<tr>
+								<td>결제예상금액</td>
+								<td>540000</td>
+							</tr>
+							
+						</tbody>
+					</table>			
+					
+				</div>
+			</div>
 			
-				</tbody>
-			</table>
-		</div>
+				
+			<div class="form-group form-check mb-3">
+				<input type="checkbox" class="form-check-input" id="check-me">
+				<label class="form-check-label">개인정보 제공 동의</label>
+			</div>
+
+			
 	</form>	
 			
-		<div>
-			<button type="submit" form="order" class="btn btn-primary">결제하기</button>
+		<div class="text-right">
+			<button type="button" class="btn btn-primary" onclick="checkForm()" >결제하기</button>
 		</div>
-</div>
-
-	<div id="footer">
-		<%@ include file="../common/footer.jsp"%>
+		
 	</div>
 </div>
+
 <script type="text/javascript">
 	
 function goPopup(){
@@ -143,7 +158,18 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 	// 모든 폼 입력값이 유효한 입력값임으로 서버로 제출되게한다.
 	//document.getElementById("order").submit();
 	
-}
+function checkForm() {
+	// 개인정보 동의여부에 체크했는지 체크
+		var checkMe = document.querySelector("#check-me").checked;
+		if (!checkMe) {
+			alert("개인정보 동의여부는 반드시 체크해야 합니다.");
+			return;
+		}
+		// 모든 폼 입력값이 유효한 입력값임으로 서버로 제출되게한다.
+		document.getElementById("order").submit();		
+	}
+	
+
 
 </script>
 

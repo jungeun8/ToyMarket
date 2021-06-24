@@ -64,10 +64,11 @@
 	</update>
 	
 	<select id="getItemDataByItemNo" parameterType="string" resultType="com.toymarket.dto.cart.CartItemDto">
-		select  product_no 		as itemNo,
-			product_name  		as itemName,
-			product_price 		as price
-		from toy_products
+	select  cart_no as itemNo,
+        	(select product_name from toy_products where product_no = toy_cart.product_no)  as itemName,
+        	product_buy_price 		as price,
+        	(select product_Image from toy_products where product_no = toy_cart.product_no) as itemImage
+			from toy_cart
 		where product_no= #{itemNo}
 	</select>
 	

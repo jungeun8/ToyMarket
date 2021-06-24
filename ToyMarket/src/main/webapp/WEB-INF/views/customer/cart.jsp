@@ -25,12 +25,12 @@
 				</div>
 			</div>
 		</div>
-<main>
-	<div class="row mb-3">
-			<div class="col-12">
-				<h3 class="border p-3 bg-light"><small>님 장바구니 목록</small></h3>
-			</div>
-		</div>
+
+		<div class="row mb-3">
+				<div class="col-12">
+					<h3 class="border p-3 bg-light"><small>${user.name }님 장바구니 목록</small></h3>
+				</div>
+			</div>	
 		
 		<div class="row mb-4">
 			<div class="col-12">
@@ -52,61 +52,65 @@
 							
 								<c:forEach var="cartItems" items="${cartItems }" varStatus="loop">
 								<tr>
-									<td><input type="checkbox" name="itemNo" value="${cartItems.productNo }" /></td>
-									<td></td>
+								
+									<td><input type="checkbox"  id="check-me" class="form-check-input" name="itemNo" value="${cartItems.productNo }" /></td>
+									<td><img width= "100px" height= "75px" src="${cartItems.productImage }" alt="${cartItems.productName }"></td>
 									<td>${cartItems.productName }</td>
-									<td>${cartItems.amount }</td>
+									<td><button type="button" class="btn btn-outline-success btn-sm fa fa-minus"  id="decrease"></button>
+ 										<button type="button" class="btn btn-outline btn-sm" id="number" disabled>${cartItems.amount}</button>
+										<button type="button" class="btn btn-outline-success btn-sm fa fa-plus"  id="increase" ></button>
+										</td>
 									<td>${cartItems.price }</td>
-									<td><a href=""  class="btn btn-danger btn-sm">삭제</a></td>
+									
+									
+									<td><a href="delete?productNo=${cartItems.productNo }" class="btn btn-danger btn-sm">삭제</a></td>
 								</tr>
 							</c:forEach>
-
+							
 							
 							</tbody>
 						</table>
 						
 						<div class="cart_select"><div class="inner_select"><label class="check">
 						<input type="checkbox" name="checkAll" checked=""><span class="ico">
-						</span>전체선택</label><a href="#none" class="btn_delete"> 선택삭제 </a></div></div>
-						</div>
-					</form>
-				</div>	
-		<div class="row mb-3" style="margin-top:10%">
-			<div class="col-6">
-				<form method="get" action="/order/list?userid=1001">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>상품금액</th>
-									<th>540000</th>
-								</tr>
-								<tr>
-									<th>상품할인금액</th>
-									<th>12000</th>
-								</tr>
-								
-							</thead>
-							<tbody>
-								<tr>
-									<td>결제예상금액</td>
-									<td>540000</td>
-								</tr>
-								
-							</tbody>
-						</table>
-						</form>
+						</span>전체선택</label><a href="#none" class="btn_delete"></a></div></div>
+					</div>
+					
+
+			</div>
+	
+			<div class="row mb-3" style="margin-top:5%">
+				<div class="col-6 border p-3 bg-light">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>상품금액</th>
+								<th>540000</th>
+							</tr>
+							<tr>
+								<th>상품할인금액</th>
+								<th>12000</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>결제예상금액</td>
+								<td>540000</td>
+							</tr>
+							
+						</tbody>
+					</table>			
+					
 				</div>
 			</div>
-			
-			
-			</div>
-					<div><button type="submit" class="btn btn-primary" form="cart">주문하기</button></div>
-			</div>
-			
-	
-	</main>
+		</form>	
 
-</div>
+				</div>
+	</div>
+			
+				<div class="text-right">
+					<button type="submit" class="btn btn-primary" form="cart">주문하기</button>
+				</div>
 
 <script>
 	function toggleAgreementCheckbox() {
@@ -118,6 +122,51 @@
 			checkboxes[i].checked = checkboxAllChecked;
 		}
 	}
+	
+	/*function checkForm() {
+		var checkMe = document.querySelector("#check-me").checked;
+		if (!checkMe) {
+			alert("상품을 선택해주세요");
+			return;
+		}
+		
+		
+	}
+	*/
+	
+	/* 구매수량 증감식 시작 */
+	var number = document.getElementById("number"); // 수량
+	var increase = document.getElementById("increase1"); // 증가버튼
+	var decrease = document.getElementById("decrease"); // 감소버튼
+	var productPrice = document.getElementById("productPrice"); // 상품가격
+	var productSum = document.getElementById("productSum"); // 합계
+	// productSum.value = new Number(productPrice.value).toLocaleString() + '원';
+	
+	// 증가버튼을 클릭했을 때
+	increase.onclick = () => {
+		console.log("증가버튼 클릭!!");
+		var current =  parseInt(number.innerText, 10);
+		number.innerText = current + 1;
+		
+		productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+	};
+	
+	
+	// 감소버튼을 클릭했을 때
+	decrease.onclick = () => {
+		var current = parseInt(number.innerText, 10);
+		
+		if (current <= 0) {
+			number.innerText = 1;
+			current = 1;
+		}
+		number.innerText = current - 1;
+		
+		productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+	};
+	/* 구매수량 증감식 끝 */
+	
+	
 </script>
 
 </body>

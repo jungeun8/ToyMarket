@@ -2,7 +2,9 @@ package com.toymarket.web.order;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -17,6 +19,8 @@ import javax.mail.internet.MimeMessage;
 import com.toymarket.dao.order.OrderDao;
 import com.toymarket.utils.MyAuthentication;
 import com.toymarket.vo.User;
+import com.toymarket.vo.order.Order;
+import com.toymarket.vo.order.OrderItems;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,6 +33,7 @@ import jakarta.servlet.http.HttpSession;
 public class OrderConfirmServlet extends HttpServlet {
 
 	OrderDao orderDao = OrderDao.getInstance();
+	private int totalAmount;
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
@@ -46,6 +51,7 @@ public class OrderConfirmServlet extends HttpServlet {
 		
 		// 총 주문한 상품 개수 담기 (화면 표현)
 		int itemCount = orderProductList.length;
+		
 		// 주문한 이름 정보 가져오기 (화면 표현)
 		String userName = user.getName();
 		
@@ -56,9 +62,26 @@ public class OrderConfirmServlet extends HttpServlet {
 		// guide 결제금액 가져오기
 		
 		// guide 가져온 상품, 결제금액, 배송지정보를 orderDao.insertOrder의 파라미터 타입인 order객체를 생성하여 그안에 데이터를 저장한다.
+		// 상품을 담았을 때 상태
+		
+		String userId = user.getId();
+	
+		
+		String orderNo = req.getParameter("orderNo");
+		String orderPrice = req.getParameter("orderPrice");
+		String totalAmount = req.getParameter("totalAmount");
+		String usedPoint = req.getParameter("usedPoint");
+		String totalPrice = req.getParameter("totalPrice");
+		String depositePoint = req.getParameter("depositePoint");
+		String status = req.getParameter("status");
+		String customerNo = req.getParameter("customerNo");
+		List<OrderItems> list = new ArrayList<OrderItems>();
+		Order orderList = new Order(orderNo, orderPrice, totalAmount, "0" ,totalPrice, "0", status, new Date(),customerNo,address1,address2,list );
 		
 		// guide 주문하는 곳에 결제하기 버튼 누르면 주문상품 db에 저장하기 start
 		//orderDao.insertOrder(order); <= Order객체를 전달해줄것
+		orderDao.insertOrder(orderList);
+		
 
 		//적립금 넣어주기.
 		//orderDao.updatePoint(userId, updatePoint);
@@ -67,16 +90,15 @@ public class OrderConfirmServlet extends HttpServlet {
 		
 		// gmail로 보내는 권한 부여 
 		Properties props = System.getProperties();
-		 props.put("mail.smtp.user", "abpple0405@gmail.com"); 
-		  props.put("mail.smtp.host", "smtp.gmail.com");
-		  props.put("mail.smtp.port", "465");
-		  props.put("mail.smtp.starttls.enable","true");
-		  props.put( "mail.smtp.auth", "true");
-		  props.put("mail.smtp.debug", "true");
-		  props.put("mail.smtp.socketFactory.port", "465"); 
-		  props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory"); 
-		  props.put("mail.smtp.socketFactory.fallback", "false");  
-		  
+		props.put("mail.smtp.user", "abpple0405@gmail.com");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.starttls.enable","true");
+		props.put( "mail.smtp.auth", "true");
+		props.put("mail.smtp.debug", "true");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.fallback", "false");
 		  // id, password를 담는다. 
 		  Authenticator auth = new MyAuthentication();
 		 // 메일 제목, 내용 

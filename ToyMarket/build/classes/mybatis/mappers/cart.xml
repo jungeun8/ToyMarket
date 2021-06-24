@@ -7,11 +7,12 @@
 <select id="getCartByUserNo" parameterType="string" resultType="com.toymarket.vo.cart.Cart">
 		select cart_no 				as no,
 				product_no 			as productNo,
-				product_buy_price 	as buyPrice,
+				product_buy_price 	as price,
 				product_amount		as amount,
 				customer_no 		as customerNo,
 				cart_created_date 	as createdDate,
-                (select product_name from toy_products where product_no = toy_cart.product_no) as productName 
+                (select product_name from toy_products where product_no = toy_cart.product_no) as productName,
+                (select product_Image from toy_products where product_no = toy_cart.product_no) as productImage
 		from toy_cart
 		where customer_no = (select customer_no from toy_customer where customer_id = #{value})
 	</select>

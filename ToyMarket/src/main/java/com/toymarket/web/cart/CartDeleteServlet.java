@@ -35,13 +35,16 @@ public class CartDeleteServlet extends HttpServlet {
 		
 		// 전달받은 것은 dao에 넘겨준다. 		
 		HashMap<String, Object> cartDelete = new HashMap<String, Object>();
-		cartDelete.put("product", userId);
-		cartDelete.put("cartNo", productNo);
+		cartDelete.put("productNo", productNo);
+		cartDelete.put("userId", userId);
 					
 					
 		// 전달받은 것은 dao에 넘겨준다.	
 		cartDao.deleteCart(cartDelete);
+		
 
+		//rep.sendRedirect(productNo); // 상품 삭제 재요청
+		
 		req.getRequestDispatcher("/cart/list").forward(req, rep);
 		
 		

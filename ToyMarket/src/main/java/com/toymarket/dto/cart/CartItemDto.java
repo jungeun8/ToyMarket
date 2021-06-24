@@ -5,6 +5,8 @@ public class CartItemDto {
 	private int itemNo;
 	private String itemName;
 	private int price;
+	private String itemImage;
+	
 	public int getItemNo() {
 		return itemNo;
 	}
@@ -22,6 +24,13 @@ public class CartItemDto {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public String getItemImage() {
+		return itemImage;
+	}
+	public void setItemImage(String itemImage) {
+		this.itemImage = itemImage;
 	}
 	@Override
 	public String toString() {

@@ -5,23 +5,23 @@ import java.util.List;
 
 public class Order {
 	
-	private int orderNo;
-	private int orderPrice;
-	private int totalAmount;
-	private int usedPoint;
-	private int totalPrice;
-	private int depositePoint;
+	private String orderNo;
+	private String orderPrice;
+	private String totalAmount;
+	private String usedPoint;
+	private String totalPrice;
+	private String depositePoint;
 	private String status;
 	private Date createdDate;
-	private int customerNo;
+	private String customerNo;
 	private String address1;
 	private String address2;
 	private List<OrderItems> orderList;
 	
 	public Order() {}
 
-	public Order(int orderNo, int orderPrice, int totalAmount, int usedPoint, int totalPrice, int depositePoint,
-			String status, Date createdDate, int customerNo, String address1, String address2, List<OrderItems> orderList) {
+	public Order(String orderNo, String orderPrice, String totalAmount, String usedPoint, String totalPrice, String depositePoint,
+			String status, Date createdDate, String customerNo, String address1, String address2, List<OrderItems> orderList) {
 		super();
 		this.orderNo = orderNo;
 		this.orderPrice = orderPrice;
@@ -37,51 +37,51 @@ public class Order {
 		this.orderList = orderList;
 	}
 
-	public int getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
 
-	public void setOrderNo(int orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 
-	public int getOrderPrice() {
+	public String getOrderPrice() {
 		return orderPrice;
 	}
 
-	public void setOrderPrice(int orderPrice) {
+	public void setOrderPrice(String orderPrice) {
 		this.orderPrice = orderPrice;
 	}
 
-	public int getTotalAmount() {
+	public String getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(int totalAmount) {
+	public void setTotalAmount(String totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 
-	public int getUsedPoint() {
+	public String getusedPoint() {
 		return usedPoint;
 	}
 
-	public void setUsedPoint(int usedPoint) {
+	public void setusedPoint(String usedPoint) {
 		this.usedPoint = usedPoint;
 	}
 
-	public int getTotalPrice() {
+	public String getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-	public int getDepositePoint() {
+	public String getdepositePoint() {
 		return depositePoint;
 	}
 
-	public void setDepositePoint(int depositePoint) {
+	public void setdepositePoint(String depositePoint) {
 		this.depositePoint = depositePoint;
 	}
 
@@ -101,11 +101,11 @@ public class Order {
 		this.createdDate = createdDate;
 	}
 
-	public int getCustomerNo() {
+	public String getCustomerNo() {
 		return customerNo;
 	}
 
-	public void setCustomerNo(int customerNo) {
+	public void setCustomerNo(String customerNo) {
 		this.customerNo = customerNo;
 	}
 

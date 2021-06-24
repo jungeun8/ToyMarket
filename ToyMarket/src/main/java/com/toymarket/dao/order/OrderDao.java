@@ -17,7 +17,7 @@ public class OrderDao {
 
 	public static OrderDao instance = new OrderDao();
 	
-	private OrderDao() {
+	public OrderDao() {
 		OrderDao.sqlSessionFactory = MybatisUtils.getSqlSessionFactory();
 	}
 	
