@@ -5,7 +5,7 @@
 
 
 <select id="getCartByUserNo" parameterType="string" resultType="com.toymarket.vo.cart.Cart">
-		select  A.cart_no 		        as no,
+		select  A.cart_no 		        as cartNo,
 				A.product_no 			as productNo,
 				A.product_buy_price 	as price,
 				A.product_amount		as amount,
@@ -20,10 +20,25 @@
 		
 	</select>
 	
+	<select id="getCartByNo" parameterType="int" resultType="com.toymarket.vo.cart.Cart">
+		select 	 A.cart_no 		        as cartNo,
+				A.product_no 			as productNo,
+				A.product_buy_price 	as price,
+				A.product_amount		as amount,
+				A.customer_no 		    as customerNo,
+				A.cart_created_date 	as createdDate,
+                B.product_name          as productName,
+                B.product_Image         as productImage,
+                B.product_discount_rate   as discountRate
+		from toy_cart A, toy_products B
+		where A.product_no = B.product_no
+		and A.cart_no = #{value}
+	</select>
+
 	
-<delete id="deleteCart" parameterType="HashMap">
+<delete id="deleteCart" parameterType="int">
 		delete from toy_cart
-		where product_no = #{productNo} and customer_no = (select customer_no from toy_customer where customer_id = #{userId})
+		where cart_no = #{value}
 </delete>
 
 

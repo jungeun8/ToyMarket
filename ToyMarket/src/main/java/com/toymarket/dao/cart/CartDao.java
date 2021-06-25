@@ -35,14 +35,25 @@ public class CartDao {
 		return items;
 		
 	}
+	/**
+	 * 
+	 * @param cartNo
+	 * @return
+	 */
+	public Cart getCartByNo(int cartNo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		Cart cart = session.selectOne("getCartByUserNo", cartNo);
+		session.close();
+		return cart;
+	}
 	
 	/**
 	 * 상품번호를 전달받아서 cart.vo에서 아이템을 삭제한다. 
 	 * @param cartNo
 	 */
-	public void deleteCart(HashMap<String,Object> cart) {
+	public void deleteCart(int cartNo) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		session.delete("deleteCart",cart);
+		session.delete("deleteCart",cartNo);
 		session.close();
 	}
 	

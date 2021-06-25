@@ -49,10 +49,19 @@ public class OrderDao {
 	public void insertOrder(Order order) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		session.insert("insertOrder", order);
-		//session.insert("insertOrderItem", order.getOrderList());
 		session.close();
 	}
-
+	
+	/**
+	 * 사용자 아이디, 상품번호 , 오더번호를 받아 아이템테이블에 추가한다.
+	 * @param order
+	 */
+	/*public void insertOrderItem(OrderItemDto xxxxx) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.insert("insertOrderItem", xxxxx);
+		session.close();
+	}
+*/
 	/**
 	 * 사용자 아이디를 전달받아 사용자의 배송지, 적립금 정보를 가져온다.
 	 * @param userId

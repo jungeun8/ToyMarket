@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  	<title>상품추가</title>
+  	<title>Bootstrap 5.0.1 Example</title>
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
@@ -29,107 +29,112 @@
   		#bodyBorder{
   			border-bottom: 2px solid #5F0080 !important;
   		}
+  		#categoryTable{
+  		 color: black;
+  		 
+  		}
+  		#linkNone{
+  		 a:link { color: black; text-decoration: none;}
+ 		}
+
   	</style>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 	<%@ include file="../common/adminHeader.jsp" %>
-            <main>
-                <div class="container">
-                <form method="post" action="productinsert">
-                    <div class="row">
-                        <span class="border-bottom border-2 border-dark"><h1>상품추가</h1></span>
-                        <div class="col-6">
-                            <div class="mb-3 mt-3">
-                                <label for="formFile" class="form-label"><h3>상품 이미지 추가</h3></label>
-                                <input class="form-control" type="file" accept="img/*" id="uplodeImg" onchange="setThumbnail(event)">
-                                <div id="image_container" class="border" style="width: 620px; height: 680px; object-fit: cover;"></div>
-                              </div>
-                        </div>
-                        <div class="col-6">
-                            <h3 class="mb-3 mt-3">상품 정보 입력</h3>
-                            
-                                <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
-                                    <option selected>카테고리</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="상품명">
-                                    <label for="floatingInput">상품명</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="제조사">
-                                    <label for="floatingInput">제조사</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="floatingInput" placeholder="상품가격" min="0">
-                                    <label for="floatingInput">상품가격</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="floatingInput" placeholder="할인율" min="0" max="100" >
-                                    <label for="floatingInput">할인율</label>
-                                </div>
-                                <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
-                                    <option selected>할인여부</option>
-                                    <option value="1">Y</option>
-                                    <option value="2">N</option>
-                                </select>
-                                <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
-                                    <option selected>샛별배송여부</option>
-                                    <option value="1">Y</option>
-                                    <option value="2">N</option>
-                                </select>
-                                <div class="form-floating mb-3">
-                                    <input type="number" class="form-control" id="floatingInput" placeholder="상품가격" min="0">
-                                    <label for="floatingInput">재고량</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="판매단위" >
-                                    <label for="floatingInput">판매단위</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="중량/용량">
-                                    <label for="floatingInput">중량/용량</label>
-                                </div>
-                                <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
-                                    <option selected>판매상태</option>
-                                    <option value="1">판매</option>                              
-                                    <option value="2">판매중지</option>                               
-                                </select>                                        
-                        </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">                        
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 300px;"></textarea>
-                                    <label for="floatingTextarea">상품설명</label>
-                               	</div>
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea>
-                                    <label for="floatingTextarea">상품추가설명</label>
-                                </div>
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">등록</button>
-                         		</div>
-                        	</div>
-                    	</div>        
-                </form>
-              </div>	
-		</main>
-	</div>
-<script> function setThumbnail(event) { 
-	var reader = new FileReader(); 
-		
-	reader.onload = function(event){ 
-			
-	var img = document.createElement("img"); 
-	img.setAttribute("src", event.target.result);
-	document.querySelector("div#image_container").appendChild(img); 
-	}; 
-		
-	reader.readAsDataURL(event.target.files[0]); } 
-</script>
+<div class="container">
+	<main>
+        <div class="row mb-3">
+            <span class="border-bottom border-dark border-2"><h1>상품 상세정보</h1></span>                        
+        </div>
+        <div class="container border brder-secondary">
+        <div class="row">
+            <div class="col-6 mt-3">               
+                <div id="img-container">
+                    <img src="https://im-media.voltron.voanews.com/Drupal/01live-211/styles/892x501/s3/ap-images/2020/03/_2.jpg?itok=fBojLU8M" alt="" class="" style="width: 630px; height: 360PX;object-fit: scale-down;">
+                </div>            
+            </div>
+            <div class="col-6 mt-3">
+                <table class="table table-bordered  ">
+                    <colgroup>
+                        <col width=20%>
+                        <col width=80%>
+                    </colgroup>
+                    <tr>
+                        <td>카테고리</td>
+                        <td>육류</td>                        
+                    </tr>
+                    <tr>
+                        <td>상품명</td>
+                        <td>T-BONE스테이크</td>                        
+                    </tr>
+                    <tr>
+                        <td>제조사</td>
+                        <td>고기집</td>                        
+                    </tr>
+                    <tr>
+                        <td>상품가격</td>
+                        <td>34000</td>                        
+                    </tr>
+                    <tr>
+                        <td>할인율</td>
+                        <td>15%</td>                        
+                    </tr>
+                    <tr>
+                        <td>할인여부</td>
+                        <td>육류</td>                        
+                    </tr>
+                    <tr>
+                        <td>재고량</td>
+                        <td>육류</td>                        
+                    </tr>
+                    <tr>
+                        <td>판매단위</td>
+                        <td>육류</td>                        
+                    </tr>
+                    <tr>
+                        <td>중량/용량</td>
+                        <td>육류</td>                        
+                    </tr>
+                    <tr>
+                        <td>판매상태</td>
+                        <td>육류</td>                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <colgroup>
+                        <col width=20%>
+                        <col width=80%>
+                    </colgroup>
+                    <tr style="height: 200px !important;">
+                        <td>상품설명</td>
+                        <td></td>
+                    </tr>
+                    <tr style="height: 100px !important;">
+                        <td>상품추가설명</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <a class="btn btn-outline-primary mb-2" href="">수정</a>
+                <a class="btn btn-outline-danger mb-2" href>삭제</a>
+            </div>     
+            <div class="col-6 d-flex justify-content-end">
+                <a class="btn btn-outline-info mb-2" href="">목록</a>
+            </div>       
+        </div>             
+    </div>
+    </main>
+	
+</div>
+	
+</div>
 </body>
 </html>

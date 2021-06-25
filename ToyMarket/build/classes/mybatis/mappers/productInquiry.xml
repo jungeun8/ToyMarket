@@ -14,16 +14,16 @@
 	
 	<select id="getInquiryList" parameterType="map" resultType="com.toymarket.dto.ProductInquiryDto">
 		SELECT
-			inquiry_no 						as no,
-			inquiry_title 					as title,
+			inquiry_no 							as no,
+			inquiry_title 						as title,
 			inquiry_content 					as content,
-			inquiry_reply_content 			as replyContent,
-			inquiry_status 					as status,
+			inquiry_reply_content 				as replyContent,
+			inquiry_status 						as status,
 			inquiry_created_date 				as createdDate,
-			inquiry_reply_created_date 		as replyCreatedDate,
-			product_no 						as productNo,
+			inquiry_reply_created_date 			as replyCreatedDate,
+			product_no 							as productNo,
 			customer_no 						as customerNo,
-			customer_name 					as customerName, 
+			customer_name 						as customerName, 
 			INQUIRY_SECRET_YN					as secretYN
 		FROM (
 			SELECT

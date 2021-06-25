@@ -27,84 +27,110 @@
 		</div>
 		
 		<%-- 캐러셀 질문
-		<div class="text-center my-3">
-		<div class="row mx-auto my-auto justify-content-center">
-	        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
-	            <div class="carousel-inner" role="listbox">
-	                <span>
-	                <div class="carousel-item active">
-	                    <div class="col-md-3">
-	                        <div class="card">
-	                            <div class="card-img">
-	                                <img src="//via.placeholder.com/500x400/31f?text=1" class="img-fluid">
-	                            </div>
-	                            <div class="card-img-overlay">Slide 1</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                </span>
-	                <span>
-	                <div class="carousel-item">
-	                    <div class="col-md-3">
-	                        <div class="card">
-	                            <div class="card-img">
-	                                <img src="//via.placeholder.com/500x400/e66?text=2" class="img-fluid">
-	                            </div>
-	                            <div class="card-img-overlay">Slide 2</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                </span>
-	                <div class="carousel-item">
-	                    <div class="col-md-3">
-	                        <div class="card">
-	                            <div class="card-img">
-	                                <img src="//via.placeholder.com/500x400/7d2?text=3" class="img-fluid">
-	                            </div>
-	                            <div class="card-img-overlay">Slide 3</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="carousel-item">
-	                    <div class="col-md-3">
-	                        <div class="card">
-	                            <div class="card-img">
-	                                <img src="//via.placeholder.com/500x400?text=4" class="img-fluid">
-	                            </div>
-	                            <div class="card-img-overlay">Slide 4</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="carousel-item">
-	                    <div class="col-md-3">
-	                        <div class="card">
-	                            <div class="card-img">
-	                                <img src="//via.placeholder.com/500x400/aba?text=5" class="img-fluid">
-	                            </div>
-	                            <div class="card-img-overlay">Slide 5</div>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="carousel-item">
-	                    <div class="col-md-3">
-	                        <div class="card">
-	                            <div class="card-img">
-	                                <img src="//via.placeholder.com/500x400/fc0?text=6" class="img-fluid">
-	                            </div>
-	                            <div class="card-img-overlay">Slide 6</div>
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
-	                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	            </a>
-	            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
-	                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	            </a>
-	        </div>
-	    </div>
-		</div>
+		<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  <div class="carousel-inner">
+     <div class="carousel-item active">
+        <div class="row">
+          <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div>
+         <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div> 
+         <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div> 
+       </div>  
+     </div>
+     <div class="carousel-item">
+        <div class="row">
+          <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles"class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div>
+         <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div> 
+         <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div> 
+       </div>  
+     </div>
+     <div class="carousel-item">
+        <div class="row">
+          <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles"class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div>
+         <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div> 
+         <div class="col-4">
+            <img src="la.jpg" alt="Los Angeles" class="img-thumbnail">
+            <div class="carousel-caption">
+              <h3>Los Angeles</h3>
+              <p>We had such a great time in LA!</p>
+            </div> 
+         </div> 
+       </div>  
+     </div>
+  </div>
+ 
+</div>
+
+</body>
+</html>
+
 		--%>
 		
 
