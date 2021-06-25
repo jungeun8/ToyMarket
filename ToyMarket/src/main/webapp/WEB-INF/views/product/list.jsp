@@ -81,7 +81,7 @@
 																<fmt:formatNumber value="${product.price}"/>원
 															</span> 
 															<strong><span style="color: purple; font-size: 20px">
-																<fmt:formatNumber value="${product.price-(product.price * product.discountRate)}"/>원
+																<fmt:formatNumber type="number" maxFractionDigits="0" value="${product.price-(product.price * product.discountRate)}"/>원
 															</span></strong>
 															<span style="color: red">
 																(<fmt:formatNumber type="percent" value="${product.discountRate }" />)

@@ -2,14 +2,14 @@ package com.toymarket.dto.cart;
 
 public class CartAddDto {
 	
-	private String productNo;
-	private String amount;
-	private String buyPrice;
+	private int productNo;
+	private int amount;
+	private int buyPrice;
 	private String userId;
 
 	public CartAddDto() {}
-
-	public CartAddDto(String productNo, String amount, String buyPrice, String userId) {
+	
+	public CartAddDto(int productNo, int amount, int buyPrice, String userId) {
 		super();
 		this.productNo = productNo;
 		this.amount = amount;
@@ -17,27 +17,27 @@ public class CartAddDto {
 		this.userId = userId;
 	}
 
-	public String getProductNo() {
+	public int getProductNo() {
 		return productNo;
 	}
 
-	public void setProductNo(String productNo) {
+	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
-	public String getBuyPrice() {
+	public int getBuyPrice() {
 		return buyPrice;
 	}
 
-	public void setBuyPrice(String buyPrice) {
+	public void setBuyPrice(int buyPrice) {
 		this.buyPrice = buyPrice;
 	}
 
@@ -48,8 +48,4 @@ public class CartAddDto {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	
-	
-
 }
