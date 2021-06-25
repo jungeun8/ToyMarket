@@ -10,18 +10,14 @@
 	margin-bottom: 50px;
 }
 
-#jhw-body {
+body {
 	font-weight: bolder;
 }
 .bodyContentFrame{
 	height: 301px;
 	width: 1050px;
 	margin: 0px auto 0px;
-}
-
-.carouselForm{
-	height: 200px;	
-	margin: 0px auto 0px;
+	align-items:center;
 }
 
 .carouselImg{
@@ -30,33 +26,29 @@
 .carouselTxt{
 	display: absolute;
 }
+/* 캐러셀 */
+/* 캐러셀 */
+
 .detailBorder {
 	border: 0px solid red;
 	width: 25%;
 	height: 100%;
 	float: left;
-	/* inline-block; */
 }
 
 .footer-main {
-	height: 301px;
 	width: 1050px;
 	margin: 0 auto;
 }
 
 .footer-cc {
 	float: left;
-	background-color: #f6f2ff;
-	height: 301px;
 	width: 500px;
 	margin-left: 25px;
-	border-right: 1px solid;
 }
 
 .footer-company {
 	display: inline-block;
-	background-color: #f6f2ff;
-	height: 301px;
 	width: 500px;
 }
 
@@ -78,7 +70,7 @@
 }
 
 .search_inputForm {
-	/* padding-top: 100px; */
+	padding-top: 100px;
 	display: inline;
 }
 
@@ -92,7 +84,14 @@
 	position: relative;
 }
 
-#jhw-ul {
+.tit{
+	height: 150px;
+	width: 1050px;
+	margin: 0px auto 0px;
+	align-items: middle;
+}
+
+ul {
 	list-style: none;
 }
 
@@ -101,7 +100,7 @@
 	align-items: flex-start;
 }
 
-#jhw-img {
+img {
 	border: 0px;
 	margin: 0px auto 0px;
 }

@@ -11,41 +11,40 @@ import com.toymarket.vo.Products;
 
 public class ProductDao {
 
-private SqlSessionFactory sqlSessionFactory;
-	
+	private SqlSessionFactory sqlSessionFactory;
+
 	private static ProductDao instance = new ProductDao();
+
 	private ProductDao() {
 		this.sqlSessionFactory = MybatisUtils.getSqlSessionFactory();
 	}
+
 	public static ProductDao getInstance() {
-		return instance; 
+		return instance;
 	}
-	
-	
-	// jhw 추가
-	public List<Products> getDiscountedProducts()
-	{
+
+	public List<Products> getDiscountedProducts() {
 		SqlSession session = sqlSessionFactory.openSession();
 		List<Products> discountedProducts = session.selectList("getDiscountedProducts");
 		session.close();
 		return discountedProducts;
 	}
-	
+
 	public List<Products> getAllProducts(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();
 		List<Products> products = session.selectList("products.getAllProducts", param);
 		session.close();
-		
+
 		return products;
 	}
-	
+
 	public int getTotalRows(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();
 		int totalRows = session.selectOne("products.getTotalRows", param);
 		session.close();
 		return totalRows;
 	}
-	
+
 	public Products getProductDetail(int productNo) {
 		SqlSession session = sqlSessionFactory.openSession();
 		Products product = session.selectOne("products.getProductDetail", productNo);
@@ -53,4 +52,12 @@ private SqlSessionFactory sqlSessionFactory;
 		return product;
 	}
 	
+	public List<Products> getProductsBySearchType(Map<String,Object> searchType) {
+		SqlSession session = sqlSessionFactory.openSession();
+		System.out.println("searchType 값 확인: "+searchType.toString());
+		List<Products> searchedProducts= session.selectList("getProductsBySearchType",searchType);
+		session.close();
+		return searchedProducts;
+	}
+
 }
