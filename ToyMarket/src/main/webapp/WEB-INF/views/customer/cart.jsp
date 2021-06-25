@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-		<link href="../../jhw-css.css" rel="stylesheet" type="text/css"></link>
+		<link href="../../resources/css/jhw-css.css?after" rel="stylesheet" type="text/css"></link>
 </head>
 <body>
 	<div class="container">
@@ -32,7 +32,7 @@
 			</div>
 		</div>	
 		
-		<div class="row mb-4">
+		<div class="row mb-4"> 
 			<div class="col-12">
 				<form method="get" action="/order/list" id="cart">
 				<div class="card">
@@ -49,18 +49,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="cartItems" items="${cartItems }" varStatus="loop">
+								<c:forEach var="item" items="${cartItems }" varStatus="loop">
 									<tr>
-										<td><input type="checkbox"  id="check-me" class="form-check-input"  name="itemNo" onclick="getCheckboxValue()" value="${cartItems.productNo }" /></td>
-										<td><img width= "100px" height= "75px" src="${cartItems.productImage }" alt="${cartItems.productName }"></td>
-										<td>${cartItems.productName }</td>
+										<td><input type="checkbox"  id="check-me" class="form-check-input"  name="itemNo" onclick="getCheckboxValue()" value="${item.productNo }" /></td>
+										<td><img width= "100px" height= "75px" src="${item.productImage }" alt="${item.productName }"></td>
+										<td>${item.productName }</td>
 										<td>
-										<button class="btn btn-info btn-sm" onclick="changeAmount(-1)">-</button>
- 										<input type="text" id="item-amount" value="${cartItems.amount }" readonly>
- 										<button class="btn btn-info btn-sm" onclick="changeAmount(1)">+</button>
+										<button  type="button" class="btn btn-info btn-sm" onclick="changeAmount('${item.cartNo}', -1)">-</button>
+ 										<input type="text" id="item-amount-${item.cartNo }" value="${item.amount }" readonly>
+ 										<button  type="button" class="btn btn-info btn-sm" onclick="changeAmount('${item.cartNo}', 1)">+</button>
  										</td>
-										 <td><span id="item-price"><fmt:formatNumber value="${cartItems.price}"/></span> 원</td>   
-										 <td><a href="delete?productNo=${cartItems.productNo }" class="btn btn-danger btn-sm">삭제</a></td>
+										 <td><span id="item-price"><fmt:formatNumber value="${item.price}"/></span> 원</td>   
+										 <td><button type="button" class="btn btn-danger btn-sm"   onclick="removeCheck(${item.cartNo})" >삭제</button></td>
+										 <input type="hidden" id="item-discountRate" value ="${item.discountRate }"/>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -81,18 +82,20 @@
 							<tr>
 								<th>상품금액</th>
 							<%-- 	<th><input type="text" style="border:none" value ="${totalPrice }" name="totalPrice" readonly/></th>--%>
-								<td><span id="order-price"><fmt:formatNumber value="${totalPrice}"/></span> 원</td>
+								<th><span id="order-price"><fmt:formatNumber value="${totalPrice}"/></span> 원</th>
 								
 							</tr>
 							<tr>
 								<th>상품할인금액</th>
-								<th><input type="text" style="border:none" value ="${totalDiscountRate }" name="totalDiscountRate" readonly/></th>
+								<%-- <th><input type="text" style="border:none" value ="${totalDiscountRate }" name="totalDiscountRate" readonly/></th>--%>
+								<th><span id="discount-price"><fmt:formatNumber value="${totalDiscountPrice}"/></span> 원</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr style=" color : #981098;">
 								<td>결제예상금액</td>
-								<th><input type="text" style="border:none" value ="${totalPrice-totalDiscountRate }" name="totalDiscountPrice" readonly/></th>
+								<%-- <th><input type="text" style="border:none" value ="${totalPrice-totalDiscountRate }" name="totalDiscountPrice" readonly/></th>--%>
+								<th><span id="total-price"><fmt:formatNumber value="${totalDiscountPrice}"/></span> 원</th>
 							</tr>
 							
 						</tbody>
@@ -136,9 +139,10 @@
 		}
 	}
 	
-	function changeAmount(val) {
+	function changeAmount(cartNo, val) {
+		
 		   // 수량 엘리먼트 조회
-		   var amountEl = document.getElementById("item-amount");      // 수량 엘리먼트
+		   var amountEl = document.getElementById("item-amount-" + cartNo);      // 수량 엘리먼트
 		   amountEl.value = parseInt(amountEl.value) + val;
 
 		   if (amountEl.value == 0) {
@@ -148,20 +152,44 @@
 		// 가격, 구매가격 엘리먼트 조회
 		   var itemPriceEl = document.getElementById("item-price");   // 가격 엘리먼트
 		   var orderPriceEl = document.getElementById("order-price");   // 구매가격 엘리먼트
+		   var discountPriceEl = document.getElementById("discount-price");// 구매 할인 가격 엘리먼트
+		   var itemDiscountRate = document.getElementById("item-discountRate").value; // 할인가 엘리먼트 
+		   var totalPriceEl = document.getElementById("total-price"); // 최종가격
+		   
+
 		   // 가격 조회
 		   var price = itemPriceEl.textContent.replace(/,/g, '')   // 4,500,000 -> 4500000
 		   // 구매가격 계산
-		   var orderPrice = price * el.value;
+		  // var itemPrice = price * amountEl.value;
+		   var orderPrice = price * amountEl.value;
+		   var discountPrice = (price * itemDiscountRate)* amountEl.value;
+		   var totalPrice = (orderPrice - discountPrice);	//  총 구매가격
+		
 		   
 		   // 구매가격을 ,가 포함된 통화표기법으로 변경
 		   orderPriceCurrency = new Number(orderPrice).toLocaleString();
+		   // 가격 엘리멘트의 내용을 변경 
+		//   itemPriceEl.textContent = itemPrice;
 		   // 구매가격 엘리먼트의 내용을 변경
 		   orderPriceEl.textContent = orderPriceCurrency;
+		   // 할인가격 엘리먼트의 내용을 변경
+		   discountPriceEl.textContent = discountPrice; // <== 엘리먼트의 텍스트필드에 값을 넣어준다는 뜻 
+		   // 총구매가격 엘리먼트의 내용을 변경 
+		   totalPriceEl.textConetent = totalPrice;
 		}
 
 	
+	function removeCheck(no) {
+		// 상품삭제시 경고창 
+		var result = confirm("정말 삭제하시겠습니까??");
+		if (result) {
+			location.href = 'delete?cartNo=' + no
+		}
+
+	}
 	
 	
+
 <%--
 	
  	function deleteForm(){

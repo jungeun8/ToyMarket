@@ -29,21 +29,9 @@ public class CartDeleteServlet extends HttpServlet {
 		CartDao cartDao = CartDao.getInstance();
 		
 		// 상품번호, 아이디를 전달 받는다.
-		String userId = user.getId();
-		String productNo = req.getParameter("productNo");
-		
-		
-		// 전달받은 것은 dao에 넘겨준다. 		
-		HashMap<String, Object> cartDelete = new HashMap<String, Object>();
-		cartDelete.put("productNo", productNo);
-		cartDelete.put("userId", userId);
-					
-					
+		int cartNo = Integer.parseInt(req.getParameter("cartNo"));
 		// 전달받은 것은 dao에 넘겨준다.	
-		cartDao.deleteCart(cartDelete);
-		
-
-		//rep.sendRedirect(productNo); // 상품 삭제 재요청
+		cartDao.deleteCart(cartNo);
 		
 		req.getRequestDispatcher("/cart/list").forward(req, rep);
 		

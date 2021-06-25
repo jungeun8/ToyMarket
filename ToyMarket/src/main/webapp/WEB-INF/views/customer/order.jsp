@@ -12,7 +12,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-		<link href="../../jhw-css.css" rel="stylesheet" type="text/css"></link>
+		<link href="../../resources/css/jhw-css.css?after" rel="stylesheet" type="text/css"></link>
 </head>
 
 <body>
@@ -31,6 +31,7 @@
 	
 	
 		<form action="/order/confirm" method="get" id="order">
+		
 		<div class="card-body pb-0">
 			<table class="table">
 				<thead>
@@ -51,7 +52,10 @@
 			
 				</tbody>
 			</table>
+			
 		</div>
+		
+		
 		<div class="card-body pb-0">
 			<table class="table">
 				<thead>
@@ -178,3 +182,10 @@ function checkForm() {
 
 </body>
 </html>
+
+
+ 
+ 
+
+ 
+ 
