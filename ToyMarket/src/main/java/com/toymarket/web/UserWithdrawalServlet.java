@@ -25,8 +25,13 @@ public class UserWithdrawalServlet extends HttpServlet {
 	// POST방식의 /withdrawal 요청이 왔을 때 실행되는 메소드
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		HttpSession session = req.getSession();
+		 //로그인 후 장바구니 이용가능 
+		
+		User userSession = (User) session.getAttribute("LOGINED_USER_INFO");
+		
 		// 폼 입력값을 요청파라미터로 조회
-		String id = req.getParameter("id");
+		String id = userSession.getId();
 		String password = req.getParameter("password");
 		
 		// 아이디로 사용자 정보 조회
@@ -35,10 +40,6 @@ public class UserWithdrawalServlet extends HttpServlet {
 		
 		if (savedUser == null) {
 			resp.sendRedirect("/user/withdrawal?fail=invalid");
-			return;
-		}
-		if (!id.equals(savedUser.getId())) {
-			resp.sendRedirect("/user/withdrawal?fail=idDiscordance");
 			return;
 		}
 		String pwd = DigestUtils.sha256Hex(password);
@@ -51,7 +52,6 @@ public class UserWithdrawalServlet extends HttpServlet {
 		userDao.deleteUserInfo(id);
 		
 		//세션을 폐기한다.
-		HttpSession session = req.getSession(false);
 		session.invalidate();
 		
 		// 브라우저에게 재요청 URL을 응답으로 보낸다.

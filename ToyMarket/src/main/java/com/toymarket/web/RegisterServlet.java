@@ -34,6 +34,11 @@ public class RegisterServlet extends HttpServlet {
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String phone = req.getParameter("phone");
+	    String postalCode = req.getParameter("postalCode");;
+		String address1 = req.getParameter("address1");
+		String address2 = req.getParameter("address2");
+		String gender = req.getParameter("gender");
+		String birth = req.getParameter("birth");
 		
 		// SAMPLE_USERS 테이블에 대한 CRUD 기능이 구현된 UserDao객체를 획득한다.
 		UserDao userDao = UserDao.getInstance();
@@ -81,6 +86,11 @@ public class RegisterServlet extends HttpServlet {
 		user.setName(name);
 		user.setEmail(email);
 		user.setPhone(phone);
+		user.setPostalCode(postalCode);
+		user.setAddress1(address1);
+		user.setAddress2(address2);
+		user.setGender(gender);
+		user.setBirth(birth);
 		
 		// 사용자 정보를 데이터베이스에 저장합니다.
 		userDao.insertUser(user);

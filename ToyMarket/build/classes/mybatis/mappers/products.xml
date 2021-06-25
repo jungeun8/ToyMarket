@@ -89,8 +89,6 @@
 
 	</select>
 	
-	
-	
 	<select id="getAllProducts2" resultType="com.toymarket.vo.Products">
 		SELECT 
 			product_no 					as no,
@@ -221,7 +219,7 @@
 	</select>
 	
 	<delete id="deleteById" parameterType="int">
-		delete  toy_products
+		delete toy_products
 		where product_no = #{value}
 	</delete>
 	

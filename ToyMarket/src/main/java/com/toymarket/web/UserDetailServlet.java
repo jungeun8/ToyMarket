@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/user/detail")
 public class UserDetailServlet extends HttpServlet {
@@ -24,8 +25,14 @@ public class UserDetailServlet extends HttpServlet {
 	// POST방식의 /user/detail 요청이 왔을 때 실행되는 메소드
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		HttpSession session = req.getSession();
+		 //로그인 후 장바구니 이용가능 
+		
+		User userSession = (User) session.getAttribute("LOGINED_USER_INFO");
+		
 		// 폼 입력값을 요청파라미터로 조회
-		String id = req.getParameter("id");
+		String id = userSession.getId();
+		String name = req.getParameter("name");
 		String password = req.getParameter("password");
 		String email = req.getParameter("email");
 		String phone = req.getParameter("phone");
@@ -33,17 +40,13 @@ public class UserDetailServlet extends HttpServlet {
 		// SAMPLE_USERS 테이블에 대한 CRUD 기능이 구현된 UserDao객체를 획득한다.
 		UserDao userDao = UserDao.getInstance();
 		
-		// 수정하려는 이메일이 이미 있을때
-//		if (email == db의 이메일) {
-//			resp.sendRedirect("/user/register?fail=emailoverlap");
-//		}
-		
 		// 비밀번호를 암호화하기
 		String sha256Password = DigestUtils.sha256Hex(password);
 		
 		// User객체를 생성해서 사용자정보를 저장한다.
 		User user = new User();
 		user.setId(id);
+		user.setName(name);
 		user.setPassword(sha256Password);
 		user.setEmail(email);
 		user.setPhone(phone);

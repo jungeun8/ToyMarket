@@ -20,28 +20,30 @@
     </script>
 </head>
 <body>
-
-        
+<main>        
 <form name="myForm">
 <input type="hidden" id="user-id" name="id" />
 <input type="hidden" id="user-name" name="name" />
 <input type="hidden" id="is-kakao" name="iskakao" value="yes" />
 
-<div class="modal-dialog">
+<div class="container">
+	<%@include file="../common/header.jsp" %>
+	<div class="modal-dialog">
 		<div class="modal-content">
 			 <div class="modal-header">
 				<h1 class="text-center">마켓컬리 로그인</h1>
              </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                    	<a href="/user/login" class="btn btn-block btn-lg btn btn-secondary btn_login" style="margin-bottom:5px; display: block">마켓컬리 로그인</a>
-                        <a href="/adminmain" class="btn btn-block btn-lg btn btn-primary btn_login"  style="margin-bottom:5px; display: block">관리자모드로그인</a>
-                      	<a id="kakao-login-btn" class="btn btn-block btn-lg btn btn-warning btn_login"  style="margin-bottom:5px; display: block">카카오로그인</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-  <script type="text/javascript">
+               <div class="modal-body">
+	                <div class="form-group" >
+	                	<a href="/user/login" class="btn btn-block btn-lg btn btn-secondary btn_login" style="background-color: purple; display: block" >마켓컬리 로그인</a>
+	                    <a href="/adminmain" class="btn btn-block btn-lg btn btn-primary btn_login" style="margin-bottom:5px; display: block" >관리자모드로그인</a>
+	                  	<a id="kakao-login-btn" class="btn btn-block btn-lg btn btn-warning btn_login" style="margin-bottom:5px; display: block" >카카오로그인</a>
+	                </div>
+            	</div>
+         </div>
+     </div>
+</div>
+ 	 <script type="text/javascript">
   function gopagePost() { 
 	  document.myForm.action="/user/login"; 
 	  document.myForm.method="post"; 
@@ -68,7 +70,8 @@
         alert('인증에 실패하였습니다.: ' + JSON.stringify(err))
       },
     })
-  </script>
+ 	 </script>
   </form>
+</main>
 </body>
 </html>
