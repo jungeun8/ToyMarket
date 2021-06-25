@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="products">
@@ -10,7 +11,39 @@
 			toy_products
 	</select>
 
-	<select id="getDiscountedProducts" resultType="com.toymarket.vo.products">
+	<!-- ======================================맵으로 select ===================================== -->
+	<select id="getProductsBySearchType" parameterType="map" resultType="com.toymarket.vo.Products">
+		SELECT 
+			product_no 					as no,
+			category_no 				as categoryNo,
+			product_brand 				as brand,
+			product_name 				as name,
+			product_price 				as price,
+			product_discount_rate 		as discountRate,
+			product_discount_YN 		as discountYN,
+			product_like_count 			as likeCount,
+			product_sell_unit 			as sellUnit,
+			product_weight 				as weight,
+			product_morning_delivery_YN as morningDeliveryYN,
+			product_description 		as description,
+			product_stock 				as stock,
+			product_created_date 		as createdDate,
+			product_status 				as status,
+			product_image 				as image,
+			product_sub_title 			as subTitle
+		FROM 
+			TOY_PRODUCTS TP 			
+		<choose>
+			<when test="searchCategory != null">
+				where product_brand = #{searchCategory}
+			</when>
+			<when test="searchWord != null">
+				where product_name like '%'||#{searchWord}||'%'
+			</when>
+		</choose>
+	</select>
+
+	<select id="getDiscountedProducts" resultType="com.toymarket.vo.Products">
 		SELECT 
 			product_no 					as no,
 			category_no 				as categoryNo,
@@ -32,9 +65,9 @@
 		FROM 
 			TOY_PRODUCTS TP 
 		WHERE 
-			TP.PRODUCT_DISCOUNT_YN='Y'
+			TP.PRODUCT_DISCOUNT_YN='y' or TP.PRODUCT_DISCOUNT_YN='Y'
 		ORDER BY 
-			TP.PRODUCT_DISCOUNT_RATE DESC;
+			TP.PRODUCT_DISCOUNT_RATE DESC
 	</select>
 
 	<select id="getAllProducts2" resultType="com.toymarket.vo.Products">

@@ -18,6 +18,9 @@ public class MainServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		ProductDao productDao = ProductDao.getInstance();
+		List<Products> discountedProducts= productDao.getDiscountedProducts();
+		request.setAttribute("discountedProducts", discountedProducts);
 		
 		request.getRequestDispatcher("/WEB-INF/views/customer/index.jsp").forward(request, response);
 	}

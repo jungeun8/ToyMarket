@@ -34,9 +34,9 @@
              </div>
                 <div class="modal-body">
                     <div class="form-group">
-                    	<a href="/user/login" class="btn btn-block btn-lg btn btn-secondary btn_login">마켓컬리 로그인</a>
-                        <a href="/adminmain" class="btn btn-block btn-lg btn btn-primary btn_login">관리자모드로그인</a>
-                      	<a id="kakao-login-btn" class="btn btn-block btn-lg btn btn-warning btn_login">카카오로그인</a>
+                    	<a href="/user/login" class="btn btn-block btn-lg btn btn-secondary btn_login" style="margin-bottom:5px; display: block">마켓컬리 로그인</a>
+                        <a href="/adminmain" class="btn btn-block btn-lg btn btn-primary btn_login"  style="margin-bottom:5px; display: block">관리자모드로그인</a>
+                      	<a id="kakao-login-btn" class="btn btn-block btn-lg btn btn-warning btn_login"  style="margin-bottom:5px; display: block">카카오로그인</a>
                     </div>
                 </div>
             </div>

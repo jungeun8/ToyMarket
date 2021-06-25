@@ -31,28 +31,21 @@ body {
 	width: 25%;
 	height: 100%;
 	float: left;
-	/* inline-block; */
 }
 
 .footer-main {
-	height: 301px;
 	width: 1050px;
 	margin: 0 auto;
 }
 
 .footer-cc {
 	float: left;
-	background-color: #f6f2ff;
-	height: 301px;
 	width: 500px;
 	margin-left: 25px;
-	border-right: 1px solid;
 }
 
 .footer-company {
 	display: inline-block;
-	background-color: #f6f2ff;
-	height: 301px;
 	width: 500px;
 }
 
@@ -74,7 +67,7 @@ body {
 }
 
 .search_inputForm {
-	/* padding-top: 100px; */
+	padding-top: 100px;
 	display: inline;
 }
 

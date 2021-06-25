@@ -25,6 +25,106 @@
 				</div>
 			</div>
 		</div>
+		
+		<%-- <!-- jhw 테스트 -->
+		<main>
+			<div class="row mb-3">
+				<div class="col-12">
+					<h3 class="border p-3 bg-light">
+						<small>님 장바구니 목록</small>
+					</h3>
+				</div>
+			</div>
+			<div class="row mb-4">
+				<div class="col-12">
+					<div class="card" style="border:0px">
+						<button class="navbar-toggler" type="button"
+							data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+							aria-controls="navbarCollapse" aria-expanded="false"
+							aria-label="Toggle navigation" style="padding:15px 0 15px 0">
+							 구매상세내역
+						</button>
+						<div class="collapse navbar-collapse" id="navbarCollapse">
+							<form method="get" action="/order/list" id="cart">
+								<div class="card-body pb-0">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>선택</th>
+												<th>상품</th>
+												<th>상품명</th>
+												<th>수량</th>
+												<th class="text-right">가격</th>
+												<th></th>
+											</tr>
+										</thead>
+
+
+										<tbody>
+											<c:forEach var="cartItems" items="${cartItems }"
+												varStatus="loop">
+												<tr>
+													<td><input type="checkbox" name="itemNo"
+														value="${cartItems.productNo }" /></td>
+													<td></td>
+													<td>${cartItems.productName }</td>
+													<td>${cartItems.amount }</td>
+													<td>${cartItems.price }</td>
+													<td><a href="" class="btn btn-danger btn-sm">삭제</a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<div class="cart_select">
+									<div class="inner_select">
+										<label class="check"> <input type="checkbox"
+											name="checkAll" checked=""><span class="ico">
+										</span>전체선택
+										</label><a href="#none" class="btn_delete"> 선택삭제 </a>
+									</div>
+								</div>
+						</div>
+						</form>
+					</div>
+					<div class="row mb-3" style="margin-top: 10%">
+						<div class="col-6">
+							<form method="get" action="/order/list?userid=1001">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>상품금액</th>
+											<th>540000</th>
+										</tr>
+										<tr>
+											<th>상품할인금액</th>
+											<th>12000</th>
+										</tr>
+
+									</thead>
+									<tbody>
+										<tr>
+											<td>결제예상금액</td>
+											<td>540000</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary" form="cart">주문하기</button>
+				</div>
+			</div>
+
+
+		</main>
+		<!-- jhw 테스트 -->
+	 --%>
+	
 <main>
 	<div class="row mb-3">
 			<div class="col-12">
@@ -50,7 +150,7 @@
 							</thead>
 							<tbody>
 							
-								<c:forEach var="cartItems" items="${cartItems }" varStatus="loop">
+							<c:forEach var="cartItems" items="${cartItems }" varStatus="loop">
 								<tr>
 									<td><input type="checkbox" name="itemNo" value="${cartItems.productNo }" /></td>
 									<td></td>
@@ -71,6 +171,8 @@
 						</div>
 					</form>
 				</div>	
+				
+				
 		<div class="row mb-3" style="margin-top:10%">
 			<div class="col-6">
 				<form method="get" action="/order/list?userid=1001">

@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html lang="ko">
 <head>
 	<title>Bootstrap 5 Example</title>
@@ -27,8 +30,7 @@
 
 		<div id="main">
 			<!-- search페이지 내 검색 form -->
-			<form name="" onsubmit="">
-				<input type="hidden" name="searched" value="Y">
+			<form action="/search"  method="get">
 				<div class="search">
 					<div class="text-center">
 						<div style="margin: 100px auto 50p">
@@ -40,7 +42,7 @@
 										</h4>
 									</div>
 									<div class="search_inputForm">
-										<input type="text" name="sword" id="sword" class="" value="">
+										<input type="text" name="searchWord" class="" value="">
 										<input type="submit" class="" value="검색">
 									</div>
 								</div>
@@ -52,32 +54,38 @@
 
 			<div style="border-bottom: 1px solid">
 				<p class="search_result">
-					<strong class="emph">총 <span>836</span> 개
+					<strong class="emph">총 <span>${fn:length(searchedProducts) }</span> 개
 					</strong>의 상품이 검색되었습니다.
 				</p>
 			</div>
 
 			<!-- 검색상품 리스트 show -->
-			<div class="detailRowFrame d-flex justify-content-evenly"
-				style="width: 100%">
-				<div class="detailBorder">
-					<a href="#"> <img class="productImg"
-						src="/resources/images/apple.png" alt="사과"></a>
-					<p>제품설명 : 본 제품은 사과다</p>
-					<p>가격 : 3500</p>
-				</div>
-				<div class="detailBorder">
-					<a href="#"> <img class="productImg"
-						src="/resources/images/apple.png" alt="사과"></a>
-					<p>제품설명 : 본 제품은 사과다</p>
-					<p>가격 : 3500</p>
-				</div>
-				<div class="detailBorder">
-					<a href="#"> <img class="productImg"
-						src="/resources/images/apple.png" alt="사과"></a>
-					<p>제품설명 : 본 제품은 사과다</p>
-					<p>가격 : 3500</p>
-				</div>
+			<div style="width: 1050px; margin-left: 125px; padding-top: 50px;">
+				<c:forEach var="searchedProduct" items="${searchedProducts}">
+					<div class="" style="width: 350px; float: left; margin: 0 auto">
+						<div class="" style="">
+							<a href="/product/detail?productNo=${searchedProduct.no }"> 
+							<img class="productImg" src="${searchedProduct.image }" alt="사과">
+							</a>
+						</div>
+						<div style="padding-bottom:100px">
+							<a href="/product/detail?productNo=${searchedProduct.no }"
+								style="text-decoration: none; display: block; color: black; size: 6px">${searchedProduct.name}
+								${searchedProduct.weight }</a> <span
+								style="text-decoration-line: line-through; color: gray">
+								<fmt:formatNumber value="${searchedProduct.price}" />원
+							</span> 
+							
+							<strong><span style="color: purple; font-size: 20px">
+									<fmt:formatNumber value="${searchedProduct.price-searchedProduct.price*searchedProduct.discountRate}" />원
+							</span></strong> 
+							
+							<span style="color: red"> 
+							(<fmt:formatNumber type="percent" value="${searchedProduct.discountRate }" />)
+							</span>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 		<div id="footer">
@@ -86,5 +94,4 @@
 
 	</div>
 </body>
-
 </html>
