@@ -28,7 +28,7 @@
 
 		<div class="row mb-3">
 			<div class="col-12">
-				<h3 class="border p-3 bg-light" style="color:#981098"><small>${user.name }님 장바구니 목록</small></h3>
+				<h3 class="border p-3 bg-light" style="color:#981098"><small >${user.name }님 장바구니 목록</small></h3>
 			</div>
 		</div>	
 		
@@ -39,7 +39,7 @@
 					<div class="card-body pb-0">
 						<table class="table">
 							<thead>
-								<tr>
+								<tr style=" color : #981098;">
 									<th>선택</th>
 									<th>상품</th>
 									<th>상품명</th>

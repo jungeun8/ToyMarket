@@ -125,11 +125,11 @@
 							<div class="d-flex flex-row-reverse bd-highlight">
 								<div class="p-2 bd-highlight">
 									<font size="2">총 상품금액 : </font>
-									<input type="button" class="btn btn-outline fs-3" id="productSum" readonly> 
+									<input type="button" class="btn btn-outline fs-3" id="productSum" readonly>원
 								</div>
 							</div>
 							<div class="d-grid gap-2 ps-5" id="basket">
-								<button class="btn btn-outline-success btn-lg" type="button">장바구니</button>
+								<button class="btn btn-outline-success btn-lg" type="button" onClick="goBasket();">장바구니</button>
 							</div>
 						</div>
 					</div>
@@ -499,9 +499,9 @@
 			var productSum = document.getElementById("productSum"); // 합계
 			
 			if (productDiscountPrice == null) {
-				productSum.value = new Number(productPrice.value).toLocaleString() + '원';
+				productSum.value = new Number(productPrice.value).toLocaleString();
 			} else {
-				productSum.value = new Number(productDiscountPrice.value).toLocaleString() + '원';
+				productSum.value = new Number(productDiscountPrice.value).toLocaleString();
 			}
 			
 			// 증가버튼을 클릭했을 때
@@ -510,9 +510,9 @@
 				number.innerText = current + 1;
 				
 				if (productDiscountPrice == null) {
-					productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+					productSum.value = new Number(number.innerText * productPrice.value).toLocaleString();
 				} else {
-					productSum.value = new Number(number.innerText * productDiscountPrice.value).toLocaleString() + '원';
+					productSum.value = new Number(number.innerText * productDiscountPrice.value).toLocaleString();
 				}
 			};
 			
@@ -529,12 +529,24 @@
 				
 				
 				if (productDiscountPrice == null) {
-					productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+					productSum.value = new Number(number.innerText * productPrice.value).toLocaleString();
 				} else {
-					productSum.value = new Number(number.innerText * productDiscountPrice.value).toLocaleString() + '원';
+					productSum.value = new Number(number.innerText * productDiscountPrice.value).toLocaleString();
 				}
 			};
 			/* 구매수량 증감식 끝 */
+			
+			/* 장바구니 보내기 시작*/
+			function goBasket() {
+				var productNo = ${product.no};
+				var amount = document.getElementById("number").innerText;
+				var Price = productSum.value;
+				var buyPrice = Price.replace(/[^0-9]/g,'');
+				
+				location.href = "/cart/add?productNo=" + productNo + "&amount=" + amount + "&buyPrice=" + buyPrice;
+			}
+			
+			/* 장바구니 보내기 끝 */
 			
 			/* 가운데 이름 마스킹처리 시작 */
 			var maskingName = function(strName) {
@@ -554,7 +566,7 @@
 			/* 가운데 이름 마스킹처리 끝 */
 			
 			
-			var userName = '${user.name}';
+			var customerName = '${customer.name}';
 			getInquiryList(1);
 			
 			
@@ -589,7 +601,7 @@
 							rows += "<tr>";
 							if ('N' === inq.secretYN) {
 								rows += "<td class='py-3' onclick='toggleDisplay("+inq.no+")'>" + inq.title + "</td>";
-							} else if ('Y' === inq.secretYN && userName === inq.customerName) {
+							} else if ('Y' === inq.secretYN && customerName === inq.customerName) {
 								rows += "<td class='py-3' onclick='toggleDisplay("+inq.no+")'>" + inq.title + "</td>";
 							} else {
 								rows += "<td class='py-3' style='color:#A9A9A9'>비밀글입니다.<i class='fas fa-lock'></i></td>";

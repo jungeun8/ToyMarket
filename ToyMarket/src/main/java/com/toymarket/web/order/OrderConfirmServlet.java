@@ -17,7 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.toymarket.dao.order.OrderDao;
-import com.toymarket.dto.OrderItemDto;
+import com.toymarket.dto.order.OrderItemDto;
 import com.toymarket.utils.MyAuthentication;
 import com.toymarket.vo.Customer;
 import com.toymarket.vo.order.Order;
@@ -86,7 +86,7 @@ public class OrderConfirmServlet extends HttpServlet {
 		
 		// orderProductList 개수만큼 insert하기 위해 반복문을 시작한다.
 			// dto객체를 생성한다.
-			//OrderItemDto orderItem = new OrderItemDto(orderProductList, orderNo);
+		//	OrderItemDto orderItem = new OrderItemDto(orderProductList, orderNo);
 			// 객체안에 orderNo, cartNo를 넣어준다.
 			
 			// orderData의 insertOrderItem(아이템dto ) <=메소드를 실행한다.

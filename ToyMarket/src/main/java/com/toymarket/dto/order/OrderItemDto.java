@@ -1,4 +1,4 @@
-package com.toymarket.dto;
+package com.toymarket.dto.order;
 
 public class OrderItemDto {
 	

@@ -27,19 +27,17 @@
 			</div>
 		</div>
 	<div id="body">
-	
-	
-	
 		<form action="/order/confirm" method="get" id="order">
 		
 		<div class="card-body pb-0">
 			<table class="table">
 				<thead>
-					<tr>
+						<tr style=" color : #981098;">
 						<th colspan="3">주문상품</th>
+						<th><button type="button" onclick="toggleCartBox()" id="btn-cart-toggle"><i class="fas fa-angle-down"></i></button></th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="cart-box" style="display: none;">
 			
 				<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
 					<tr>
@@ -59,7 +57,7 @@
 		<div class="card-body pb-0">
 			<table class="table">
 				<thead>
-					<tr>
+					<tr style=" color : #981098;">
 						<th colspan="3">주문자 정보</th>
 					</tr>
 				</thead>
@@ -85,7 +83,7 @@
 		<div class="card-body pb-0">
 			<table class="table">
 				<thead>
-					<tr>
+					<tr style=" color : #981098;">
 						<th colspan="4">배송지 정보</th>
 					</tr>
 				</thead>
@@ -119,7 +117,7 @@
 							
 						</thead>
 						<tbody>
-							<tr>
+							<tr style=" color : #981098;">
 								<td>결제예상금액</td>
 								<td>${totalPrice-totalDiscountRate }</td>
 							</tr>
@@ -177,6 +175,17 @@ function checkForm() {
 		document.getElementById("order").submit();		
 	}
 
+
+function toggleCartBox() {
+	var value = document.getElementById("cart-box").style.display;
+	if (value == 'none') {
+		document.getElementById("cart-box").style.display = "";
+		//document.getElementById("btn-cart-toggle").textContent = "접기"
+	} else {
+		document.getElementById("cart-box").style.display = "none";
+	//	document.getElementById("btn-cart-toggle").textContent = "펼치기"
+	}
+}
 
 </script>
 

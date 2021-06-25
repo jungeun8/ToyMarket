@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="customers">
+	
+	<select id="getCustomerByNo" parameterType="int" resultType="com.toymarket.vo.Customer">
+		select
+			customer_no				as no,
+			customer_id				as id,
+			customer_password		as password,
+			customer_name			as name,
+			customer_email			as email,
+			customer_phone			as phone,
+			customer_postal_code	as postalCode,
+			customer_address1		as address1,
+			customer_address2		as address2,
+			customer_gender			as gender,
+			customer_point			as point,
+			customer_birth			as birth,
+			customer_status			as status,
+			customer_created_date	as createdDate,
+			customer_deleted_date	as deletedDate
+		from
+			toy_customer
+		where
+			customer_no = #{value}
+	</select>
+	
+	
+	<select id="getCustomerByName" parameterType="string" resultType="com.toymarket.vo.Customer">
+		select
+			customer_no				as no,
+			customer_id				as id,
+			customer_password		as password,
+			customer_name			as name,
+			customer_email			as email,
+			customer_phone			as phone,
+			customer_postal_code	as postalCode,
+			customer_address1		as address1,
+			customer_address2		as address2,
+			customer_gender			as gender,
+			customer_point			as point,
+			customer_birth			as birth,
+			customer_status			as status,
+			customer_created_date	as createdDate,
+			customer_deleted_date	as deletedDate
+		from
+			toy_customer
+		where
+			customer_name = #{value}
+	</select>
+	
+	<select id="getCustomers" parameterType="map" resultType="com.toymarket.vo.Customer">
+		select
+			customer_no				as no,
+			customer_id				as id,
+			customer_password		as password,
+			customer_name			as name,
+			customer_email			as email,
+			customer_phone			as phone,
+			customer_postal_code	as postalCode,
+			customer_address1		as address1,
+			customer_address2		as address2,
+			customer_gender			as gender,
+			customer_point			as point,
+			customer_birth			as birth,
+			customer_status			as status,
+			customer_created_date	as createdDate,
+			customer_deleted_date	as deletedDate
+		from (
+			select 
+				row_number() over (order by customer_no desc) rn,
+				customer_no, customer_id, customer_password, customer_name, customer_email, customer_phone, 
+				customer_postal_code, customer_address1, customer_address2, customer_gender, 
+				customer_point, customer_birth, customer_status, customer_created_date, customer_deleted_date
+			from
+				toy_customer
+			where 
+				customer_status = 'N'
+				
+				<if test="name != null">
+					and customer_name like '%' || #{name} || '%'
+				</if>
+				<if test="id != null">
+					and customer_id like '%' || #{id} || '%'
+				</if>
+				<if test="gender != null and gender == '남자'">
+					and customer_gender = '남자'
+				</if>
+				<if test="gender != null and gender == 'men'">
+					and customer_gender = '남자'
+				</if>
+				<if test="gender != null and gender == '여자'">
+					and customer_gender = '여자'
+				</if>
+				<if test="gender != null and gender == 'women'">
+					and customer_gender = '여자'
+				</if>
+				<if test="fage != 0 and sage != 0">
+					and substr(customer_birth, 1, 4) between #{sage} and #{fage}
+				</if>
+		)
+		where
+			rn between #{beginIndex} and #{endIndex}
+	</select>
+	
+	<select id="cGetTotalRows" parameterType="map" resultType="int">
+		select
+			count(*)
+		from
+			toy_customer
+		where
+			customer_status = 'N'
+			<if test="name != null">
+				and customer_name like '%' || #{name} || '%'
+			</if>
+			<if test="id != null">
+				and customer_id like '%' || #{id} || '%'
+			</if>
+			<if test="gender != null and gender == '남자'">
+				and customer_gender = '남자'
+			</if>
+			<if test="gender != null and gender == 'men'">
+				and customer_gender = '남자'
+			</if>
+			<if test="gender != null and gender == '여자'">
+				and customer_gender = '여자'
+			</if>
+			<if test="gender != null and gender == 'women'">
+				and customer_gender = '여자'
+			</if>
+			<if test="fage != 0 and sage != 0">
+				and substr(customer_birth, 1, 4) between #{sage} and #{fage}
+			</if>
+	</select>
+	
+	<select id="getOrdersByCustomerNo" parameterType="int" resultType="com.toymarket.dto.order.CustomerOrderDto">
+		select O.customer_no     as customerNo,
+        	O.order_no           as orderNo,
+        	i.order_item_no      as orderItemNo,
+        	P.product_no         as productNo,
+        	p.product_brand      as brand,
+        	P.product_name       as name,
+        	i.price_price        as price,
+        	o.total_order_price  as totalPrice,
+        	o.total_order_amount as totalAmount,
+        	o.order_status       as status,
+        	o.order_created_date as createdDate
+
+		from toy_order O, toy_order_items I, toy_products P
+		where O.customer_no = #{value}
+		and O.order_no = I.order_no
+		and I.product_no = P.product_no
+		order by O.order_no desc
+	</select>
+	
+	<update id="updateCustomer" parameterType="com.toymarket.vo.Customer">
+		update
+			toy_customer
+		set
+			customer_no = #{no},
+			customer_id	= #{id},
+			customer_password = #{password},
+			customer_name = #{name},
+			customer_email = #{email},
+			customer_phone = #{phone},
+			customer_postal_code = #{postalCode},
+			customer_address1 = #{address1},
+			customer_address2 = #{address2},
+			customer_gender = #{gender},
+			customer_point = #{point},
+			customer_birth = #{birth},
+			customer_status = #{status},
+			customer_created_date = #{createdDate},
+			customer_deleted_date = #{deletedDate}
+		where
+			customer_no = #{no}
+	</update>
+	
+	<select id="getExpiredCustomers" parameterType="map" resultType="com.toymarket.vo.Customer">
+		select
+			customer_no				as no,
+			customer_id				as id,
+			customer_password		as password,
+			customer_name			as name,
+			customer_email			as email,
+			customer_phone			as phone,
+			customer_postal_code	as postalCode,
+			customer_address1		as address1,
+			customer_address2		as address2,
+			customer_gender			as gender,
+			customer_point			as point,
+			customer_birth			as birth,
+			customer_status			as status,
+			customer_created_date	as createdDate,
+			customer_deleted_date	as deletedDate
+		from (
+			select 
+				row_number() over (order by customer_no desc) rn,
+				customer_no, customer_id, customer_password, customer_name, customer_email, customer_phone, 
+				customer_postal_code, customer_address1, customer_address2, customer_gender, 
+				customer_point, customer_birth, customer_status, customer_created_date, customer_deleted_date
+			from
+				toy_customer
+			where 
+				customer_status = 'Y'
+		)
+		where
+			rn between #{beginIndex} and #{endIndex}
+	</select>
+	
+	<select id="dGetTotalRows" parameterType="map" resultType="int">
+		select
+			count(*)
+		from
+			toy_customer
+		where
+			customer_status = 'Y'
+	</select>
+	
+	
+</mapper>
