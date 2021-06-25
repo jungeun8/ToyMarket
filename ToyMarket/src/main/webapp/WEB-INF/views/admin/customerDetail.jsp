@@ -48,7 +48,7 @@
 					<span>-</span>
 					<span style="font-weight: bolder; font-size: 18px; color: #5F0080;">${customer.name } 님</span>
 					<span>정보입니다-</span>
-					<c:if test="${customer.expired eq 'Y' }">
+					<c:if test="${customer.status eq 'Y' }">
 						<span style="color: #dc3545;">(탈퇴처리된 회원입니다.)</span>
 					</c:if>
 				</div>
@@ -103,7 +103,7 @@
 		<div class="row mb-3">			<!-- 삭제, 목록 버튼 -->
 			<div class="col-6">		<!-- 삭제 버튼-->
 				<c:choose>
-					<c:when test="${customer.expired eq 'N' }">
+					<c:when test="${customer.status eq 'N' }">
 						<c:url var="deleteURL" value="admincustomerdetaildelete">
 							<c:param name="no">${param.no }</c:param>				<!-- no값 넣기 -->
 							<c:param name="page">${param.page }</c:param>			<!-- page값 넣기 -->
@@ -132,7 +132,7 @@
 			</div>
 			<div class="col-6">		<!-- 목록 버튼-->
 				<c:choose>
-					<c:when test="${customer.expired eq 'N' }">
+					<c:when test="${customer.status eq 'N' }">
 						<c:url var="infoURL" value="admincustomerinfo">
 							<c:param name="page">${param.page }</c:param>			<!-- page값 넣기 -->
 							<c:if test="${not empty param.name }">					<!-- name값 넣기(값이 있을 경우) -->

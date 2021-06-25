@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.toymarket.dao.order.OrderDao;
 import com.toymarket.utils.MyAuthentication;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.order.Order;
 import com.toymarket.vo.order.OrderItems;
 
@@ -40,7 +40,7 @@ public class OrderConfirmServlet extends HttpServlet {
 		
 		//front에서 파라미터 받기
 		HttpSession sessionUser = req.getSession();
-		User user = (User) sessionUser.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) sessionUser.getAttribute("LOGINED_USER_INFO");
 		
 
 		 

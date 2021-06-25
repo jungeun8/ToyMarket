@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.toymarket.dao.cart.CartDao;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.cart.Cart;
 
 import jakarta.servlet.RequestDispatcher;
@@ -26,7 +26,7 @@ public class CartCountServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
 			CartDao cartDao = CartDao.getInstance();
 			

@@ -3,7 +3,7 @@
 
 <mapper namespace="users">
 
-	<insert id="insertUser" parameterType="com.toymarket.vo.User">
+	<insert id="insertUser" parameterType="com.toymarket.vo.Customer">
 		insert into TOY_CUSTOMER
 		(customer_no, customer_id, customer_password, customer_name, customer_email, customer_phone,
 		 customer_postal_code, customer_address1, customer_address2, customer_gender, customer_birth)
@@ -12,7 +12,7 @@
 		 #{postalCode}, #{address1}, #{address2}, #{gender}, #{birth})
 	</insert>
 	
-	<select id="getUserById" parameterType="string" resultType="com.toymarket.vo.User">
+	<select id="getUserById" parameterType="string" resultType="com.toymarket.vo.Customer">
 		select
 			customer_no 			as no,
 			customer_id 			as id,
@@ -33,7 +33,7 @@
 		where customer_id = #{value}
 	</select>
 	
-	<select id="getUserByEmail" parameterType="string" resultType="com.toymarket.vo.User">
+	<select id="getUserByEmail" parameterType="string" resultType="com.toymarket.vo.Customer">
 		select
 			customer_no 			as no,
 			customer_id 			as id,
@@ -54,7 +54,7 @@
 		where customer_email = #{value}
 	</select>
 	
-	<select id="getUserByPhone" parameterType="string" resultType="com.toymarket.vo.User">
+	<select id="getUserByPhone" parameterType="string" resultType="com.toymarket.vo.Customer">
 		select
 			customer_no 			as no,
 			customer_id 			as id,
@@ -75,7 +75,7 @@
 		where customer_phone = #{value}
 	</select>
 	
-	<update id="updateUserInfo" parameterType="com.toymarket.vo.User">
+	<update id="updateUserInfo" parameterType="com.toymarket.vo.Customer">
 		update
 			TOY_CUSTOMER
 		set	

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarktet.dao.UserDao;
 
 import jakarta.servlet.ServletException;
@@ -28,7 +28,7 @@ public class UserWithdrawalServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		 //로그인 후 장바구니 이용가능 
 		
-		User userSession = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer userSession = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
 		// 폼 입력값을 요청파라미터로 조회
 		String id = userSession.getId();
@@ -36,7 +36,7 @@ public class UserWithdrawalServlet extends HttpServlet {
 		
 		// 아이디로 사용자 정보 조회
 		UserDao userDao = UserDao.getInstance();
-		User savedUser = userDao.getUserById(id);
+		Customer savedUser = userDao.getUserById(id);
 		
 		if (savedUser == null) {
 			resp.sendRedirect("/user/withdrawal?fail=invalid");

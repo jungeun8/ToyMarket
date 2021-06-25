@@ -3,7 +3,7 @@ package com.toymarket.web.order;
 import java.io.IOException;
 import java.net.URLEncoder;
 
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ public class AddressServlet extends HttpServlet {
 
 		//front에서 파라미터 받기
 		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		if (user == null) { // 만약로그인이 안되어있다면 그아래에 sendRedirect가 로그인안되어있음
 			rep.sendRedirect("/user/login");
 			return;

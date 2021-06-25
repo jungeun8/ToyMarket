@@ -7,7 +7,7 @@ import java.util.List;
 import com.toymarket.dao.cart.CartDao;
 import com.toymarket.dto.cart.CartAddDto;
 import com.toymarket.dto.cart.CartItemDto;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.cart.Cart;
 
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class CartListServlet extends HttpServlet {
 		
 		//front에서 파라미터 받기
 		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		if (user == null) { // 만약로그인이 안되어있다면 그아래에 sendRedirect가 로그인안되어있음
 			rep.sendRedirect("/user/login");
 			return;

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.toymarket.vo.User;
 import com.toymarktet.dao.UserDao;
 
 import jakarta.servlet.ServletException;
