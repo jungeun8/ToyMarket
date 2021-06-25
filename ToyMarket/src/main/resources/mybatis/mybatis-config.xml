@@ -62,7 +62,7 @@
 				<property name="driver" value="oracle.jdbc.OracleDriver" />
 				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 				<property name="username" value="Toymarket" />
-				<property name="password" value="12345678" />
+				<property name="password" value="zxcv1234" />
 			</dataSource>
 		</environment>
 	</environments>

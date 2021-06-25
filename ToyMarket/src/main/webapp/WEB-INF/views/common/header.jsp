@@ -61,9 +61,9 @@
 							</ul>
 						</li>
 							
-						<li class="nav-item"><a class="mt-2 mx-4 nav-link" href="#">할인상품</a></li>
-						<li class="nav-item"><a class="mt-2 mx-4 nav-link" href="#">공지사항</a></li>
-						<li class="nav-item"><a class="mt-2 mx-4 nav-link" href="#">공지사항</a></li>
+						<li class="nav-item"><a class="mt-2 mx-4 nav-link" href="/product/list?sort=신상품순">신상품</a></li>
+						<li class="nav-item"><a class="mt-2 mx-4 nav-link" href="/product/list?sort=인기상품순">베스트</a></li>
+						<li class="nav-item"><a class="mt-2 mx-4 nav-link" href="/product/list?sort=혜택순">알뜰쇼핑</a></li>
 					</ul>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
-
 <%@page import="com.toymarket.vo.Products"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -83,7 +83,19 @@
 													<img src="${product.image}" class="card-img-top" alt="...">
 													<div class="card-body">
 														<h5 class="card-title">[${product.brand}] ${product.name}</h5>
-														<h4 class="bold">${product.price}원</h4>
+														<div>
+															<a href="#" style="text-decoration:none;display: block; color: black; size: 6px ">${discountedProduct.name}  ${discountedProduct.weight }</a>
+															<span style="text-decoration-line: line-through; color: gray">
+																<fmt:formatNumber value="${product.price}"/>원
+															</span> 
+															<strong><span style="color: purple; font-size: 20px">
+																<fmt:formatNumber value="${product.price-(product.price * product.discountRate)}"/>원
+															</span></strong>
+															<span style="color: red">
+																(<fmt:formatNumber type="percent" value="${product.discountRate }" />)
+															</span>
+														</div>
+<%-- 														<h4 class="bold">${product.price}원</h4> --%>
 														<p class="card-text light"><font size="2" color="#A9A9A9">${product.subTitle}</font></p>
 													</div>
 												</div>
