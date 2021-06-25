@@ -40,9 +40,6 @@ public class OrderServlet extends HttpServlet {
 		
 		List<CartItemDto> items = new ArrayList<CartItemDto>();
 		
-		
-		
-		
 		for(String itemNo : itemNoArray) { // 체크된 상품번호를 이용하여 상품정보를 조회
 			items.add(orderDao.getItemDataByItemNo(itemNo));
 

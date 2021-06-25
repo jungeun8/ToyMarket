@@ -44,7 +44,7 @@ public class CartListServlet extends HttpServlet {
 		cartItems = cartDao.getCartByUserNo(userId);
 		
 		//  총금액과 총수량을 담을 변수를 선언한다.
-		int totalDiscountRate = 0;
+		int totalDiscountPrice = 0;
 		int totalPrice= 0;
 		
 	
@@ -58,7 +58,7 @@ public class CartListServlet extends HttpServlet {
 			// 가격 
 			totalPrice += cartItems.get(i).getPrice() * amount;
 			// 총 할인가격
-			totalDiscountRate += (int)((double)price*discountRate)* amount;
+			totalDiscountPrice += (int)((double)price*discountRate)* amount;
 			
 		}
 		
@@ -66,8 +66,11 @@ public class CartListServlet extends HttpServlet {
 		// 해당 변수를 프론트에 넘겨준다.
 		req.setAttribute("cartItems", cartItems);
 		req.setAttribute("user", user); // 주문자 정보	
-		req.setAttribute("totalDiscountRate", totalDiscountRate);
+		req.setAttribute("totalDiscountPrice", totalDiscountPrice);
 		req.setAttribute("totalPrice", totalPrice);
+	
+		
+		
 		
 		
 		req.getRequestDispatcher("/WEB-INF/views/customer/cart.jsp").forward(req, rep);	
