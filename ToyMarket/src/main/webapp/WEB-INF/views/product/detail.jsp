@@ -487,11 +487,12 @@
 			}
 			/* 가운데 이름 마스킹처리 끝 */
 			
-			/* Ajax 문의리스트 시작 */
-			var productNo = '<c:out value="${product.no}"/>';
-			var userName = '<c:out value="${user.name}"/>';
-			getInquiryList(productNo);
-			function getInquiryList(productNo) {
+			
+			var userName = '${user.name}';
+			getInquiryList(1);
+			
+			
+			function getInquiryList(pageNo) {
 				
 				// 조회된 문의정보가 추가될 tbody 엘리먼트 획득하기
 				var tbodyEl = document.querySelector("#inquiry-table tbody");
@@ -521,9 +522,9 @@
 							
 							rows += "<tr>";
 							if ('N' === inq.secretYN) {
-								rows += "<td class='py-3'>" + inq.title + "</td>";
+								rows += "<td class='py-3' onclick='toggleDisplay("+inq.no+")'>" + inq.title + "</td>";
 							} else if ('Y' === inq.secretYN && userName === inq.customerName) {
-								rows += "<td class='py-3' style='color:blue'>" + inq.title + "</td>";
+								rows += "<td class='py-3' onclick='toggleDisplay("+inq.no+")'>" + inq.title + "</td>";
 							} else {
 								rows += "<td class='py-3' style='color:#A9A9A9'>비밀글입니다.<i class='fas fa-lock'></i></td>";
 							}
@@ -531,39 +532,58 @@
 							rows += "<td class='text-center py-3'>" + moment(inq.createdDate).format('YYYY-MM-DD') + "</td>";
 							rows += "<td class='text-center py-3'>" + inq.status + "</td>";
 							rows += "</tr>";
+							if ('답변완료' == inq.status) {							
+								rows += "<tr id='detail-row-"+ inq.no +"' style='display:none;'>";
+								rows += "<td colspan='4' style='background-color:#fafafa;' class='py-5'>";
+								rows += "00000000000000010000000000000000000000000000000000000000";
+								rows += "</td>";
+								rows += "</tr>";
+							}
+							
 						}
 						
 						// <tbody> 엘리먼트에 <tr>, <td>태그로 구성된 HTML 컨텐츠를 추가하기
 						tbodyEl.innerHTML = rows;
 						
 						var rows2 = "";
-						<c:if test="${pagination.totalRows gt 0 }">
+						if (pagination.totalRows > 0) {
 							rows2 += "<div class='row mb-2'>";
 							rows2 += "<div class='col-12'>";
 							rows2 += "<ul class='pagination justify-content-center'>"; 
-							rows2 += "<li class='page-item ${pagination.pageNo le 1 ? 'disabled' : '' }'>";
-							rows2 += "<a class='page-link' href='list?page=${pagination.pageNo - 1 }'>이전</a>";
+							rows2 += "<li class='page-item " + (pagination.pageNo <= 1 ? 'disabled' : '' ) +"'>";
+							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(pagination.pageNo - 1)+")'>이전</a>";
 							rows2 += "</li>"; 
-							<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
-								rows2 += "<li class='page-item ${pagination.pageNo eq num ? 'active' : '' }'>";
-								rows2 += "<a class='page-link' href='list?page=${num }'>${num }</a>";
+							for (var num=pagination.beginPage; num<=pagination.endPage; num++) {
+								rows2 += "<li class='page-item "+ (pagination.pageNo == num ? 'active' : '')+"'>";
+								rows2 += "<a class='page-link' href='javascript:getInquiryList("+num+")'>"+ num +"</a>";
 								rows2 += "</li>";
-							</c:forEach>
-							rows2 += "<li class='page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : '' }'>";
-							rows2 += "<a class='page-link' href='list?page=${pagination.pageNo + 1 }'>다음</a>";
+							}
+							
+							rows2 += "<li class='page-item " + (pagination.pageNo >= pagination.totalPages ? 'disabled' : '') +  "'>";
+							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(pagination.pageNo + 1)+")'>다음</a>";
 							rows2 += "</li>"; 
 							rows2 += "</ul>"; 
 							rows2 += "</div>"; 
 							rows2 += "</div>"; 
-						</c:if>
+						}
 						divEl.innerHTML = rows2;
 					}
 				}
 				
 				// XMLHttpRequest 객체 초기화
-				xhr.open("GET", "inquiry/list?productNo=" + productNo);
+				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo);
 				// 서버로 HTTP요청 보내기
 				xhr.send();
+			}
+			
+			function toggleDisplay(no) {
+				var detail = document.getElementById("detail-row-" + no);
+				
+				if (detail.style.display == 'none') {
+					detail.style.display = 'block';
+				} else {
+					detail.style.display = 'none';
+				}
 			}
 			/* Ajax 문의리스트 끝 */
 			
