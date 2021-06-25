@@ -42,10 +42,18 @@ public class AdminProductMainServlet extends HttpServlet{
 		int catNo = NumberUtils.toInt(req.getParameter("category"), 0);
 		// 페이지 번호 조회하기
 		int pageNo = NumberUtils.toInt(req.getParameter("page"),1);
+		// 상품 정렬 조회하기
+		String sort = req.getParameter("sort");
 		
 		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
 		Map<String, Object> param = new HashMap<String, Object>();
 		
+		// sort 값이 null 일때 상품번호를 기본으로 설정
+		if (sort == null) {
+			sort = "상품번호";
+		}
+		
+		//  catNo 0이 아니라면 param변수에 catNo(categoryNO)를 담음
 		if (catNo != 0) {
 			param.put("catNo", catNo);
 		}
@@ -57,6 +65,8 @@ public class AdminProductMainServlet extends HttpServlet{
 			param.put("opt", searchOption);
 			param.put("keyword", searchKeyword);
 		}
+		// sort값 넣기
+		param.put("sort", sort);
 		// 조회범위를 HashMap객체에 추가하기
 		param.put("beginIndex", (pageNo -1)*ROWS_PER_PAGE + 1);
 		param.put("endIndex", pageNo*ROWS_PER_PAGE);
