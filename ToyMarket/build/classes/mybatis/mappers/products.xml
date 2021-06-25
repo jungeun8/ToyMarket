@@ -150,6 +150,9 @@
 		 					and product_ brand like '%' || #{keyword} || '%'
 		 				</when>
 		 			</choose>
+		 			<if test="catNo != null">
+		 				and category_no = #{catNo}
+		 			</if>
 		 		</where>
 		)
 		where 
@@ -186,31 +189,5 @@
 			product_no = #{value}
 	</select>
 	
-	<select id="getCategory" resultType="com.toymarket.vo.Category">
-		select
-			category_no		as no
-		from
-			toy_categories
-	</select>
 	
-	<update id="updateProducts" parameterType="Products">
-		update toy_products
-		set
-			category_no				as no,
-			product_brand			as brand,
-			product_name 				as name,
-			product_price 				as price,
-			product_discount_rate 		as discountRate,
-			product_discount_YN 		as discountYN,
-			product_sell_unit 			as sellUnit,
-			product_weight 				as weight,
-			product_morning_delivery_YN as morningDeliveryYN,
-			product_description 		as description,
-			product_stock 				as stock,
-			product_created_date 		as createdDate,
-			product_status 				as status,
-			product_image 				as image,
-			product_sub_title 			as subTitle
-			
-	</update>
 </mapper>

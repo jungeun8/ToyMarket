@@ -34,17 +34,21 @@ public class AdminProductMainServlet extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 페이지 번호 조회하기
-		int pageNo = NumberUtils.toInt(req.getParameter("page"),1);
 		// 검색조건 조회하기
 		String searchOption = req.getParameter("opt");
 		String searchKeyword = req.getParameter("keyword");
 		
 		// 카테고리 번호 조회하기
-		int catNo = NumberUtils.toInt(req.getParameter("category"));
+		int catNo = NumberUtils.toInt(req.getParameter("category"), 0);
+		// 페이지 번호 조회하기
+		int pageNo = NumberUtils.toInt(req.getParameter("page"),1);
 		
 		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
 		Map<String, Object> param = new HashMap<String, Object>();
+		
+		if (catNo != 0) {
+			param.put("catNo", catNo);
+		}
 		
 		// 게시글 조회하기
 		// 검색조건이 존재하는 경우 HashMap객체에 추가하기
@@ -56,6 +60,7 @@ public class AdminProductMainServlet extends HttpServlet{
 		// 조회범위를 HashMap객체에 추가하기
 		param.put("beginIndex", (pageNo -1)*ROWS_PER_PAGE + 1);
 		param.put("endIndex", pageNo*ROWS_PER_PAGE);
+		
 		// HashMap객체에 추가된 파라미터값으로 게시글 조회하기
 		List<Products> products = productdao.getAllProductsList(param);
 		// 조회된 게시글을 요청객체의 속성으로 저장하기
@@ -89,7 +94,7 @@ public class AdminProductMainServlet extends HttpServlet{
 		// 요청객체의 속성으로 Pagination객체를 저장하기
 		req.setAttribute("pagination", pagination);
 		
-		Category category = adminCategoryDao.getCategory();
+		List<Category> category = adminCategoryDao.getAllCategories();
 		req.setAttribute("category", category);
 		
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("../../WEB-INF/views/admin/productMain.jsp");

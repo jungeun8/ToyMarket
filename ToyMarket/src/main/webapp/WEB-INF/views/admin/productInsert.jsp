@@ -43,7 +43,7 @@
                             <div class="mb-3 mt-3">
                                 <label for="formFile" class="form-label"><h3>상품 이미지 추가</h3></label>
                                 <input class="form-control" type="file" accept="img/*" id="uplodeImg" onchange="setThumbnail(event)">
-                                <div id="image_container" class="border"></div>
+                                <div id="image_container" class="border" style="width: 620px; height: 680px; object-fit: cover;"></div>
                               </div>
                         </div>
                         <div class="col-6">
