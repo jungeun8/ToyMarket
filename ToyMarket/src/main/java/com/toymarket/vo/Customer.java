@@ -25,7 +25,7 @@ public class Customer {
 	public int getNo() {
 		return no;
 	}
-
+	
 	public void setNo(int no) {
 		this.no = no;
 	}
@@ -102,7 +102,6 @@ public class Customer {
 		this.gender = gender;
 	}
 
-
 	public int getPoint() {
 		return point;
 	}
@@ -142,7 +141,7 @@ public class Customer {
 	public void setDeletedDate(Date deletedDate) {
 		this.deletedDate = deletedDate;
 	}
-	
+
 	public int getAge(int age) {
 		if (age != 0) {
 			int fage = 2021 - age + 1;
@@ -150,6 +149,6 @@ public class Customer {
 		}
 		return 0;
 	}
-	
+
 	
 }

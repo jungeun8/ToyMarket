@@ -2,8 +2,8 @@ package com.toymarket.web;
 
 import java.io.IOException;
 
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.Products;
-import com.toymarket.vo.User;
 import com.toymarktet.dao.ProductDao;
 
 import jakarta.servlet.ServletException;
@@ -27,7 +27,7 @@ public class ProductDetailServlcet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
 		req.setAttribute("user", user);
 		

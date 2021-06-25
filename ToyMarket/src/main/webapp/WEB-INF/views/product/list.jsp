@@ -43,13 +43,6 @@
 		</div>
 		<div id="divSize">
 			<div class="row mb-2">
-				<div class="col-12 pt-4">
-					<div class="d-flex align-items-end">
-						<div class="py-2 bd-highlight">신상품</div>
-					</div>
-				</div>
-			</div>
-			<div class="row mb-2">
 				<div class="col-12">
 					<div class="d-flex justify-content-between">
 						<div>전체보기</div>
@@ -84,7 +77,6 @@
 													<div class="card-body">
 														<h5 class="card-title">[${product.brand}] ${product.name}</h5>
 														<div>
-															<a href="#" style="text-decoration:none;display: block; color: black; size: 6px ">${discountedProduct.name}  ${discountedProduct.weight }</a>
 															<span style="text-decoration-line: line-through; color: gray">
 																<fmt:formatNumber value="${product.price}"/>원
 															</span> 

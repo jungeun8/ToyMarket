@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarktet.dao.UserDao;
 
 import jakarta.servlet.ServletException;
@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
 		UserDao userDao = UserDao.getInstance();
 		
 		// 아이디 중복확인
-		User savedUserId = userDao.getUserById(id);
+		Customer savedUserId = userDao.getUserById(id);
 		if (savedUserId != null) {
 			if ("yes".equals(iskakao)) {
 				resp.sendRedirect("register?fail=idOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		// 이메일 중복확인
-		User savedUserEmail = userDao.getUserByEmail(email);
+		Customer savedUserEmail = userDao.getUserByEmail(email);
 		if (savedUserEmail != null) {
 			if ("yes".equals(iskakao)) {
 				resp.sendRedirect("register?fail=emailOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
@@ -66,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		// 전화번호 중복확인
-		User savedUserPhone = userDao.getUserByPhone(phone);
+		Customer savedUserPhone = userDao.getUserByPhone(phone);
 		if (savedUserPhone != null) {
 			if ("yes".equals(iskakao)) {
 				resp.sendRedirect("register?fail=phoneOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
@@ -80,7 +80,7 @@ public class RegisterServlet extends HttpServlet {
 		String sha256Password = DigestUtils.sha256Hex(password);
 		
 		// User객체를 생성해서 사용자정보를 저장한다.
-		User user = new User();
+		Customer user = new Customer();
 		user.setId(id); 
 		user.setPassword(sha256Password);
 		user.setName(name);

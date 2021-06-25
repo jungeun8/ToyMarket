@@ -25,6 +25,46 @@
 				background-color: #198754 !important;
 				border-color: #198754 !important;
 			}
+			
+			.page-item.active .page-link {
+				color: #fff !important;
+				background-color: #5f0080 !important;
+    			border-color: #5f0080 !important;
+			}
+			
+			.page-link {
+				color: #5f0080 !important;
+			}
+			
+			#basket .btn-outline-success {
+				color: #5f0080 !important;
+				border-color: #5f0080 !important;
+			}
+			
+			#basket .btn-outline-success:hover {
+				color: #fff !important;
+				border-color: #5f0080 !important;
+				background-color: #5f0080 !important;
+			}
+			
+			#basket .btn-outline-success:active {
+				border: none;
+			}
+			
+			#prchsQntty .btn-outline-success {
+				color: #5f0080 !important;
+				border-color: #5f0080 !important;
+			}
+			
+			#prchsQntty .btn-outline-success:hover {
+				color: #fff !important;
+				border-color: #5f0080 !important;
+				background-color: #5f0080 !important;
+			}
+			
+			#prchsQntty .btn-outline-success:active {
+				border-color: #5f0080 !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -44,7 +84,16 @@
 								<p class="fs-6"><c:out value="${product.subTitle}"/></p>
 							</div>
 							<div class="pb-4">
-								<p class="fs-3"><fmt:formatNumber value="${product.price}" pattern="#,###.##" />원</p>
+								<strong><span style="color: black; font-size: 20px" class="fs-3">
+									<fmt:formatNumber value="${product.price-(product.price * product.discountRate)}"/>원
+								</span></strong>
+								<span style="color: red;" class="fs-3">
+									<fmt:formatNumber type="percent" value="${product.discountRate }" />
+								</span>
+								<br>
+								<span style="text-decoration-line: line-through; color: gray" class="fs-5">
+									<fmt:formatNumber value="${product.price}"/>원
+								</span> 
 							</div>
 							<div class="row mb-4 border-top border-bottom" id="productInfo">
 								<div class="col-4">
@@ -59,8 +108,9 @@
 									<p class="py-3"><c:out value="${product.weight}"/></p>
 									<p class="py-3"><c:out value="${product.morningDeliveryMessage}"/></p>
 									<p class="py-3">냉장/종이포장</p>
-									<div class="py-3 input-group">
+									<div class="py-3 input-group" id="prchsQntty">
 										<input type="hidden" id="productPrice" value="<c:out value="${product.price}"/>">
+										<input type="hidden" id="productDiscountPrice" value="<c:out value="${product.price-(product.price * product.discountRate)}"/>">
 										<button type="button" class="btn btn-outline-success btn-sm fa fa-minus"  id="decrease"></button>
  										<button type="button" class="btn btn-outline btn-sm" id="number" disabled>1</button>
 										<button type="button" class="btn btn-outline-success btn-sm fa fa-plus"  id="increase" ></button>
@@ -74,10 +124,11 @@
 						<div class="col-7">
 							<div class="d-flex flex-row-reverse bd-highlight">
 								<div class="p-2 bd-highlight">
-									<font size="2">총 상품금액 : </font><input type="button" class="btn btn-outline fs-3" id="productSum" readonly> 
+									<font size="2">총 상품금액 : </font>
+									<input type="button" class="btn btn-outline fs-3" id="productSum" readonly> 
 								</div>
 							</div>
-							<div class="d-grid gap-2 ps-5">
+							<div class="d-grid gap-2 ps-5" id="basket">
 								<button class="btn btn-outline-success btn-lg" type="button">장바구니</button>
 							</div>
 						</div>
@@ -444,15 +495,25 @@
 			var increase = document.getElementById("increase"); // 증가버튼
 			var decrease = document.getElementById("decrease"); // 감소버튼
 			var productPrice = document.getElementById("productPrice"); // 상품가격
+			var productDiscountPrice = document.getElementById("productDiscountPrice"); // 상품할인가격
 			var productSum = document.getElementById("productSum"); // 합계
-			productSum.value = new Number(productPrice.value).toLocaleString() + '원';
+			
+			if (productDiscountPrice == null) {
+				productSum.value = new Number(productPrice.value).toLocaleString() + '원';
+			} else {
+				productSum.value = new Number(productDiscountPrice.value).toLocaleString() + '원';
+			}
 			
 			// 증가버튼을 클릭했을 때
 			increase.onclick = () => {
 				var current =  parseInt(number.innerText, 10);
 				number.innerText = current + 1;
 				
-				productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+				if (productDiscountPrice == null) {
+					productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+				} else {
+					productSum.value = new Number(number.innerText * productDiscountPrice.value).toLocaleString() + '원';
+				}
 			};
 			
 			
@@ -466,7 +527,12 @@
 				}
 				number.innerText = current - 1;
 				
-				productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+				
+				if (productDiscountPrice == null) {
+					productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
+				} else {
+					productSum.value = new Number(number.innerText * productDiscountPrice.value).toLocaleString() + '원';
+				}
 			};
 			/* 구매수량 증감식 끝 */
 			
