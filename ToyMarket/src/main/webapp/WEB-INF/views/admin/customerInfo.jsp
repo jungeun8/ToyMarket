@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
- 	 <title>Bootstrap 4 Example</title>
+ 	 <title>회원정보</title>
  	 <meta charset="utf-8">
  	 <meta name="viewport" content="width=device-width, initial-scale=1">
  	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
@@ -16,11 +16,24 @@
  	 		border-bottom: 3px solid #000 !important;
  	 	}
  	 	#formBorder2{
- 	 		border-bottom: 1px solid #000 !important;
+ 	 		border: 3px solid #D8D8D8 !important;
+ 	 		border-top: 3px solid #000 !important;
  	 	}
  	 	#formBorder3{
  	 		border-bottom: 2px solid #000 !important;
  	 	}
+ 	 	#formBorder4{
+ 	 		border-top: 3px solid #000 !important;
+ 	 	}
+    	#button{
+    		border: 2px solid #5F0080; 
+    		font-weight: bolder; 
+    		color: #5F0080;
+    	}
+    	#button2{ 
+    		border: 2px solid #5F0080; 
+    		color: #5F0080;
+    	}
  	 	
  	 	input[type='radio'] {
         	-webkit-appearance: none;
@@ -49,25 +62,26 @@
     	h4{
     		 font-weight: bolder;
     	}
+    	.page-item.active .page-link {
+    		color: #fff;
+    		background-color: #5F0080;
+    		border-color: #5F0080;
+    		font-weight: bold;
+    	}
+    	.page-link {
+    		color: #5F0080;
+    		font-weight: bold;
+    	}
     	
-    	#button{
-    		border: 2px solid #5F0080; 
-    		font-weight: bolder; 
-    		color: #5F0080;
-    	}
-    	#button2{ 
-    		border: 2px solid #5F0080; 
-    		color: #5F0080;
-    	}
  	 	
  	 	
  	 </style>
 </head>
 <body>
 <div class="container">
-	<%@include file="../common/adminHeader.jsp" %>
-	<div class="row mb-3" id="formBorder">
-		<div class="col-12">
+<%@include file="../common/adminHeader.jsp" %>
+	<div class="row">
+		<div class="col-12" id="">
 			<div class="p-3">
 				<h4>회원정보조회</h4>
 			</div>
@@ -79,7 +93,7 @@
 				<input type="hidden" name="no" value="" />
 				<input type="hidden" name="page" value="${pagination.pageNo }" />
 				<div class="row mb-3" id="formBorder2">
-					<div class="col-6 p-3">		<!-- 왼쪽 이름, 나이 -->
+					<div class="col-6 p-4">		<!-- 왼쪽 이름, 나이 -->
 						<div class="mb-3 row">		<!--  이름 열 -->
 							<div class="col-1"></div>
 							<label class="col-sm-2 col-form-label">이름</label>
@@ -101,7 +115,7 @@
     						<label class="col-sm-4 col-form-label">세</label>
 						</div>
 					</div>
-					<div class="col-6 p-3">		<!-- 오른쪽 아이디, 성별 -->
+					<div class="col-6 p-4">		<!-- 오른쪽 아이디, 성별 -->
 						<div class="mb-3 row">		<!--  아이디 열 -->
 							<div class="col-1"></div>
 							<label class="col-sm-2 col-form-label">아이디</label>
@@ -110,7 +124,7 @@
     						</div>
     						<div class="col-3"></div>
 						</div>
-						<div class="mb-3 row">		<!--  성별 열 -->
+						<div class="row">		<!--  성별 열 -->
 							<div class="col-1"></div>
 							<label class="col-sm-2 col-form-label">성별</label>
     						<div class="col-sm-9 p-2">
@@ -136,39 +150,39 @@
 			</form>
 		</div>
 	</div>
-	<div class="row p-2" id="formBorder3">
+	<div class="row p-2">
 		<div class="col-10 p-3">
-		<h4>회원목록</h4>
+			<h4>회원목록</h4>
 		</div>
 		<div class="col-2 p-3">
-		<a href="" class="btn btn-sm float-end" id="button">전체 리스트</a>
+		<a href="admincustomerinfo" class="btn btn-sm float-end" id="button">전체 리스트</a>
 		</div>
 	</div>
-	<div class="row mt-4">
-		<div class="col-12">
-			<div class="border p-2">
+	<div class="row">
+		<div class="col-12" style="text-align:center">
+			<div class="" id="formBorder4">
 				
-				<table class="table" id="customer-table">
+				<table class="table" id="formBorder3">
 					<colgroup>
-						<col width="9%">
-						<col width="15%">
-						<col width="18%">
-						<col width="18%">
+						<col width="8%">
+						<col width="16%">
+						<col width="17%">
 						<col width="10%">
 						<col width="12%">
+						<col width="18%">
 						<col width="10%">
 						<col width="*%">
 					</colgroup>
 					<thead>
 						<tr>
-							<th>선택</th>
 							<th>번호</th>
 							<th>등록일</th>
 							<th>생년월일</th>
 							<th>이름</th>
 							<th>아이디</th>
+							<th>이메일</th>
 							<th>성별</th>
-							<th></th>
+							<th>보기</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -180,15 +194,15 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="customer" items="${customers }">
-									<tr>
-										<td><input type="checkbox" name="customerNo" value="${customer.no }" /></td>
+									<tr style="border-bottom: 1px solid #D8D8D8 !important;">
 										<td>${customer.no }</td>
 										<td><fmt:formatDate value="${customer.createdDate }" pattern="yyyy-MM-dd"/></td>
 										<td>${customer.birth }</td>
 										<td>${customer.name }</td>
 										<td>${customer.id }</td>
+										<td>${customer.email }</td>
 										<td>${customer.gender }</td>
-										<td><a class="btn btn-sm" id="button2" href="admincustomerdetail?no=&page=${pagination.pageNo }&name=${param.name }&fage=${param.fage }&sage=${param.sage }&id=${param.id }&gender=${param.gender}"> 보기</a></td>
+										<td><a class="btn btn-sm" id="button2" href="admincustomerdetail?no=${customer.no }&page=${pagination.pageNo }&name=${param.name }&fage=${param.fage }&sage=${param.sage }&id=${param.id }&gender=${param.gender}"> ></a></td>
 									</tr>
 								</c:forEach>
 							</c:otherwise>

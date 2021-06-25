@@ -10,7 +10,7 @@
 			toy_products
 	</select>
 
-	<select id="getDiscountedProducts" resultType="com.toymarket.vo.products">
+	<!-- <select id="getDiscountedProducts" resultType="com.toymarket.vo.products">
 		SELECT 
 			product_no 					as no,
 			category_no 				as categoryNo,
@@ -35,7 +35,7 @@
 			TP.PRODUCT_DISCOUNT_YN='Y'
 		ORDER BY 
 			TP.PRODUCT_DISCOUNT_RATE DESC;
-	</select>
+	</select> -->
 
 	<select id="getAllProducts2" resultType="com.toymarket.vo.Products">
 		SELECT 
