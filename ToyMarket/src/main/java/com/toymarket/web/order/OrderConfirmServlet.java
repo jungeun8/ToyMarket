@@ -74,9 +74,8 @@ public class OrderConfirmServlet extends HttpServlet {
 		String totalPrice = req.getParameter("totalPrice");
 		String depositePoint = req.getParameter("depositePoint");
 		String status = req.getParameter("status");
-		String customerNo = req.getParameter("customerNo");
 		List<OrderItems> list = new ArrayList<OrderItems>();
-		Order orderList = new Order(orderNo, orderPrice, totalAmount, "0" ,totalPrice, "0", status, new Date(),customerNo,address1,address2,list );
+		Order orderList = new Order(orderNo, orderPrice, totalAmount, "0" ,totalPrice, "0", status, new Date(),userId,address1,address2,list );
 		
 		// guide 주문하는 곳에 결제하기 버튼 누르면 주문상품 db에 저장하기 start
 		//orderDao.insertOrder(order); <= Order객체를 전달해줄것

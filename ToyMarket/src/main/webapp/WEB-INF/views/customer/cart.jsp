@@ -27,15 +27,15 @@
 		</div>
 
 		<div class="row mb-3">
-				<div class="col-12">
-					<h3 class="border p-3 bg-light"><small>${user.name }님 장바구니 목록</small></h3>
-				</div>
-			</div>	
+			<div class="col-12">
+				<h3 class="border p-3 bg-light" style="color:#981098"><small>${user.name }님 장바구니 목록</small></h3>
+			</div>
+		</div>	
 		
 		<div class="row mb-4">
 			<div class="col-12">
-				<div class="card">
 				<form method="get" action="/order/list" id="cart">
+				<div class="card">
 					<div class="card-body pb-0">
 						<table class="table">
 							<thead>
@@ -49,35 +49,30 @@
 								</tr>
 							</thead>
 							<tbody>
-							
 								<c:forEach var="cartItems" items="${cartItems }" varStatus="loop">
-								<tr>
-								
-									<td><input type="checkbox"  id="check-me" class="form-check-input" name="itemNo" value="${cartItems.productNo }" /></td>
-									<td><img width= "100px" height= "75px" src="${cartItems.productImage }" alt="${cartItems.productName }"></td>
-									<td>${cartItems.productName }</td>
-									<td><button type="button" class="btn btn-outline-success btn-sm fa fa-minus"  id="decrease"></button>
- 										<button type="button" class="btn btn-outline btn-sm" id="number" disabled>${cartItems.amount}</button>
-										<button type="button" class="btn btn-outline-success btn-sm fa fa-plus"  id="increase" ></button>
-										</td>
-									<td>${cartItems.price }</td>
-									
-									
-									<td><a href="delete?productNo=${cartItems.productNo }" class="btn btn-danger btn-sm">삭제</a></td>
-								</tr>
-							</c:forEach>
-							
-							
+									<tr>
+										<td><input type="checkbox"  id="check-me" class="form-check-input"  name="itemNo" onclick="getCheckboxValue()" value="${cartItems.productNo }" /></td>
+										<td><img width= "100px" height= "75px" src="${cartItems.productImage }" alt="${cartItems.productName }"></td>
+										<td>${cartItems.productName }</td>
+										<td>
+										<button class="btn btn-info btn-sm" onclick="changeAmount(-1)">-</button>
+ 										<input type="text" id="item-amount" value="${cartItems.amount }" readonly>
+ 										<button class="btn btn-info btn-sm" onclick="changeAmount(1)">+</button>
+ 										</td>
+										 <td><span id="item-price"><fmt:formatNumber value="${cartItems.price}"/></span> 원</td>   
+										 <td><a href="delete?productNo=${cartItems.productNo }" class="btn btn-danger btn-sm">삭제</a></td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
-						
-						<div class="cart_select"><div class="inner_select"><label class="check">
-						<input type="checkbox" name="checkAll" checked=""><span class="ico">
-						</span>전체선택</label><a href="#none" class="btn_delete"></a></div></div>
-					</div>
-					
 
-			</div>
+					
+						<div scope="col">
+							<input type="checkbox" id="checkbox-all" name="check-all" onclick="toggleAgreementCheckbox()"/>
+							<label for="check-all">전체선택</label>
+						</div>	
+					</div>
+				</div>
 	
 			<div class="row mb-3" style="margin-top:5%">
 				<div class="col-6 border p-3 bg-light">
@@ -85,88 +80,99 @@
 						<thead>
 							<tr>
 								<th>상품금액</th>
-								<th>540000</th>
+							<%-- 	<th><input type="text" style="border:none" value ="${totalPrice }" name="totalPrice" readonly/></th>--%>
+								<td><span id="order-price"><fmt:formatNumber value="${totalPrice}"/></span> 원</td>
+								
 							</tr>
 							<tr>
 								<th>상품할인금액</th>
-								<th>12000</th>
+								<th><input type="text" style="border:none" value ="${totalDiscountRate }" name="totalDiscountRate" readonly/></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr style=" color : #981098;">
 								<td>결제예상금액</td>
-								<td>540000</td>
+								<th><input type="text" style="border:none" value ="${totalPrice-totalDiscountRate }" name="totalDiscountPrice" readonly/></th>
 							</tr>
 							
 						</tbody>
-					</table>			
+					</table>		
 					
 				</div>
 			</div>
 		</form>	
 
-				</div>
 	</div>
+</div>
 			
-				<div class="text-right">
-					<button type="submit" class="btn btn-primary" form="cart">주문하기</button>
-				</div>
-
-<script>
+			<div class="text-right">
+				<button type="button" class="btn btn-primary" onclick="checkForm()">주문하기</button>
+			</div>
+</div>
+	
+<script type="text/javascript">
 	function toggleAgreementCheckbox() {
-		// 전체 선택/해제 체크박스의 체크여부 조회하기
+
+		//체크박스로 전체 체크하기 
 		var checkboxAllChecked = document.getElementById("checkbox-all").checked;
 
-		var checkboxes = document.querySelectorAll([name='prodNo']);
+		var checkboxes = document.querySelectorAll('input[name="itemNo"]');
 		for (var i=0; i<checkboxes.length; i++) {
 			checkboxes[i].checked = checkboxAllChecked;
 		}
-	}
+ 	}
 	
-	/*function checkForm() {
-		var checkMe = document.querySelector("#check-me").checked;
-		if (!checkMe) {
-			alert("상품을 선택해주세요");
+
+	function checkForm() {
+	
+		// 체크된 체크박스의 길이 가져오기
+		var checkMe = document.querySelectorAll('input[name="itemNo"]:checked').length;
+		if (checkMe==0) {
+			alert("상품을 한 개 이상 선택해 주시기 바랍니다.");
 			return;
+		}else{
+			// 모든 폼 입력값이 유효한 입력값임으로 서버로 제출되게한다.
+			document.getElementById("cart").submit();	
 		}
-		
-		
 	}
-	*/
 	
-	/* 구매수량 증감식 시작 */
-	var number = document.getElementById("number"); // 수량
-	var increase = document.getElementById("increase1"); // 증가버튼
-	var decrease = document.getElementById("decrease"); // 감소버튼
-	var productPrice = document.getElementById("productPrice"); // 상품가격
-	var productSum = document.getElementById("productSum"); // 합계
-	// productSum.value = new Number(productPrice.value).toLocaleString() + '원';
-	
-	// 증가버튼을 클릭했을 때
-	increase.onclick = () => {
-		console.log("증가버튼 클릭!!");
-		var current =  parseInt(number.innerText, 10);
-		number.innerText = current + 1;
-		
-		productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
-	};
-	
-	
-	// 감소버튼을 클릭했을 때
-	decrease.onclick = () => {
-		var current = parseInt(number.innerText, 10);
-		
-		if (current <= 0) {
-			number.innerText = 1;
-			current = 1;
+	function changeAmount(val) {
+		   // 수량 엘리먼트 조회
+		   var amountEl = document.getElementById("item-amount");      // 수량 엘리먼트
+		   amountEl.value = parseInt(amountEl.value) + val;
+
+		   if (amountEl.value == 0) {
+		      amountEl.value = 1;
+		   }
+
+		// 가격, 구매가격 엘리먼트 조회
+		   var itemPriceEl = document.getElementById("item-price");   // 가격 엘리먼트
+		   var orderPriceEl = document.getElementById("order-price");   // 구매가격 엘리먼트
+		   // 가격 조회
+		   var price = itemPriceEl.textContent.replace(/,/g, '')   // 4,500,000 -> 4500000
+		   // 구매가격 계산
+		   var orderPrice = price * el.value;
+		   
+		   // 구매가격을 ,가 포함된 통화표기법으로 변경
+		   orderPriceCurrency = new Number(orderPrice).toLocaleString();
+		   // 구매가격 엘리먼트의 내용을 변경
+		   orderPriceEl.textContent = orderPriceCurrency;
 		}
-		number.innerText = current - 1;
+
+	
+	
+	
+<%--
+	
+ 	function deleteForm(){
+		// 상품삭제시 경고창 
+		var checkDelete =  document.querySelector("#check-delete").checked;
+		if(checkDelete){
+			alert("정말 삭제하시겠습니까?");
+			window.location="delete?productNo=${cartItems.cartNo }";
+		}
 		
-		productSum.value = new Number(number.innerText * productPrice.value).toLocaleString() + '원';
-	};
-	/* 구매수량 증감식 끝 */
-	
-	
+	} --%>
 </script>
 
 </body>

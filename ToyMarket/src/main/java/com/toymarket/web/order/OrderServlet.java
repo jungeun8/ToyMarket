@@ -33,9 +33,14 @@ public class OrderServlet extends HttpServlet {
 		// 프론트에서 선택된 장바구니 아이템의 번호들을 파라미터로 받음 
 		String[] itemNoArray = req.getParameterValues("itemNo");
 		
+		//  총금액과 총수량을 담을 변수를 선언한다.
+		// 프론트에서 상품금액과 상품알인금액을 받는다. 
+		String totalPrice = req.getParameter("totalPrice");
+		String totalDiscountRate = req.getParameter("totalDiscountRate");
+		
 		List<CartItemDto> items = new ArrayList<CartItemDto>();
 		
-		//  총금액과 총수량을 담을 변수를 선언한다.
+		
 		
 		
 		for(String itemNo : itemNoArray) { // 체크된 상품번호를 이용하여 상품정보를 조회
@@ -52,6 +57,8 @@ public class OrderServlet extends HttpServlet {
 		orderList.setOrderItems(items); //조회한 아이템 정보를을 추가
 		req.setAttribute("orderList", orderList);
 		req.setAttribute("user", user); // 주문자 정보
+		req.setAttribute("totalPrice", totalPrice);
+		req.setAttribute("totalDiscountRate", totalDiscountRate);
 		
 		// 총가격,총수량을 프론트에 전달한다.
 		

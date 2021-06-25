@@ -35,8 +35,8 @@
 		(order_no, total_order_price, total_order_amount, total_used_point, total_pay_price,
 		total_deposit_point, order_status, order_created_date, customer_no, order_address1, order_address2)
 		values
-		(order_seq.nextval, #{orderNo}, #{orderPrice}, #{totalAmount}, #{usedPoint}, #{totalPrice} , #{depositePoint}
-		#{status},#{createdDate},#{customerNo},#{address1},#{address2})
+		(order_seq.nextval, #{orderPrice}, #{totalAmount}, #{usedPoint}, #{totalPrice} , #{depositePoint},
+		#{status},#{createdDate},(select customer_no from toy_customer where customer_id = #{customerNo}),#{address1},#{address2})
 	</insert>
 	
 	<insert id="insertOrderItem" parameterType="com.toymarket.vo.order.OrderItems">
@@ -69,7 +69,7 @@
         	product_buy_price 		as price,
         	(select product_Image from toy_products where product_no = toy_cart.product_no) as itemImage
 			from toy_cart
-		where product_no= #{itemNo}
+		where cart_no= #{itemNo}
 	</select>
 	
 </mapper>

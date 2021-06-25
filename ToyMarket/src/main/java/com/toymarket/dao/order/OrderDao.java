@@ -49,7 +49,7 @@ public class OrderDao {
 	public void insertOrder(Order order) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		session.insert("insertOrder", order);
-		session.insert("insertOrderItem", order.getOrderList());
+		//session.insert("insertOrderItem", order.getOrderList());
 		session.close();
 	}
 

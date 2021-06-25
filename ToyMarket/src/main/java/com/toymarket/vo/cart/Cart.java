@@ -12,13 +12,14 @@ public class Cart {
 	private Date createdDate;
 	private String productName;
 	private String productImage;
+	private double  discountRate;
 	
 
 public Cart() {}
 
 
 public Cart(int cartNo, int productNo, int customerNo, int price, int amount, Date createdDate, String productName,
-		String productImage) {
+		String productImage, double discountRate) {
 	super();
 	this.cartNo = cartNo;
 	this.productNo = productNo;
@@ -28,6 +29,7 @@ public Cart(int cartNo, int productNo, int customerNo, int price, int amount, Da
 	this.createdDate = createdDate;
 	this.productName = productName;
 	this.productImage = productImage;
+	this.discountRate = discountRate;
 }
 
 
@@ -111,6 +113,14 @@ public void setProductImage(String productImage) {
 }
 
 
+public double getDiscountRate() {
+	return discountRate;
+}
+
+
+public void setDiscountRate(double discountRate) {
+	this.discountRate = discountRate;
+}
 
 
 

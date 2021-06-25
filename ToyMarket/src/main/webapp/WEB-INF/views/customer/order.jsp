@@ -28,6 +28,8 @@
 		</div>
 	<div id="body">
 	
+	
+	
 		<form action="/order/confirm" method="get" id="order">
 		<div class="card-body pb-0">
 			<table class="table">
@@ -37,6 +39,7 @@
 					</tr>
 				</thead>
 				<tbody>
+			
 				<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
 					<tr>
 						<td><img width= "100px" height= "75px" src="${order.itemImage }" alt="${order.itemName }"></td>
@@ -45,6 +48,7 @@
 						<input type="hidden" name="items" value="${order.itemNo }"/>
 					</tr>
 				</c:forEach>
+			
 				</tbody>
 			</table>
 		</div>
@@ -102,18 +106,18 @@
 						<thead>
 							<tr>
 								<th>상품금액</th>
-								<th>540000</th>
+								<th>${totalPrice }</th>
 							</tr>
 							<tr>
 								<th>상품할인금액</th>
-								<th>12000</th>
+								<th>${totalDiscountRate }</th>
 							</tr>
 							
 						</thead>
 						<tbody>
 							<tr>
 								<td>결제예상금액</td>
-								<td>540000</td>
+								<td>${totalPrice-totalDiscountRate }</td>
 							</tr>
 							
 						</tbody>
@@ -157,7 +161,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 	
 	// 모든 폼 입력값이 유효한 입력값임으로 서버로 제출되게한다.
 	//document.getElementById("order").submit();
-	
+}
 function checkForm() {
 	// 개인정보 동의여부에 체크했는지 체크
 		var checkMe = document.querySelector("#check-me").checked;
@@ -168,7 +172,6 @@ function checkForm() {
 		// 모든 폼 입력값이 유효한 입력값임으로 서버로 제출되게한다.
 		document.getElementById("order").submit();		
 	}
-	
 
 
 </script>

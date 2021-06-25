@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.toymarket.dao.cart.CartDao;
+import com.toymarket.dto.cart.CartAddDto;
 import com.toymarket.dto.cart.CartItemDto;
 import com.toymarket.vo.User;
 import com.toymarket.vo.cart.Cart;
@@ -31,14 +32,10 @@ public class CartListServlet extends HttpServlet {
 			return;
 		}
 		
-		
 		CartDao cartDao = CartDao.getInstance();
-		
-		
 
 		//프론트에서 고객의 아이디를 받는다.
 		String userId = user.getId();
-
 		
 		// 아이템들을 담을 변수를 생성한다.
 		List<Cart> cartItems = new ArrayList<Cart>();
@@ -47,17 +44,30 @@ public class CartListServlet extends HttpServlet {
 		cartItems = cartDao.getCartByUserNo(userId);
 		
 		//  총금액과 총수량을 담을 변수를 선언한다.
+		int totalDiscountRate = 0;
+		int totalPrice= 0;
 		
-		for(Cart cart : cartItems) { // 체크된 상품번호를 이용하여 상품정보를 조회			
+	
+		for(int i=0; i<cartItems.size(); i++) { // 체크된 상품번호를 이용하여 상품정보를 조회			
 			// 가격계산 start
-			// 조회한 items에서 가격과 수량을 이용해 가격을 계산하고 총가격, 총수량 변수에 합산한다.
+			// 가격과 수량을 이용해 가격을 계산하고 총가격, 총수량 변수에 합산한다.
+			int amount = cartItems.get(i).getAmount();
+			double discountRate = cartItems.get(i).getDiscountRate();
+			int price = cartItems.get(i).getPrice();
+			
+			// 가격 
+			totalPrice += cartItems.get(i).getPrice() * amount;
+			// 총 할인가격
+			totalDiscountRate += (int)((double)price*discountRate)* amount;
+			
 		}
 		
 		
 		// 해당 변수를 프론트에 넘겨준다.
 		req.setAttribute("cartItems", cartItems);
 		req.setAttribute("user", user); // 주문자 정보	
-		
+		req.setAttribute("totalDiscountRate", totalDiscountRate);
+		req.setAttribute("totalPrice", totalPrice);
 		
 		
 		req.getRequestDispatcher("/WEB-INF/views/customer/cart.jsp").forward(req, rep);	
