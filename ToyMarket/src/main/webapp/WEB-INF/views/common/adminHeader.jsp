@@ -9,10 +9,10 @@
             				<img alt="상품" src="/resources/images/box.png" style="weight : 80px; height : 80px">
           				</a>
           				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            				<li><a class="dropdown-item" href="/adminproductmain">상품관리</a></li>
+            				<li><a class="dropdown-item" href="/admin/product/list">상품관리</a></li>
             				<li><hr class="dropdown-divider"></li>
-            				<li><a class="dropdown-item" href="/adminproductinsert">상품추가</a></li>
-            				<li><a class="dropdown-item" href="/adminproductupdate">상품수정</a></li>
+            				<li><a class="dropdown-item" href="/admin/product/insert">상품추가</a></li>
+            				<li><a class="dropdown-item" href="/admin/product/update">상품수정</a></li>
           				</ul>
         			</li>
           			<li class="nav-item dropdown">
@@ -29,7 +29,7 @@
         		</ul>
  		</div>
  		<div class="navbar-nav " class="d-flex justify-content-center">
- 			<a href="/adminmain">
+ 			<a href="/admin">
             	<img alt="" src="/resources/images/MarketKurly.png" style="weight : 400px; height : 100px">
             </a>
  		</div>

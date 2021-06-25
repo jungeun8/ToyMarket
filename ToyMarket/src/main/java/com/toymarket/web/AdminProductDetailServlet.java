@@ -8,10 +8,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/product/update")
-public class AdminProudctUpdateServlet extends HttpServlet{
+@WebServlet("/admin/product/detail")
+public class AdminProductDetailServlet extends HttpServlet{
+	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("../../WEB-INF/views/admin/productUpdate.jsp").forward(req, resp);
+		req.getRequestDispatcher("../../WEB-INF/views/admin/productDetail.jsp").forward(req, resp);
 	}
 }

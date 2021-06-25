@@ -31,111 +31,249 @@
   		#bodyBorder{
   			border-bottom: 2px solid #5F0080 !important;
   		}
-  		
+  		#categoryTable{
+  		 color: black;
+  		 
+  		}
+  		#linkNone{
+  		 a:link { color: black; text-decoration: none;}
+ 		}
+
   	</style>
 </head>
 <body>
-	<div class="container">
-	<%@ include file="../common/adminHeader.jsp" %>
-		<main>
-			<div class="row">
-				<div class="col-3">
-					<!-- <nav class="nav flex-column border border-dark border-1 rounded">
-  						<span class="navbar-text text-center fs-3">카테고리</span>
-  						<a class="nav-link" href="#">전체상품</a>
-  						<a class="nav-link" href="#">육류</a>
-  						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-					</nav> -->
-					<table class="table table-light table-hover border">
-						<thead>
-							<tr>
-								<th>카테고리</th>
+<div class="container">
+<%@ include file="../common/adminHeader.jsp" %>
+	<main>
+		<div class="row">
+			<div class="col-3">
+				<!-- <nav class="nav flex-column border border-dark border-1 rounded">
+					<span class="navbar-text text-center fs-3">카테고리</span>
+					<a class="nav-link" href="#">전체상품</a>
+					<a class="nav-link" href="#">육류</a>
+					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+				</nav> -->
+				<table class="table table-light table-hover border">
+					<thead>
+						<tr>
+							<th>카테고리</th>
+						</tr>
+					</thead>
+					<tbody id="linkNone">
+					<c:choose>
+						<c:when test="${empty category }">등록된 카테고리가 존재하지 않습니다.</c:when>
+						<c:otherwise>
+							<tr onclick="getProducts(0,1)"> 
+							<td>전체상품목록</td>
 							</tr>
-						</thead>
-						<tbody >
-						<c:choose>
-							<c:when test="${empty categoryName }">등록된 카테고리가 존재하지 않습니다.</c:when>
-						
-							<c:otherwise>
-								<tr>
-								<td>전체상품목록</td>
+							<c:forEach var="category" items="${category }" varStatus="loop">
+								<tr onclick="getProducts('${category.no}',1);">
+								<td>${category.name }</td>
 								</tr>
-								<c:forEach var="category" items="${categoryName }" varStatus="loop">
-									<tr>
-									<td>${category.name }</td>
-									</tr>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-9">
-					<table class="table table-light table-hover table-text text-center align-middle" >
-						<thead>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-9">
+				<table class="table table-light table-hover table-text text-center align-middle" >
+					<thead>
+						<tr>
+							<th>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+   									전체선택
+								</label>
+							</div> 
+							</th>
+							<th>상품번호</th>
+							<th>상품이미지</th>
+							<th>상품명</th>
+							<th>제조사</th>
+							<th>판매상태</th>
+							<th>재고량</th>
+							<th>
+							<select>
+							<option selected>기본순</option>
+							<option value="1">상품명순</option>
+							<option value="2">상품번호순</option>
+							<option value="3">제조사별</option>
+							</select>
+							정렬
+							</th>
+						</tr>
+					</thead>
+					<tbody class="align-middle">
+					<c:choose>
+						<c:when test="${empty products }">
 							<tr>
-								<th>
-								<div class="form-check">
-  									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  									<label class="form-check-label" for="flexCheckDefault">
-    									전체선택
-  									</label>
-								</div> 
-								</th>
-								<th>상품번호</th>
-								<th>상품이미지</th>
-								<th>상품명</th>
-								<th>제조사</th>
-								<th>판매상태</th>
-								<th>재고량</th>
-								<th>
-								<select>
-								<option selected>기본순</option>
-								<option value="1">상품명순</option>
-								<option value="2">상품번호순</option>
-								<option value="3">제조사별</option>
-								</select>
-								정렬
-								</th>
+								<td colspan="9" class="text-center">등록된 상품이 존재하지 않습니다.</td>
 							</tr>
-						</thead>
-						<tbody class="align-middle">
-						<c:choose>
-							<c:when test="${empty products }">
-								<tr>
-									<td colspan="9" class="text-center">등록된 상품이 존재하지 않습니다.</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-							<c:forEach var="products" items="${products }" varStatus="loop">
-							<!-- 상품primary키 값으로 상품 디테일 페이지(업데이트)로 보내주기 -->
+						</c:when>
+						<c:when test="${param.category eq 0 }">
+						<c:forEach var="products" items="${products }" varStatus="loop">
 							<tr>
 								<td>
-								<div class="form-check">
-  									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  									<label class="form-check-label" for="flexCheckDefault">
-    									선택
-  									</label>
-								</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+										<label class="form-check-label" for="flexCheckDefault">
+		   									선택
+										</label>
+									</div>
 								</td>
 								<td>${products.no }</td>
-								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: cover;"></td>
-								<td onclick="location.href='/adminproductupdate'">${products.name }</td>
+								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: scale-down;"></td>
+								<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
 								<td>${products.brand }</td>
 								<td>${products.status }</td>
 								<td>${products.stock }</td>
 								<td>
-								<a class="btn btn-outline-danger"  href="/adminproduct/delete?deleteNo=${products.no }">삭제</a>
+								<a class="btn btn-outline-danger"  href="/admin/product/delete?deleteNo=${products.no }">삭제</a>
+								</td>
+							</c:forEach>
+						</tr>
+						</c:when>
+						<c:when test="${param.category ne 0 }">
+							<c:forEach var="products" items="${products }" varStatus="loop">
+						<!-- 상품primary키 값으로 상품 디테일 페이지(업데이트)로 보내주기 -->
+							<tr>
+								<td>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+										<label class="form-check-label" for="flexCheckDefault">
+		   									선택
+										</label>
+									</div>
+								</td>
+								<td>${products.no }</td>
+								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: scale-down;"></td>
+								<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
+								<td>${products.brand }</td>
+								<td>${products.status }</td>
+								<td>${products.stock }</td>
+								<td>
+								<a class="btn btn-outline-danger"  href="/admin/product/delete?deleteNo=${products.no }">삭제</a>
 								</td>
 							</tr>
 							</c:forEach>
-							</c:otherwise>
-						</c:choose>
-						</tbody>
-					</table>
-				</div>
+						</c:when>
+						<c:otherwise>
+						<c:forEach var="products" items="${products }" varStatus="loop">
+						<!-- 상품primary키 값으로 상품 디테일 페이지(업데이트)로 보내주기 -->
+						<tr>
+							<td>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								<label class="form-check-label" for="flexCheckDefault">
+   									선택
+								</label>
+							</div>
+							</td>
+							<td>${products.no }</td>
+							<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: scale-down;"></td>
+							<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
+							<td>${products.brand }</td>
+							<td>${products.status }</td>
+							<td>${products.stock }</td>
+							<td>
+							<a class="btn btn-outline-danger"  href="/admin/product/delete?deleteNo=${products.no }">삭제</a>
+							</td>
+						</tr>
+						</c:forEach>
+						</c:otherwise>
+					</c:choose>
+					</tbody>
+				</table>
 			</div>
-		</main>
-	</div>
+		</div>
+		<c:if test="${pagination.totalRows gt 0 }">
+		<div class="row mb-2">
+			<div class="col-12">
+				<ul class="pagination justify-content-center">
+					<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : ''}">
+						<a class="page-link" href="javascript:goToPage(${pagination.pageNo - 1 })">이전</a>
+					</li>
+					<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
+						<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
+							<a class="page-link" href="javascript:goToPage(${num })">${num }</a>
+						</li>
+					</c:forEach>
+					<li class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : ''}">
+						<a class="page-link" href="javascript:goToPage(${pagination.pageNo + 1 })">다음</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row mb-2 ">
+			<div class="col-12">
+				<form id="form-search" class="form-inline d-flex justify-content-center" method="get" action="list">
+					<input type="hidden" name="no" value="" />
+					<input type="hidden" name="category" value="${param.category }"/> 
+					<input type="hidden" name="page" value="${pagination.pageNo }">
+					<select class="form-control mr-2" name="opt">
+						<option value="name" ${param.opt eq 'name' ? 'selected' : '' }> 상품명</option>
+						<option value="brand" ${param.opt eq 'brand' ? 'selected' : '' }> 제조사</option>
+					</select>
+					<input type="text" class="form-control mr-2" name="keyword" value="${param.keyword }">
+					<button type="button" class="btn btn-outline-primary" onclick="submitForm()">검색</button>
+				</form>
+			</div>
+		</div>
+	</c:if>
+	</main>
+</div>
+
+<script type="text/javascript">
+	function submitForm() {
+		var text = document.querySelector("input[name='keyword']").value;
+		if (!text) {
+			alert("검색어를 입력하세요");
+			document.querySelector("input[name='keyword']").focus();
+			return;
+		}
+		document.querySelector("input[name='page']").value = 1;
+		document.querySelector("#form-search").submit();
+	}
+	function getProducts(cat, pageNo) {
+		var text = document.querySelector("input[name='keyword']").value
+		if(!text) {
+			document.querySelector("select[name='opt']").disabled = true;
+			document.querySelector("input[name='keyword']").disabled = true;
+		}
+		document.querySelector("input[name='no']").disabled = true;
+		
+		document.querySelector("input[name='category']").value = cat;
+		document.querySelector("input[name='page']").value = pageNo;
+		document.querySelector("#form-search").setAttribute("action", "list");
+		document.querySelector("#form-search").submit();
+	}
+	function goToPage(pageNo) {
+		var text = document.querySelector("input[name='keyword']").value;
+		if (!text) {
+			document.querySelector("select[name='opt']").disabled = true;
+			document.querySelector("input[name='keyword']").disabled = true;
+		}
+		document.querySelector("input[name='no']").disabled = true;
+		
+		
+		document.querySelector("input[name='page']").value = pageNo;
+		document.querySelector("#form-search").setAttribute("action", "list");
+		document.querySelector("#form-search").submit();
+	}
+	function goToDetail(productNo) {
+		var text = document.querySelector("input[name='keyword']").value;
+		if (!text) {
+			document.querySelector("select[name='opt']").disabled = true;
+			document.querySelector("input[name='keyword']").disabled = true;
+		}
+		document.querySelector("input[name='category']").disabled = true;
+		
+		document.querySelector("input[name='no']").value = productNo;
+		document.querySelector("#form-search").setAttribute("action", "detail");
+		document.querySelector("#form-search").submit();
+	}
+</script>
 </body>
 </html>
