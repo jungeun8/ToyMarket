@@ -104,18 +104,5 @@ public class UserDao {
 		session.update("deleteUserInfo", userId);
 		session.close();
 	}
-	
-	
-//	/**
-//	 * 
-//	 * @param userId 조회할 사용자 아이디
-//	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
-//	 */
-//	public void deleteUserInfo(String userId) {
-//		SqlSession session = sqlSessionFactory.openSession();
-//		session.delete("deleteUserInfo", userId);
-//		session.close();
-//	}
-	
 }
 

@@ -26,6 +26,10 @@
 					<input type="password" class="form-control" id="user-pwd-confirm" name="passwordConfirm" />
 				</div>
 				<div class="form-group">
+					<label>수정할 이름</label>
+					<input type="text" class="form-control" id="user-name" name="name" />
+				</div>
+				<div class="form-group">
 					<label>수정할 이메일</label>
 					<input type="text" class="form-control" id="user-email" name="email" />
 				</div>

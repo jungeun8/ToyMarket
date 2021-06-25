@@ -15,11 +15,11 @@
 					<li class="nav-item">
 	                        <a href="나의주문내역 링크" class="btn" style="color: white; font-weight: bold">나의 주문내역</a>
 	                        <a href="나의장바구니 링크" class="btn" style="color: white; font-weight: bold">나의 장바구니</a>
-	                        <a href="/board/list" class="btn" style="color: white; font-weight: bold">문의 게시판</a>
+	                        <a href="/boardlist" class="btn" style="color: white; font-weight: bold">문의 게시판</a>
 	                       	<a href="/user/detail" class="btn" style="color: white; font-weight: bold">회원정보 수정</a>
 	                       	<a href="/user/logout" class="btn" style="color: white; font-weight: bold">로그아웃</a>
 							<a href="#mypage" class="btn" style="color: white; font-weight: bold">
-								<c:out value="${LOGINED_USER_INFO.id }"/>
+							<c:out value="${LOGINED_USER_INFO.name } 님 "/>
 							</a>
 	                </li>
 				</c:otherwise>
