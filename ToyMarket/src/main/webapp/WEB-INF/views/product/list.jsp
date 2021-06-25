@@ -38,7 +38,6 @@
 		</style>
 	</head>
 	<body>
-	<%@ include file="../common/header.jsp"%>
 		<div class="container">
 			<%@ include file="../common/header.jsp"%>
 		</div>

@@ -88,7 +88,7 @@
 		 </where>
 
 	</select>
-	
+
 	<select id="getAllProducts2" resultType="com.toymarket.vo.Products">
 		SELECT 
 			product_no 					as no,

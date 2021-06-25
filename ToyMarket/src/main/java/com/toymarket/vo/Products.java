@@ -69,6 +69,7 @@ public class Products {
 	}
 
 	public void setDiscountRate(double discountRate) {
+
 		this.discountRate = discountRate;
 	}
 

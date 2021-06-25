@@ -3,6 +3,7 @@ package com.toymarket.web;
 import java.io.IOException;
 
 import com.toymarket.vo.Products;
+import com.toymarket.vo.User;
 import com.toymarktet.dao.ProductDao;
 
 import jakarta.servlet.ServletException;
@@ -10,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/product/detail")
 public class ProductDetailServlcet extends HttpServlet {
@@ -22,6 +24,12 @@ public class ProductDetailServlcet extends HttpServlet {
 		Products product = productDao.getProductDetail(productNo);
 		
 		req.setAttribute("product", product);
+		
+		HttpSession session = req.getSession();
+		
+		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		
+		req.setAttribute("user", user);
 		
 		req.getRequestDispatcher("/WEB-INF/views/product/detail.jsp").forward(req, res);
 	}
