@@ -14,10 +14,9 @@ public class Customer {
 	private String address1;
 	private String address2;
 	private String gender;
-	private String agreement;	// 약관동의여부
 	private int point;
 	private String birth;		// 생년월일
-	private String expired;		// 탈퇴여부
+	private String status;		// 탈퇴여부
 	private Date createdDate;
 	private Date deletedDate;
 	
@@ -103,13 +102,6 @@ public class Customer {
 		this.gender = gender;
 	}
 
-	public String getAgreement() {
-		return agreement;
-	}
-
-	public void setAgreement(String agreement) {
-		this.agreement = agreement;
-	}
 
 	public int getPoint() {
 		return point;
@@ -127,12 +119,12 @@ public class Customer {
 		this.birth = birth;
 	}
 
-	public String getExpired() {
-		return expired;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setExpired(String expired) {
-		this.expired = expired;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Date getCreatedDate() {
@@ -149,14 +141,6 @@ public class Customer {
 
 	public void setDeletedDate(Date deletedDate) {
 		this.deletedDate = deletedDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Customer [no=" + no + ", id=" + id + ", password=" + password + ", name=" + name + ", email=" + email
-				+ ", phone=" + phone + ", postalCode=" + postalCode + ", address1=" + address1 + ", sddress2="
-				+ address2 + ", gender=" + gender + ", agreement=" + agreement + ", point=" + point + ", birth=" + birth
-				+ ", expired=" + expired + ", createdDate=" + createdDate + ", deletedDate=" + deletedDate + "]";
 	}
 	
 	public int getAge(int age) {

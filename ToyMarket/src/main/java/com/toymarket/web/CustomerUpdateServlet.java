@@ -22,7 +22,7 @@ public class CustomerUpdateServlet extends HttpServlet {
 		int customerNo = Integer.parseInt(req.getParameter("no"));
 		Customer customer = customerDao.getCustomerByNo(customerNo);
 		// 고객번호로 조회한 고객정보를 탈퇴여부를 바꾸고 탈퇴날짜를 삭제한다.
-		customer.setExpired("N");
+		customer.setStatus("N");
 		customer.setDeletedDate(null);
 		// update해서 db에 반영한다
 		customerDao.updateCustomer(customer);

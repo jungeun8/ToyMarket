@@ -29,7 +29,7 @@ public class CustomerDetailDeleteServlet extends HttpServlet {
 		
 		
 		// 회원번호에 해당하는 회원정보의 삭제여부및 사제일을 저장하고 데이터베이스에 반영한다.
-		customer.setExpired("Y");
+		customer.setStatus("Y");
 		customer.setDeletedDate(new Date());
 		
 		customerDao.updateCustomer(customer);
