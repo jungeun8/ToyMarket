@@ -29,7 +29,7 @@
 	</div>	
 	<script type="text/javascript">
 		function loginCheckAlert(){
-			var el = document.getElementById("btn-basket");
+			var el = document.getleEmentById("btn-basket");
 			var text="로그인이 필요한 서비스입니다.";
 			alert(text);
 		}

@@ -28,30 +28,35 @@
 		</div>
 	<div id="body">
 	
-	
-	
 		<form action="/order/confirm" method="get" id="order">
-		<div class="card-body pb-0">
-			<table class="table">
-				<thead>
-					<tr>
-						<th colspan="3">주문상품</th>
-					</tr>
-				</thead>
-				<tbody>
+		
+		<div class="card-body pb-0 col-12">
 			
-				<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
-					<tr>
-						<td><img width= "100px" height= "75px" src="${order.itemImage }" alt="${order.itemName }"></td>
-						<td>${order.itemName }</td>
-						<td>${order.price }</td>
-						<input type="hidden" name="items" value="${order.itemNo }"/>
-					</tr>
-				</c:forEach>
-			
-				</tbody>
-			</table>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="3">주문상품</th>
+						</tr>
+					</thead>
+					
+					
+					<tbody>
+				
+					<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
+						<tr>
+							<td><img width= "100px" height= "75px" src="${order.itemImage }" alt="${order.itemName }"></td>
+							<td>${order.itemName }</td>
+							<td>${order.price }</td>
+							<input type="hidden" name="items" value="${order.itemNo }"/>
+						</tr>
+					</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
+		
+		
 		<div class="card-body pb-0">
 			<table class="table">
 				<thead>
