@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarktet.dao.UserDao;
 
 import jakarta.servlet.ServletException;
@@ -28,7 +28,7 @@ public class UserDetailServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		 //로그인 후 장바구니 이용가능 
 		
-		User userSession = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer userSession = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
 		// 폼 입력값을 요청파라미터로 조회
 		String id = userSession.getId();
@@ -44,7 +44,7 @@ public class UserDetailServlet extends HttpServlet {
 		String sha256Password = DigestUtils.sha256Hex(password);
 		
 		// User객체를 생성해서 사용자정보를 저장한다.
-		User user = new User();
+		Customer user = new Customer();
 		user.setId(id);
 		user.setName(name);
 		user.setPassword(sha256Password);

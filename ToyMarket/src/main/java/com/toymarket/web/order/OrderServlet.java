@@ -7,7 +7,7 @@ import java.util.List;
 import com.toymarket.dao.order.OrderDao;
 import com.toymarket.dto.cart.CartItemDto;
 import com.toymarket.dto.order.OrderListDto;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.order.OrderItems;
 
 import jakarta.servlet.ServletException;
@@ -27,7 +27,7 @@ public class OrderServlet extends HttpServlet {
 		
 		//front에서 파라미터 받기
 		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");                 
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");                 
 		String userId = user.getId();
 				
 		// 프론트에서 선택된 장바구니 아이템의 번호들을 파라미터로 받음 

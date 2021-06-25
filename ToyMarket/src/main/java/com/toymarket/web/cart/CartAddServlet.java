@@ -10,7 +10,7 @@ import com.toymarket.dao.cart.CartDao;
 import com.toymarket.dto.cart.CartAddDto;
 import com.toymarket.dto.cart.CartItemDto;
 import com.toymarket.dto.order.OrderListDto;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.cart.Cart;
 
 import jakarta.servlet.RequestDispatcher;
@@ -30,7 +30,7 @@ public class CartAddServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		 //로그인 후 장바구니 이용가능 
 		
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		if (user == null) { // 만약로그인이 안되어있다면 그아래에 sendRedirect가 로그인안되어있음
 			rep.sendRedirect("/user/login");
 			return;

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarktet.dao.UserDao;
 
 import jakarta.servlet.ServletException;
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 		
 		// 아이디로 사용자 정보 조회
 		UserDao userDao = UserDao.getInstance();
-		User savedUser = userDao.getUserById(id);
+		Customer savedUser = userDao.getUserById(id);
 		
 		// 카카오사용자인지 조회 and 아니라면 회원가입으로 iskakao,id,이름을 받아서 넘어감
 		if (iskakao.equals("yes") && savedUser == null) {

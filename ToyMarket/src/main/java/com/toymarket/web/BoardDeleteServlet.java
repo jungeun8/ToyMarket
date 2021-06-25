@@ -7,7 +7,7 @@ import java.util.Date;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import com.toymarket.vo.Board;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarktet.dao.BoardDao;
 
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class BoardDeleteServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인여부를 체크하기
 		HttpSession session = request.getSession();
-		User loginUser = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer loginUser = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		if (loginUser == null) {
 			response.sendRedirect("../user/loginSelect?fail=deny&job=" + URLEncoder.encode("글등록", "utf-8"));
 			return;

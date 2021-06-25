@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.toymarket.dao.cart.CartDao;
 import com.toymarket.dto.cart.CartItemDto;
-import com.toymarket.vo.User;
+import com.toymarket.vo.Customer;
 import com.toymarket.vo.cart.Cart;
 
 import jakarta.servlet.ServletException;
@@ -24,7 +24,7 @@ public class CartDeleteServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("LOGINED_USER_INFO");
+		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
 		CartDao cartDao = CartDao.getInstance();
 		
