@@ -95,11 +95,11 @@
 								<th>판매상태</th>
 								<th>재고량</th>
 							<th>
-							<select onchange="sortProduct()">
-								<option value="상품번호" >상품번호순</option>
-								<option value="상품명">상품명순</option>
-								<option value="제조사">제조사별</option>
-								<option value="최근등록상품순">최근등록상품순</option>
+							<select onchange="sortProduct()" id="combo-sort">
+								<option value="상품번호" ${param.sort eq '상품번호' ? 'selected' : '' }>상품번호순</option>
+								<option value="상품명" ${param.sort eq '상품명' ? 'selected' : '' }>상품명순</option>
+								<option value="제조사" ${param.sort eq '제조사' ? 'selected' : '' }>제조사별</option>
+								<option value="최근등록상품순" ${param.sort eq '최근등록상품순' ? 'selected' : '' }>최근등록상품순</option>
 							</select>
 							정렬
 							</th>
@@ -237,14 +237,15 @@
 		document.querySelector("input[name='page']").value = 1;
 		document.querySelector("#form-search").submit();
 	}
-	function getProducts(cat, pageNo, sort) {
+	function getProducts(cat, pageNo) {
 		var text = document.querySelector("input[name='keyword']").value
 		if(!text) {
 			document.querySelector("select[name='opt']").disabled = true;
 			document.querySelector("input[name='keyword']").disabled = true;
 		}
 		document.querySelector("input[name='no']").disabled = true;
-		
+		var sort = document.getElementById("combo-sort").value;
+		document.querySelector("input[name='sort']").value = sort;
 		document.querySelector("input[name='category']").value = cat;
 		document.querySelector("input[name='page']").value = pageNo;
 		document.querySelector("#form-search").setAttribute("action", "list");
@@ -258,12 +259,13 @@
 		}
 		document.querySelector("input[name='no']").disabled = true;
 		
-		
+		var sort = document.getElementById("combo-sort").value;
+		document.querySelector("input[name='sort']").value = sort;
 		document.querySelector("input[name='page']").value = pageNo;
 		document.querySelector("#form-search").setAttribute("action", "list");
 		document.querySelector("#form-search").submit();
 	}
-	function sortProduct(sort){
+	function sortProduct(){
 		var text = document.querySelector("input[name='keyword']").value;
 		if (!text) {
 			document.querySelector("select[name='opt']").disabled = true;
@@ -271,7 +273,7 @@
 		}
 		document.querySelector("input[name='no']").disabled = true;
 		
-		
+		var sort = document.getElementById("combo-sort").value;
 		document.querySelector("input[name='sort']").value = sort;
 		document.querySelector("#form-search").setAttribute("action", "list");
 		document.querySelector("#form-search").submit();

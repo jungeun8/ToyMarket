@@ -194,10 +194,10 @@
 			product_sub_title 				as subTitle
 		FROM (
 			select
-				<if test="sort == '상품번호'">row_number() over (order by product_no desc) rn,</if>
+				<if test="sort == '상품번호'">row_number() over (order by product_no asc) rn,</if>
 				<if test="sort == '상품명'">row_number() over (order by product_name asc) rn,</if>
 				<if test="sort == '제조사'">row_number() over (order by product_brand asc) rn,</if>
-				<if test="sort == '최근등록상품순'">row_number() over (order by product_no asc) rn,</if>
+				<if test="sort == '최근등록상품순'">row_number() over (order by product_no desc) rn,</if>
 				product_no, category_no, product_brand, product_name, product_price, product_discount_rate, product_discount_YN, product_like_count,
 				product_sell_unit, product_weight, product_morning_delivery_YN, product_description, product_stock, product_created_date, product_status,
 				product_image, product_sub_title
