@@ -40,9 +40,9 @@ public class CartAddServlet extends HttpServlet {
 		
 	
 				//프론트에서 고객의 아이템번호, 수량, 가격을 받는다.
-				String productNo = req.getParameter("productNo");
-				String amount = req.getParameter("amount");
-				String buyPrice = req.getParameter("buyPrice");
+				int productNo = Integer.parseInt(req.getParameter("productNo"));
+				int amount = Integer.parseInt(req.getParameter("amount"));
+				int buyPrice = Integer.parseInt(req.getParameter("buyPrice"));
 				String userId = user.getId();
 				
 				
