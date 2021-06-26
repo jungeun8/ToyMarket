@@ -88,18 +88,18 @@
 								</label>
 							</div> 
 							</th>
-							<th>상품번호</th>
-							<th>상품이미지</th>
-							<th>상품명</th>
-							<th>제조사</th>
-							<th>판매상태</th>
-							<th>재고량</th>
+								<th>상품번호</th>
+								<th>상품이미지</th>
+								<th>상품명</th>
+								<th>제조사</th>
+								<th>판매상태</th>
+								<th>재고량</th>
 							<th>
-							<select>
-							<option selected>기본순</option>
-							<option value="1">상품명순</option>
-							<option value="2">상품번호순</option>
-							<option value="3">제조사별</option>
+							<select onchange="sortProduct()" id="combo-sort">
+								<option value="상품번호" ${param.sort eq '상품번호' ? 'selected' : '' }>상품번호순</option>
+								<option value="상품명" ${param.sort eq '상품명' ? 'selected' : '' }>상품명순</option>
+								<option value="제조사" ${param.sort eq '제조사' ? 'selected' : '' }>제조사별</option>
+								<option value="최근등록상품순" ${param.sort eq '최근등록상품순' ? 'selected' : '' }>최근등록상품순</option>
 							</select>
 							정렬
 							</th>
@@ -210,6 +210,7 @@
 			<div class="col-12">
 				<form id="form-search" class="form-inline d-flex justify-content-center" method="get" action="list">
 					<input type="hidden" name="no" value="" />
+					<input type="hidden" name="sort" value="${param.sort }">
 					<input type="hidden" name="category" value="${param.category }"/> 
 					<input type="hidden" name="page" value="${pagination.pageNo }">
 					<select class="form-control mr-2" name="opt">
@@ -243,7 +244,8 @@
 			document.querySelector("input[name='keyword']").disabled = true;
 		}
 		document.querySelector("input[name='no']").disabled = true;
-		
+		var sort = document.getElementById("combo-sort").value;
+		document.querySelector("input[name='sort']").value = sort;
 		document.querySelector("input[name='category']").value = cat;
 		document.querySelector("input[name='page']").value = pageNo;
 		document.querySelector("#form-search").setAttribute("action", "list");
@@ -257,8 +259,22 @@
 		}
 		document.querySelector("input[name='no']").disabled = true;
 		
-		
+		var sort = document.getElementById("combo-sort").value;
+		document.querySelector("input[name='sort']").value = sort;
 		document.querySelector("input[name='page']").value = pageNo;
+		document.querySelector("#form-search").setAttribute("action", "list");
+		document.querySelector("#form-search").submit();
+	}
+	function sortProduct(){
+		var text = document.querySelector("input[name='keyword']").value;
+		if (!text) {
+			document.querySelector("select[name='opt']").disabled = true;
+			document.querySelector("input[name='keyword']").disabled = true;
+		}
+		document.querySelector("input[name='no']").disabled = true;
+		
+		var sort = document.getElementById("combo-sort").value;
+		document.querySelector("input[name='sort']").value = sort;
 		document.querySelector("#form-search").setAttribute("action", "list");
 		document.querySelector("#form-search").submit();
 	}

@@ -36,26 +36,27 @@ public class CartAddServlet extends HttpServlet {
 			return;
 		}
 
-		CartDao cartDao = CartDao.getInstance();
-
-
-		//프론트에서 고객의 아이템번호, 수량, 가격을 받는다.
-		String productNo = req.getParameter("productNo");
-		String amount = req.getParameter("amount");
-		String buyPrice = req.getParameter("buyPrice");
-		String userId = user.getId();
-
-
-		//전달받은 파라미터들을 CartAddDto체를 생성하여 넣는다.
-		CartAddDto cartAdd = new CartAddDto(productNo, amount, buyPrice, userId );
-
-		// cart객체를 dao에게 넘겨준다.
-		cartDao.insertCart(cartAdd);
-
-		//장바구니 서블을 호출한다.
-
-
-		req.getRequestDispatcher("/cart/list").forward(req, rep);
+			CartDao cartDao = CartDao.getInstance();
+		
+	
+				//프론트에서 고객의 아이템번호, 수량, 가격을 받는다.
+				int productNo = Integer.parseInt(req.getParameter("productNo"));
+				int amount = Integer.parseInt(req.getParameter("amount"));
+				int buyPrice = Integer.parseInt(req.getParameter("buyPrice"));
+				String userId = user.getId();
+				
+				
+				//전달받은 파라미터들을 CartAddDto체를 생성하여 넣는다.
+				CartAddDto cartAdd = new CartAddDto(productNo, amount, buyPrice, userId );
+				
+				// cart객체를 dao에게 넘겨준다.
+				cartDao.insertCart(cartAdd);
+				
+				//장바구니 서블을 호출한다.
+				
+		
+				req.getRequestDispatcher("/cart/list").forward(req, rep);
+		
 
 	}
 }

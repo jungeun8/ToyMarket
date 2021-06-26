@@ -27,9 +27,9 @@ public class ProductDetailServlcet extends HttpServlet {
 		
 		HttpSession session = req.getSession();
 		
-		Customer user = (Customer) session.getAttribute("LOGINED_USER_INFO");
+		Customer customer = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
-		req.setAttribute("user", user);
+		req.setAttribute("customer", customer);
 		
 		req.getRequestDispatcher("/WEB-INF/views/product/detail.jsp").forward(req, res);
 	}
