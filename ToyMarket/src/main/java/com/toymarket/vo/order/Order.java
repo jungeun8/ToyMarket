@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order {
 	
-	private String orderNo;
+	private int orderNo;
 	private String orderPrice;
 	private String totalAmount;
 	private String usedPoint;
@@ -20,7 +20,7 @@ public class Order {
 	
 	public Order() {}
 
-	public Order(String orderNo, String orderPrice, String totalAmount, String usedPoint, String totalPrice, String depositePoint,
+	public Order(int orderNo, String orderPrice, String totalAmount, String usedPoint, String totalPrice, String depositePoint,
 			String status, Date createdDate, String customerNo, String address1, String address2, List<OrderItems> orderList) {
 		super();
 		this.orderNo = orderNo;
@@ -37,11 +37,11 @@ public class Order {
 		this.orderList = orderList;
 	}
 
-	public String getOrderNo() {
+	public int getOrderNo() {
 		return orderNo;
 	}
 
-	public void setOrderNo(String orderNo) {
+	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
 	}
 

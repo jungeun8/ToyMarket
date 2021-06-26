@@ -37,13 +37,15 @@
 		values
 		(order_seq.nextval, #{orderPrice}, #{totalAmount}, #{usedPoint}, #{totalPrice} , #{depositePoint},
 		#{status},#{createdDate},(select customer_no from toy_customer where customer_id = #{customerNo}),#{address1},#{address2})
+		<selectKey resultType="Integer" keyProperty="orderNo" order="AFTER">
+			select order_seq.currval from dual		
+		</selectKey>
 	</insert>
 	
-	<insert id="insertOrderItem" parameterType="com.toymarket.vo.order.OrderItems">
+	<insert id="insertOrderItem" parameterType="com.toymarket.dto.order.OrderItemDto">
 		insert into toy_order_items
-		(order_item_no, order_no, product_no, price_price, order_amount, order_price)
-		values
-		(order_items_seq.nextval, #{orderNo}, #{productNo}, #{price}, #{amount}, #{orderPrice})
+		(order_item_no, order_no, product_no, order_amount, order_price)
+		select order_items_seq.nextval, #{orderNo},product_no,product_amount,product_buy_price from toy_cart where cart_no=#{cartNo}
 	</insert>
 	
 	<select id="getOrderList" parameterType="string" resultType="com.toymarket.dto.order.OrderListDto">

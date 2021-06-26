@@ -2,22 +2,22 @@ package com.toymarket.dto.order;
 
 public class OrderItemDto {
 	
-	int cartNo;
+	String cartNo;
 	int orderNo;
 	
 	public OrderItemDto() {}
 
-	public OrderItemDto(int cartNo, int orderNo) {
+	public OrderItemDto(String cartNo, int orderNo) {
 		super();
 		this.cartNo = cartNo;
 		this.orderNo = orderNo;
 	}
 
-	public int getCartNo() {
+	public String getCartNo() {
 		return cartNo;
 	}
 
-	public void setCartNo(int cartNo) {
+	public void setCartNo(String cartNo) {
 		this.cartNo = cartNo;
 	}
 

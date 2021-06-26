@@ -64,7 +64,6 @@ public class OrderConfirmServlet extends HttpServlet {
 		String userId = user.getId();
 	
 		// 결제금액 가져오기
-		String orderNo = req.getParameter("orderNo");
 		String orderPrice = req.getParameter("orderPrice");
 		String totalAmount = req.getParameter("totalAmount");
 		String usedPoint = req.getParameter("usedPoint");
@@ -74,25 +73,27 @@ public class OrderConfirmServlet extends HttpServlet {
 		List<OrderItems> list = new ArrayList<OrderItems>();
 		
 		// 가져온 상품, 결제금액, 배송지정보를 orderDao.insertOrder의 파라미터 타입인 order객체를 생성하여 그안에 데이터를 저장한다.
-		Order orderList = new Order(orderNo, orderPrice, totalAmount, "0" ,totalPrice, "0", status, new Date(),userId,address1,address2,list );
+		Order orderList = new Order(0, orderPrice, totalAmount, "0" ,totalPrice, "0", status, new Date(),userId,address1,address2,list );
 		
 		// 주문하는 곳에 결제하기 버튼 누르면 주문상품 db에 저장하기 start
 		orderDao.insertOrder(orderList);
+		int orderNo = orderList.getOrderNo();
 		
 		// 시작!
 		// order_items테이블에 insert할 dto 클래스를 만든//
 		
 		// dto안에 들어갈 변수는 다음과 같다 ( orderNo, cartNo ) cartNo는 프론트에서받은 48번째줄의 orderProductList이다.//
 		
-		// orderProductList 개수만큼 insert하기 위해 반복문을 시작한다.
+		// orderProductList 개수만큼 insert하기 위해 반복문을 시작한다.s
+		for(int i=0; i<orderProductList.length; i++) {
+			System.out.println("orderProductList ==> "+orderProductList[i]);
 			// dto객체를 생성한다.
-		//	OrderItemDto orderItem = new OrderItemDto(orderProductList, orderNo);
 			// 객체안에 orderNo, cartNo를 넣어준다.
+			OrderItemDto orderItem = new OrderItemDto(orderProductList[i], orderNo);
 			
-			// orderData의 insertOrderItem(아이템dto ) <=메소드를 실행한다.
-		// 반복문을 종료한다.
-		//
-		
+			orderDao.insertOrderItem(orderItem);
+		}
+			
 
 		//적립금 넣어주기.
 		//orderDao.updatePoint(userId, updatePoint);

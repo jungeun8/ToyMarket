@@ -64,7 +64,20 @@ public class CartDao {
 	 */
 	public void insertCart(CartAddDto cart) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		session.insert("insertCart", cart);
+
+		HashMap<String,Object> param = new HashMap<String, Object>();
+		param.put("userId", cart.getUserId());
+		param.put("productNo", cart.getProductNo());
+		param.put("amount", cart.getAmount());
+		
+		int resultQuery = session.selectOne("cartCheck",param); //장바구니 테이블에 해당 상품이 몇개있어?
+		
+		if (resultQuery > 0 ) { // 만약 장바구니에 해당 상품이 0개 이상인가?
+			session.update("cartAmountPlus",param);
+		}else {
+			session.insert("insertCart", cart);
+		}
+		
 		session.close();
 	}
 	

@@ -49,6 +49,20 @@
 	(cart_seq.nextval, #{productNo}, #{buyPrice}, #{amount}, (select customer_no from toy_customer where customer_id = #{userId}) , sysDate )
 </insert>
 
+<select id="cartCheck" parameterType="HashMap" resultType="Integer">
+	select count(*) from toy_cart 
+	where 
+		customer_no = (select customer_no from toy_customer where customer_id = #{userId})
+		and product_no = #{productNo}
+</select>
+
+<update id="cartAmountPlus" parameterType="HashMap">
+	update toy_cart
+		set product_amount = product_amount + #{amount}
+	where customer_no = (select customer_no from toy_customer where customer_id = #{userId})
+	and product_no=#{productNo}
+</update>
+
 
 <update  id="updateCart" parameterType="HashMap">
 	update toy_cart
