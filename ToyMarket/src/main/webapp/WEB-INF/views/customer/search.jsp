@@ -60,32 +60,41 @@
 			</div>
 
 			<!-- 검색상품 리스트 show -->
-			<div style="width: 1050px; margin-left: 125px; padding-top: 50px;">
-				<c:forEach var="searchedProduct" items="${searchedProducts}">
-					<div class="" style="width: 350px; float: left; margin: 0 auto">
-						<div class="" style="">
-							<a href="/product/detail?productNo=${searchedProduct.no }"> 
-							<img class="productImg" src="${searchedProduct.image }" alt="사과">
-							</a>
+			<div style="width: 1050px; margin-left: 150px; padding-top: 50px;">
+				<%-- <c:choose>
+					<c:when test = "${empty searchedProducts }">
+						<div class="text-center" style="height: 400px;">
+							검색된 상품이 없습니다
 						</div>
-						<div style="padding-bottom:100px">
-							<a href="/product/detail?productNo=${searchedProduct.no }"
-								style="text-decoration: none; display: block; color: black; size: 6px">${searchedProduct.name}
-								${searchedProduct.weight }</a> <span
-								style="text-decoration-line: line-through; color: gray">
-								<fmt:formatNumber value="${searchedProduct.price}" />원
-							</span> 
-							
-							<strong><span style="color: purple; font-size: 20px">
-									<fmt:formatNumber value="${searchedProduct.price-searchedProduct.price*searchedProduct.discountRate}" />원
-							</span></strong> 
-							
-							<span style="color: red"> 
-							(<fmt:formatNumber type="percent" value="${searchedProduct.discountRate }" />)
-							</span>
-						</div>
-					</div>
-				</c:forEach>
+					</c:when>
+					<c:otherwise> --%>
+						<c:forEach var="searchedProduct" items="${searchedProducts}">
+							<div class="" style="width: 350px; float: left; margin: 0 auto">
+								<div class="" style="">
+									<a href="/product/detail?productNo=${searchedProduct.no }"> 
+									<img class="productImg" src="${searchedProduct.image }" alt="사과">
+									</a>
+								</div>
+								<div style="padding-bottom:100px; ">
+									<a href="/product/detail?productNo=${searchedProduct.no }"
+										style="text-decoration: none; display: block; color: black; size: 6px">${searchedProduct.name}
+										${searchedProduct.weight }</a> <span
+										style="text-decoration-line: line-through; color: gray">
+										<fmt:formatNumber value="${searchedProduct.price}" />원
+									</span> 
+									
+									<strong><span style="color: purple; font-size: 20px">
+											<fmt:formatNumber value="${searchedProduct.price-searchedProduct.price*searchedProduct.discountRate}" />원
+									</span></strong> 
+									
+									<span style="color: red"> 
+									(<fmt:formatNumber type="percent" value="${searchedProduct.discountRate }" />)
+									</span>
+								</div>
+							</div>
+						</c:forEach>
+				<%-- 	</c:otherwise>
+				</c:choose> --%>
 			</div>
 		</div>
 		<div id="footer">

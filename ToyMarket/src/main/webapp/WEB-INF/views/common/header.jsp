@@ -56,8 +56,8 @@
 							aria-expanded="false"><i class="fas fa-bars">카테고리</i></a>
 							
 							<ul class="dropdown-menu" aria=labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="/search?searchCategory=브랜드상품">브랜드상품</a></li>
-								<li><a class="dropdown-item" href="/search?searchCategory=일반상품">일반상품</a></li>
+								<li><a class="dropdown-item" href="/search?searchCategory=5">육류</a></li>
+								<li><a class="dropdown-item" href="/search?searchCategory=6">어류</a></li>
 							</ul>
 						</li>
 							
