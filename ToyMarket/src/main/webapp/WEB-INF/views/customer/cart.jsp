@@ -43,35 +43,37 @@
 									<th>선택</th>
 									<th>상품</th>
 									<th>상품명</th>
+									<th>가격</th>
 									<th>수량</th>
-									<th class="text-right">가격</th>
+									<th class="text-right">구매가격</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="item" items="${cartItems }" varStatus="loop">
 									<tr>
-										<td><input type="checkbox"  id="check-me" class="form-check-input"  name="itemNo" onclick="getCheckboxValue()" value="${item.productNo }" /></td>
+										<td><input type="checkbox"  id="check-me-${item.cartNo }" class="form-check-input"  name="itemNo" onclick="getCheckboxValue('${item.cartNo}')" value="${item.cartNo }" checked/></td>
 										<td><img width= "100px" height= "75px" src="${item.productImage }" alt="${item.productName }"></td>
 										<td>${item.productName }</td>
+										 <td><span id="item-price-${item.cartNo }"><fmt:formatNumber value="${item.price}"/></span> 원</td>   
 										<td>
 										<button  type="button" class="btn btn-info btn-sm" onclick="changeAmount('${item.cartNo}', -1)">-</button>
  										<input type="text" id="item-amount-${item.cartNo }" value="${item.amount }" readonly>
  										<button  type="button" class="btn btn-info btn-sm" onclick="changeAmount('${item.cartNo}', 1)">+</button>
  										</td>
-										 <td><span id="item-price"><fmt:formatNumber value="${item.price}"/></span> 원</td>   
+										 <td><span id="item-payPrice-${item.cartNo }"><fmt:formatNumber value="${item.price*item.amount}"/></span> 원</td>   
 										 <td><button type="button" class="btn btn-danger btn-sm"   onclick="removeCheck(${item.cartNo})" >삭제</button></td>
-										 <input type="hidden" id="item-discountRate" value ="${item.discountRate }"/>
+										 <input type="hidden" id="item-discountRate-${item.cartNo }" value ="${item.discountRate }"/>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 
 					
-						<div scope="col">
-							<input type="checkbox" id="checkbox-all" name="check-all" onclick="toggleAgreementCheckbox()"/>
+						<!-- <div scope="col">
+							<input type="checkbox" id="checkbox-all" name="check-all" onclick="toggleAgreementCheckbox()" checked/>
 							<label for="check-all">전체선택</label>
-						</div>	
+						</div>	 -->
 					</div>
 				</div>
 	
@@ -81,13 +83,13 @@
 						<thead>
 							<tr>
 								<th>상품금액</th>
-							<%-- 	<th><input type="text" style="border:none" value ="${totalPrice }" name="totalPrice" readonly/></th>--%>
+								<%--<th><input type="text" style="border:none" value ="${totalPrice }" id="order-price" readonly/><span>원</span></th> --%>
 								<th><span id="order-price"><fmt:formatNumber value="${totalPrice}"/></span> 원</th>
 								
 							</tr>
 							<tr>
 								<th>상품할인금액</th>
-								<%-- <th><input type="text" style="border:none" value ="${totalDiscountRate }" name="totalDiscountRate" readonly/></th>--%>
+								<%--  <th><input type="text" style="border:none" value ="${totalDiscountPrice }" id="discount-price" readonly/><span>원</span></th> --%>
 								<th><span id="discount-price"><fmt:formatNumber value="${totalDiscountPrice}"/></span> 원</th>
 							</tr>
 						</thead>
@@ -95,7 +97,7 @@
 							<tr style=" color : #981098;">
 								<td>결제예상금액</td>
 								<%-- <th><input type="text" style="border:none" value ="${totalPrice-totalDiscountRate }" name="totalDiscountPrice" readonly/></th>--%>
-								<th><span id="total-price"><fmt:formatNumber value="${totalDiscountPrice}"/></span> 원</th>
+								<th><span id="total-price"><fmt:formatNumber value="${totalPrice-totalDiscountPrice}"/></span> 원</th>
 							</tr>
 							
 						</tbody>
@@ -125,6 +127,42 @@
 		}
  	}
 	
+	//체크박스 선택해제하면 총금액에서 제거
+	function getCheckboxValue(cartNo){
+		var itemPriceEl = document.getElementById("item-payPrice-"+ cartNo);   // 가격 엘리먼트
+		var price = itemPriceEl.textContent.replace(/,/g, '')   // 4,500,000 -> 4500000	
+		 
+		var itemDiscountRate = document.getElementById("item-discountRate-"+ cartNo).value; // 할인률 엘리먼트 
+		 
+		// 총 상품금액 표 엘리먼트
+		var orderPriceEl = document.getElementById("order-price");   // 구매가격 엘리먼트
+		var discountPriceEl = document.getElementById("discount-price");// 구매 할인 가격 엘리먼트
+		var totalPriceEl = document.getElementById("total-price"); // 최종가격
+		
+		var allItemPrice = orderPriceEl.textContent.replace(/,/g, '') ;
+		var discountPrice = discountPriceEl.textContent.replace(/,/g, '') ;
+		
+		var checkBox = document.getElementById("check-me-"+ cartNo);  
+		var checked = 1;
+		if(!checkBox.checked){
+			checked = -1;
+		}
+		
+		var orderPriceA = Number(allItemPrice) + (price * checked);
+		var discountPriceA =  Number(discountPrice) + (itemDiscountRate * (price * checked)); // 계산된 할인가
+		var totalPriceA =  Number(orderPriceA) - Number(discountPriceA);
+		
+		orderPriceA = new Number(orderPriceA).toLocaleString();
+		discountPriceA = new Number(discountPriceA).toLocaleString();
+		totalPriceA = new Number(totalPriceA).toLocaleString();
+		// 구매가격 엘리먼트의 내용을 변경
+		orderPriceEl.innerText = orderPriceA;
+		// 할인가격 엘리먼트의 내용을 변경
+		discountPriceEl.innerText = discountPriceA;
+		// 총구매가격 엘리먼트의 내용을 변경 
+		totalPriceEl.innerText = totalPriceA;
+		 
+	}
 
 	function checkForm() {
 	
@@ -140,42 +178,60 @@
 	}
 	
 	function changeAmount(cartNo, val) {
-		
+			
+			
 		   // 수량 엘리먼트 조회
 		   var amountEl = document.getElementById("item-amount-" + cartNo);      // 수량 엘리먼트
 		   amountEl.value = parseInt(amountEl.value) + val;
-
-		   if (amountEl.value == 0) {
+		   
+		   var checkBox = document.getElementById("check-me-"+ cartNo);  
+		   if(!checkBox.checked){
+			   amountEl.value = parseInt(amountEl.value) - val;
+			   return;
+		   }
+		   else if (amountEl.value == 0) {
 		      amountEl.value = 1;
+		      return;
 		   }
 
-		// 가격, 구매가격 엘리먼트 조회
-		   var itemPriceEl = document.getElementById("item-price");   // 가격 엘리먼트
+			// 가격, 구매가격 엘리먼트 조회
+		   var itemPriceEl = document.getElementById("item-price-"+ cartNo);   // 가격 엘리먼트
+		   
+			
+		   
+		   // 총가격계
 		   var orderPriceEl = document.getElementById("order-price");   // 구매가격 엘리먼트
 		   var discountPriceEl = document.getElementById("discount-price");// 구매 할인 가격 엘리먼트
-		   var itemDiscountRate = document.getElementById("item-discountRate").value; // 할인가 엘리먼트 
+		   var itemDiscountRate = document.getElementById("item-discountRate-"+ cartNo).value; // 할인률 엘리먼트 
 		   var totalPriceEl = document.getElementById("total-price"); // 최종가격
 		   
 
 		   // 가격 조회
 		   var price = itemPriceEl.textContent.replace(/,/g, '')   // 4,500,000 -> 4500000
-		   // 구매가격 계산
-		  // var itemPrice = price * amountEl.value;
-		   var orderPrice = price * amountEl.value;
-		   var discountPrice = (price * itemDiscountRate)* amountEl.value;
+		   var allItemPrice = orderPriceEl.textContent.replace(/,/g, '') 
+		   var allDiscountPrice = discountPriceEl.textContent.replace(/,/g, '') 
+		   
+			// 구매가격 수정
+		   var payPriceEl = document.getElementById("item-payPrice-" + cartNo);
+		   payPriceEl.textContent = amountEl.value * price;
+		   
+		   // 가격 계산
+		   var itemPrice = price * amountEl.value;
+		  
+		   var orderPrice = Number(allItemPrice) + (price * val);
+		   var discountPrice = Number(allDiscountPrice) +((price * itemDiscountRate)* val);
 		   var totalPrice = (orderPrice - discountPrice);	//  총 구매가격
-		
 		   
 		   // 구매가격을 ,가 포함된 통화표기법으로 변경
 		   orderPriceCurrency = new Number(orderPrice).toLocaleString();
 		   // 가격 엘리멘트의 내용을 변경 
 		//   itemPriceEl.textContent = itemPrice;
 		   // 구매가격 엘리먼트의 내용을 변경
-		   orderPriceEl.textContent = orderPriceCurrency;
+		   orderPriceEl.innerText = orderPriceCurrency;
 		   // 할인가격 엘리먼트의 내용을 변경
-		   discountPriceEl.textContent = discountPrice; // <== 엘리먼트의 텍스트필드에 값을 넣어준다는 뜻 
+		   discountPriceEl.innerText = discountPrice; // <== 엘리먼트의 텍스트필드에 값을 넣어준다는 뜻 
 		   // 총구매가격 엘리먼트의 내용을 변경 
-		   totalPriceEl.textConetent = totalPrice;
+		   totalPriceEl.innerText = totalPrice;
 		}
 
 	
