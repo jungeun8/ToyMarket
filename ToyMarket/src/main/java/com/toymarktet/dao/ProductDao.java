@@ -59,5 +59,11 @@ public class ProductDao {
 		session.close();
 		return searchedProducts;
 	}
-
+	
+	public List<Products> getRandomProducts(){
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Products> randomProducts = session.selectList("getRandomProducts");
+		session.close();
+		return randomProducts;
+	}
 }

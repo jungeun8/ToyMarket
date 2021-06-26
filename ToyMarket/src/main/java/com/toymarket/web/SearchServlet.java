@@ -28,15 +28,15 @@ public class SearchServlet extends HttpServlet {
 		if (searchWord != null && !searchWord.isBlank()) {
 			searchType.put("searchWord", searchWord);
 		}
-		
-		
 		searchType.put("searchCategory", searchCategory);
 
 	
 		ProductDao productDao = ProductDao.getInstance();
+		
+		/*검색한 상품*/
 		List<Products> searchedProducts = productDao.getProductsBySearchType(searchType);
-
 		request.setAttribute("searchedProducts", searchedProducts);
+		
 
 		request.getRequestDispatcher("/WEB-INF/views/customer/search.jsp").forward(request, response);
 	}
