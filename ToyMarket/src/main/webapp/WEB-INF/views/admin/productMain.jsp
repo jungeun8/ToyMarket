@@ -63,12 +63,12 @@
 					<c:choose>
 						<c:when test="${empty category }">등록된 카테고리가 존재하지 않습니다.</c:when>
 						<c:otherwise>
-							<tr onclick="getProducts(0,1)"> 
+							<tr onclick="getProducts(0,1)"  class="${param.category eq  '0'? 'table-active' : '' }"> 
 							<td>전체상품목록</td>
 							</tr>
 							<c:forEach var="category" items="${category }" varStatus="loop">
-								<tr onclick="getProducts('${category.no}',1);">
-								<td>${category.name }</td>
+								<tr onclick="getProducts('${category.no}',1);" class="${param.category eq category.no ? 'table-active' : '' }">
+								<td> ${category.name }</td>
 								</tr>
 							</c:forEach>
 						</c:otherwise>

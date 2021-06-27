@@ -6,8 +6,10 @@
 		select
     		category_no     as no,
     		category_name   as name
-			from toy_categories
-			order by category_name asc
+		from 
+			toy_categories
+		order by 
+			category_name asc
 		</select>
 	
 	
