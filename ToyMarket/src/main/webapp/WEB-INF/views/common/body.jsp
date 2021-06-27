@@ -26,8 +26,8 @@
 	<div class="tit text-center" style="padding-top: 50px">
 		<h2 class="tit"><strong> 할인/특가 ></strong></h2>
 	</div>
-    <div style="padding:100px; width:1296px; background-color: #ffebfc;"><!-- 색상 light로 바꿀 예정 -->
-          <div id="slider-div"  >
+    <div style="padding: 0 120px 50px; width:1296px; background-color: light;"><!-- 색상 light로 바꿀 예정 -->
+          <div id="slider-div1"  >
 			<c:forEach var="discountedProduct" items="${discountedProducts }" begin="1" end="16">
 				<div class="col-xs-6 col-md-3 " style="float: left; padding-left: auto;">
 					<a href="/product/detail?productNo=${discountedProduct.no }" class="thumbnail "> 
@@ -49,65 +49,37 @@
 			</c:forEach>
           </div>
     </div>
-
-	<div style="padding-bottom: 50px">
-		<div class="tit text-center" style="padding-top: 50px">
-			<h2 class="tit"><strong> 할인/특가 ></strong></h2>
-		</div>
-		<div id="productList" >
-			<div style="width: 1050px; margin: 0 auto">
-				<div class="row " style=" margin : 0px auto 0px;" >
-					<c:forEach var="discountedProduct" items="${discountedProducts }" begin="1" end="4">
-						<div class="col-xs-6 col-md-3 " style="float: left; padding-left: auto;">
-							<a href="/product/detail?productNo=${discountedProduct.no }" class="thumbnail "> 
-								<img src="${discountedProduct.image }" style="height:283px; width: 222px" alt="...">
-							</a>
-							<div>
-								<a href="#" style="text-decoration:none;display: block; color: black; size: 6px ">${discountedProduct.name}  ${discountedProduct.weight }</a>
-								<span style="text-decoration-line: line-through; color: gray">
-									<fmt:formatNumber maxFractionDigits="0" value="${discountedProduct.price}"/>원
-								</span> 
-								<strong><span style="color: purple; font-size: 20px">
-									<fmt:formatNumber maxFractionDigits="0" value="${discountedProduct.price-discountedProduct.price*discountedProduct.discountRate}"/>원
-								</span></strong>
-								<span style="color: red">
-									(<fmt:formatNumber maxFractionDigits="0" type="percent" value="${discountedProduct.discountRate }" />)
-								</span>
-							</div>
-						</div>	
-					</c:forEach>
-				</div>
-			</div>
-		</div>	
+	
+	<div class="tit text-center" style="padding-top: 50px">
+		<h2 class="tit"><strong> MD추천상품 ></strong></h2>
 	</div>
-	<div style="padding-bottom: 50px">
-		<div class="tit text-center" style="padding-top: 50px">
-			<h2 class="tit"><strong> MD추천상품 ></strong></h2>
-		</div>
-		<div id="productList" >
-			<div style="width: 1050px; margin: 0 auto">
-				<div class="row " style=" margin : 0px auto 0px;" >
-					<c:forEach var="randomProduct" items="${randomProducts }" begin="1" end="4">
-						<div class="col-xs-6 col-md-3 " style="float: left; padding-left: auto;">
-							<a href="/product/detail?productNo=${randomProduct.no }" class="thumbnail "> 
-								<img src="${randomProduct.image }" style="height:283px; width: 222px" alt="...">
-							</a>
-							<div>
-								<a href="#" style="text-decoration:none;display: block; color: black; size: 6px ">${randomProduct.name}  ${randomProduct.weight }</a>
-								<span style="text-decoration-line: line-through; color: gray">
-									<fmt:formatNumber maxFractionDigits="0" value="${randomProduct.price}"/>원
-								</span> 
-								<strong><span style="color: purple; font-size: 20px">
-									<fmt:formatNumber maxFractionDigits="0" value="${randomProduct.price-discountedProduct.price*randomProduct.discountRate}"/>원
-								</span></strong>
-								<span style="color: red">
-									(<fmt:formatNumber maxFractionDigits="0" type="percent" value="${randomProduct.discountRate }" />)
-								</span>
-							</div>
-						</div>	
-					</c:forEach>
+	<div
+		style="padding: 0 120px 50px; width: 1296px; background-color: light;">
+		<!-- 색상 light로 바꿀 예정 -->
+		<div id="slider-div2">
+			<c:forEach var="randomProduct" items="${randomProducts }" begin="1"	end="12">
+				<div class="col-xs-6 col-md-3 "
+					style="float: left; padding-left: auto;">
+					<a href="/product/detail?productNo=${randomProduct.no }"
+						class="thumbnail "> <img src="${randomProduct.image }"
+						style="height: 283px; width: 222px" alt="...">
+					</a>
+					
+					<div>
+						<a href="#"
+							style="text-decoration: none; display: block; color: black; size: 6px">${randomProduct.name} ${randomProduct.weight }
+						</a> 
+						<span style="text-decoration-line: line-through; color: gray"> <fmt:formatNumber
+							maxFractionDigits="0" value="${randomProduct.price}" />원
+						</span> 
+						<strong><span style="color: purple; font-size: 20px">
+								<fmt:formatNumber maxFractionDigits="0"	value="${randomProduct.price-discountedProduct.price*randomProduct.discountRate}" />원
+						</span></strong> 
+						<span style="color: red"> (<fmt:formatNumber maxFractionDigits="0" type="percent" value="${randomProduct.discountRate }" />)
+						</span>
+					</div>
 				</div>
-			</div>
-		</div>	
+			</c:forEach>
+		</div>
 	</div>
 </main>
