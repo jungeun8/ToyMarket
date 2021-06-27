@@ -10,6 +10,7 @@ public class Board {
 	private int viewCount;
 	private String deleted;
 	private String userId;
+	private String userNm;
 	private Date createdDate;
 	private Date updatedDate;
 	private Date deletedDate;
@@ -62,6 +63,14 @@ public class Board {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserNm() {
+		return userNm;
+	}
+
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
 	}
 
 	public Date getCreatedDate() {

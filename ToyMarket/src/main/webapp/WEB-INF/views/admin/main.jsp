@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,6 +33,49 @@
   		
   	</style>
 </head>
+	<c:choose>
+		<c:when test="${empty LOGINED_USER_INFO }">
+			<div class="col-6 offset-3">
+				<div class="alert alert-danger">
+				<c:if test="${param.fail eq 'invalid' }">
+				<div class="col-6 offset-3">
+					<div class="alert alert-danger">
+						<strong>아이디 혹은 비밀번호가 일치하지 않습니다.</strong> 
+					</div>
+				</div>
+			</c:if>
+			<c:if test="${param.fail eq 'drop' }">
+				<div class="col-6 offset-3">
+					<div class="alert alert-danger">
+						<strong>이미 탈퇴처리된 사용자입니다.</strong> 
+					</div>
+				</div>
+			</c:if>
+			<div class="col-6 offset-3">
+				<form method="post" action="/user/login" class="border p-3 bg-light">
+				<h1>관리자 로그인 필요!!</h1>
+				<p>로그인 후 이용가능합니다.</p>
+				<input type="hidden" id="is-admin" name="isadmin" value="yes"/>
+					<div class="form-group">
+						<label>아이디</label>
+						<input type="text" class="form-control" id="user-id" name="id" />
+						<input type="hidden" id="is-kakao" name="iskakao" value="no"/>
+					</div>
+					<div class="form-group">
+						<label>비밀번호</label>
+						<input type="password" class="form-control" id="user-password" name="password" />
+					</div>
+					<div class="text-right">
+						<a href="/user/register" class="btn btn-outline-primary">회원가입</a>
+						<button type="submit" class="btn btn-primary">로그인</button>
+					</div>
+				</form>
+			</div>
+				</div>
+			</div>
+		</c:when>	
+	<c:otherwise>
+
 <body>
 	<div class="container">
 	<%@ include file="../common/adminHeader.jsp" %>
@@ -66,4 +110,6 @@
 		</main>
 	</div>
 </body>
+	</c:otherwise>
+</c:choose>	
 </html>

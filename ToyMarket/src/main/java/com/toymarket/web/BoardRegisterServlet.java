@@ -25,7 +25,6 @@ public class BoardRegisterServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginUser = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		if (loginUser == null) {
-//			response.sendRedirect("../user/login?fail=deny&job=" + URLEncoder.encode("글쓰기", "utf-8"));
 			response.sendRedirect("../user/loginSelect");
 			return;
 		}
@@ -39,7 +38,6 @@ public class BoardRegisterServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Customer loginUser = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		if (loginUser == null) {
-//			response.sendRedirect("../user/login?fail=deny&job=" + URLEncoder.encode("글등록", "utf-8"));
 			response.sendRedirect("../user/loginSelect");
 			return;
 		}

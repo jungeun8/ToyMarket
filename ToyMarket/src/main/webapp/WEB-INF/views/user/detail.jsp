@@ -14,7 +14,7 @@
 <div class="container">
 	<%@include file="../common/header.jsp" %>
 	<div class="jumbotron">
-		<h1>회원 정보 수정</h1>
+		<h1 align="center">회원 정보 수정</h1>
 		<div class="col-6 offset-3">
 			<form id="register-form" action="detail" method="post" class="border p-3 bg-light">
 				<div class="form-group">

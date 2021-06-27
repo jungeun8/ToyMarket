@@ -43,6 +43,7 @@
 				<form method="post" action="/user/login" class="border p-3 bg-light">
 					<div class="form-group">
 						<label>아이디</label>
+						<input type="hidden" id="is-admin" name="isadmin" value="no" />
 						<input type="text" class="form-control" id="user-id" name="id" />
 						<input type="hidden" id="is-kakao" name="iskakao" value="no"/>
 					</div>
