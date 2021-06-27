@@ -43,7 +43,7 @@
 					<tr>
 						<td><img width= "100px" height= "75px" src="${order.itemImage }" alt="${order.itemName }"></td>
 						<td>${order.itemName }</td>
-						<td>${order.price }</td>
+						<td><span ><fmt:formatNumber value="${order.price}"/>원</span></td>
 						<input type="hidden" name="items" value="${order.itemNo }"/>
 					</tr>
 				</c:forEach>
@@ -51,7 +51,7 @@
 				</tbody>
 			</table>
 			
-			<div class="collapse navbar-collapse" id="navbarCollapse">
+			<%-- <div class="collapse navbar-collapse" id="navbarCollapse">
 				<table class="table">
 					<thead>
 						<tr>
@@ -72,7 +72,7 @@
 					</c:forEach>
 					</tbody>
 				</table>
-			</div>
+			</div> --%>
 		</div>
 		
 		
@@ -130,18 +130,18 @@
 						<thead>
 							<tr>
 								<th>상품금액</th>
-								<th>${totalPrice }</th>
+								<th><span id="order-price">${orderPrice}</span> 원</th>
 							</tr>
 							<tr>
 								<th>상품할인금액</th>
-								<th>${totalDiscountRate }</th>
+								<th><span id="order-discount-price">${totalDiscountRate }</span> 원</th>
 							</tr>
 							
 						</thead>
 						<tbody>
 							<tr style=" color : #981098;">
 								<td>결제예상금액</td>
-								<td>${totalPrice-totalDiscountRate }</td>
+								<th><span id="total-price">${totalPrice }</span> 원</th>
 							</tr>
 							
 						</tbody>
