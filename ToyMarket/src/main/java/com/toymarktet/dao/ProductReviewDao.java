@@ -30,6 +30,13 @@ public class ProductReviewDao {
 		session.close();
 		return productReview;
 	}
+	
+	public int checkOrderItemNo(Map<String, Object> param) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int check = session.selectOne("productReview.checkOrderItemNo", param);
+		session.close();
+		return check;
+	}
 
 	public int getTotalRows(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();

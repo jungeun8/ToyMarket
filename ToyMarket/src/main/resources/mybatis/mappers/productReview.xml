@@ -14,6 +14,17 @@
 			I.product_no = #{productNo}
 	</select>
 	
+	<select id="checkOrderItemNo" parameterType="map" resultType="int">
+		SELECT
+			order_item_no as orderItemNo
+		FROM
+			toy_order_items 
+		WHERE
+			product_no = #{productNo}
+		AND
+			order_no IN (SELECT O.order_no FROM toy_order O, toy_customer C WHERE O.customer_no = #{customerNo})
+	</select>
+	
 	<select id="getReviewList" parameterType="map" resultType="com.toymarket.dto.ProductReviewDto">
 		SELECT
 			review_no 							as no,
@@ -29,8 +40,8 @@
 			RN
 		FROM (
 			SELECT
-				<if test="sort == '최근등록순'"> row_number() OVER (ORDER BY review_no DESC) RN, </if>
-				<if test="sort == '조회많은순'"> row_number() OVER (ORDER BY review_view DESC) RN, </if>
+				<if test="sort == '최근등록순'"> row_number() OVER (ORDER BY review_no ASC) RN, </if>
+				<if test="sort == '조회많은순'"> row_number() OVER (ORDER BY review_view ASC) RN, </if>
 				R.review_no, R.review_title, R.review_content, R.review_created_date, R.order_item_no, R.review_view, I.product_no,
 				I.order_no, O.customer_no, C.customer_name
 			FROM 
@@ -46,6 +57,8 @@
 		)
 		WHERE
 			RN BETWEEN #{beginIndex} AND #{endIndex}
+		ORDER BY
+			RN DESC
 	</select>
 
 	<insert id="insertReview" parameterType="com.toymarket.vo.ProductReview">
@@ -53,7 +66,7 @@
 			review_no, review_title, review_content, review_created_date, order_item_no
 		)
 		VALUES (
-			product_review_seq.nextval, #{title}, #{content}, #{createdDate}, #{itemNo}
+			product_reviews_seq.nextval, #{title}, #{content}, #{createdDate}, #{orderItemNo}
 		)
 	</insert>
 	

@@ -291,7 +291,7 @@
 																				<p class="fs-5">제목</p>
 																			</td>
 																			<td class="py-2">
-																				<input type="text" class="form-control" name="title" id="InquiryTitle" placeholder="제목을 입력해주세요"/>
+																				<input type="text" class="form-control" name="title" id="ReviewTitle" placeholder="제목을 입력해주세요"/>
 																			</td>
 																		</tr>
 																		<tr>
@@ -299,7 +299,7 @@
 																				<p class="fs-5">내용</p>
 																			</td>
 																			<td class="py-2">
-																				<textarea class="form-control" name="content" id="InquiryContent" style="height: 300px;" placeholder=""></textarea>
+																				<textarea class="form-control" name="content" id="ReviewContent" style="height: 300px;" placeholder=""></textarea>
 																			</td>
 																		</tr>
 																	</table>
@@ -612,6 +612,33 @@
 				}
 			}
 			/* 리뷰게시판 ajax 끝*/
+			
+			/* Ajax 리뷰등록 시작 */
+			$('#insertReview').click(function() {
+				var productNo = document.getElementById('productNo').value;
+				var customerNo = document.getElementById('customerNo').value;
+				var ReviewTitle = document.getElementById('ReviewTitle').value;
+				var ReviewContent = document.getElementById('ReviewContent').value;
+				
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onload = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+					} else {
+						console.error(xhr.responseText);
+					}
+				};
+				xhr.open('POST', 'review/insert');
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("productNo=" + productNo + "&customerNo=" + customerNo + "&title=" + ReviewTitle + "&content=" + ReviewContent);
+				
+				getReviewList(1);
+				$('#modalReview').modal("hide");
+			});
+			/* Ajax 리뷰등록 끝 */
 			
 			/* 문의게시판 ajax 시작 */
 			var customerName = '${customer.name}';

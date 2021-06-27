@@ -2,7 +2,9 @@ package com.toymarket.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -28,7 +30,15 @@ public class ProductReviewInsertServlet extends HttpServlet {
 		
 		
 		int productNo = Integer.parseInt(req.getParameter("productNo"));
-		int itemNo = Integer.parseInt(req.getParameter("itemNo"));
+		int customerNo = Integer.parseInt(req.getParameter("customerNo"));
+		
+		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("productNo", productNo);
+		param.put("customerNo", customerNo);
+		
+		int itemNo = productReviewDao.checkOrderItemNo(param);
+		
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 		
