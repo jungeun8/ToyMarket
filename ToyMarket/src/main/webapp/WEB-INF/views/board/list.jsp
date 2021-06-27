@@ -56,7 +56,7 @@
 									<tr>
 										<td>${board.no }</td>
 										<td><a href="boarddetail?no=${board.no }&page=${pagination.pageNo}">${board.title }</a></td>
-										<td>${board.userId }</td>
+										<td>${board.userNm }</td>
 										<td>${board.viewCount }</td>
 										<td><fmt:formatDate value="${board.createdDate }" pattern="yyyy-MM-dd"/></td>
 									</tr>

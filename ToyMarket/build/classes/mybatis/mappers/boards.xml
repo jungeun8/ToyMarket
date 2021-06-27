@@ -20,18 +20,48 @@
 			board_view_count as viewCount,
 			board_deleted as deleted,
 			user_id as userId,
+			user_name as userNm,
 			board_created_date as createdDate,
 			board_updated_date as updatedDate,
 			board_deleted_date as deletedDate
 		from (
 			select
 				row_number() over (order by board_no desc) rn,
-				board_no, board_title, board_content, board_view_count, board_deleted, user_id, 
+				board_no, board_title, board_content, board_view_count, board_deleted, user_id,
+				(select CUSTOMER_NAME from TOY_CUSTOMER where CUSTOMER_ID = user_id) user_name,
 				board_created_date, board_updated_date, board_deleted_date
 			from
-				toy_user_boards
+				toy_user_boards 
 			where 
 				board_deleted = 'N'
+		)
+		where
+			rn between #{beginIndex} and #{endIndex}
+	</select>
+	
+	<select id="getBoards2" parameterType="map" resultType="com.toymarket.vo.Board">
+		select
+			board_no as no,
+			board_title as title,
+			board_content as content,
+			board_view_count as viewCount,
+			board_deleted as deleted,
+			user_id as userId,
+			CUSTOMER_NAME as userNm,
+			board_created_date as createdDate,
+			board_updated_date as updatedDate,
+			board_deleted_date as deletedDate
+		from (
+			select
+				row_number() over (order by board_no desc) rn,
+				board_no, board_title, board_content, board_view_count, board_deleted, user_id,
+				B.CUSTOMER_NAME,
+				board_created_date, board_updated_date, board_deleted_date
+			from
+				toy_user_boards A, TOY_CUSTOMER B
+			where 
+				board_deleted = 'N'
+				AND B.CUSTOMER_ID = A.user_id
 		)
 		where
 			rn between #{beginIndex} and #{endIndex}

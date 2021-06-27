@@ -67,7 +67,7 @@
 					<tr>
 						<th>제목</th>
 						<td><c:out value="${board.title }"/></td>
-						<th>작성자</th>
+						<th>작성자ID</th>
 						<td>${board.userId }</td>
 					</tr>
 					<tr style="height: 200px !important;">
