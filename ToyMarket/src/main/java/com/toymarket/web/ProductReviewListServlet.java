@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.toymarket.dto.ProductInquiryDto;
 import com.toymarket.dto.ProductReviewDto;
 import com.toymarket.vo.Pagination;
+import com.toymarket.vo.ReviewPagination;
 import com.toymarktet.dao.ProductInquiryDao;
 import com.toymarktet.dao.ProductReviewDao;
 
@@ -63,7 +64,7 @@ public class ProductReviewListServlet extends HttpServlet {
 			endPage = totalPages;
 		}
 		// 페이징처리에 필요한 정보를 Pagination객체에 저장하기
-		Pagination pagination = new Pagination();
+		ReviewPagination pagination = new ReviewPagination();
 		pagination.setPageNo(pageNo);
 		pagination.setTotalRows(totalRows);
 		pagination.setTotalPages(totalPages);
@@ -74,7 +75,7 @@ public class ProductReviewListServlet extends HttpServlet {
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("reviewList", reviewList);
-		data.put("pagination", pagination);
+		data.put("reviewPagination", pagination);
 		
 		// 획득된 문의리스트정보를 JSON 형식의 텍스트로 변환
 		Gson gson = new Gson();

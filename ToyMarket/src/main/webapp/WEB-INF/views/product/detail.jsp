@@ -230,8 +230,7 @@
 								<table class="table table-hover border-top" id="review-table">
 									<colgroup>
 										<col width="10%">
-										<col width="50%">
-										<col width="10%">
+										<col width="60%">
 										<col width="10%">
 										<col width="10%">
 										<col width="10%">
@@ -242,7 +241,6 @@
 											<th class="text-center py-3">제목</th>
 											<th class="text-center py-3">작성자</th>
 											<th class="text-center py-3">작성일</th>
-											<th class="text-center py-3">도움</th>
 											<th class="text-center py-3">조회</th>
 										</tr>
 									</thead>
@@ -252,54 +250,83 @@
 											<td class="py-3">리뷰제목리뷰제목</td>
 											<td class="text-center py-3">작성자</td>
 											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
 											<td class="text-center py-3">100</td>
 										</tr>
 									</tbody>
 								</table>
-								<div class="d-flex justify-content-end">
-									<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReview">후기 쓰기</button>
-									<!-- Modal -->
-									<div class="modal fade" id="modalReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-												  ...
-												</div>
-												<div class="modal-footer">
-												  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												  <button type="button" class="btn btn-primary">Understood</button>
+								<div class="d-flex justify-content-between">
+									<div></div>
+									<div id="review-pagenation"></div>
+									<c:choose>
+										<c:when test="${empty customer}">
+											<div>
+												
+											</div>
+										</c:when>
+										
+										<c:otherwise>
+											<div>	
+												<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReview">후기 쓰기</button>
+												<!-- Modal -->
+												<div class="modal fade" id="modalReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+														<div class="modal-content">
+															<form method="post" id="reviewInsert">
+																<input type="hidden" name="customerNo" id="customerNo" value="<c:out value='${customer.no}'/>"/>
+																<input type="hidden" name="productNo" id="productNo" value="<c:out value='${product.no}'/>"/>
+																<div class="modal-header boder-bottom">
+																	<h5 class="modal-title fs-3" id="staticBackdropLabel">상품 리뷰하기</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body boder-bottom">
+																	<table class="table table-borderless">
+																		<colgroup>
+																			<col width="20%">
+																			<col width="80%">
+																		</colgroup>
+																		<tr>
+																			<td class="h-100">
+																				<img alt="상품 대표이미지" src="<c:out value="${product.image}"/>" class="img-thumbnail" style="width:100px; height:100px;">
+																			</td>
+																			<td class="d-flex align-items-center">
+																				<div class="h-100">
+																					<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
+																					<p class="fs-6"><c:out value="${product.subTitle}"/></p>
+																				</div>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2">
+																				<p class="fs-5">제목</p>
+																			</td>
+																			<td class="py-2">
+																				<input type="text" class="form-control" name="title" id="InquiryTitle" placeholder="제목을 입력해주세요"/>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2">
+																				<p class="fs-5">내용</p>
+																			</td>
+																			<td class="py-2">
+																				<textarea class="form-control" name="content" id="InquiryContent" style="height: 300px;" placeholder=""></textarea>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+																<div class="modal-footer d-flex justify-content-center">
+															    	<button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">취소</button>
+															    	<button type="button" id="insertReview" class="btn btn-outline-success btn-lg">등록</button>
+																</div>
+															</form>
+														</div>
+													</div>
 												</div>
 											</div>
-										</div>
-									</div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
-							<div id="review-pagenation">
-								<c:if test="${pagination.totalRows gt 0 }">
-									<div class="row mb-2">
-										<div class="col-12">
-											<ul class="pagination justify-content-center">
-												<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : ''}">
-													<a class="page-link" href="list?page=${pagination.pageNo - 1 }">이전</a>
-												</li>
-												<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
-													<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
-														<a class="page-link" href="list?page=${num }">${num }</a>
-													</li>
-												</c:forEach>
-												<li class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : ''}">
-													<a class="page-link" href="list?page=${pagination.pageNo + 1 }">다음</a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</c:if>
-							</div>
+							
 						</div>
 						<div id="product-inquiry">
 							<br/>
@@ -363,11 +390,12 @@
 																		</colgroup>
 																		<tr>
 																			<td class="h-100">
-																				<img alt="상품 대표이미지" src="https://img-cf.kurly.com/shop/data/goods/1623216767987y0.jpg" class="img-thumbnail" style="width:100px; height:100px;">
+																				<img alt="상품 대표이미지" src="<c:out value="${product.image}"/>" class="img-thumbnail" style="width:100px; height:100px;">
 																			</td>
 																			<td class="d-flex align-items-center">
 																				<div class="h-100">
 																					<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
+																					<p class="fs-6"><c:out value="${product.subTitle}"/></p>
 																				</div>
 																			</td>
 																		</tr>
@@ -467,8 +495,7 @@
 			function goBasket() {
 				var productNo = ${product.no};
 				var amount = document.getElementById("number").innerText;
-				var productPrice = document.getElementById("productPrice"); // 상품가격
-				var buyPrice = (amount * productPrice);
+				var buyPrice = document.getElementById("productPrice").value;
 				
 				location.href = "/cart/add?productNo=" + productNo + "&amount=" + amount + "&buyPrice=" + buyPrice;
 			}
@@ -495,7 +522,7 @@
 			/* 리뷰게시판 ajax 시작 */
 			getReviewList(1);
 			
-			function getReviewList(pageNo) {
+			function getReviewList(pageNo1) {
 				var tbodyEl = document.querySelector("#review-table tbody");
 				tbodyEl.innerHTML = "";
 				var divEl = document.querySelector("#review-pagenation");
@@ -514,30 +541,31 @@
 						// (응답데이터가 json 배열 표기법으로 작성되어 있기 때문에 자바스크립트의 배열로 변환됨)
 						var data = JSON.parse(jsonTextData);
 						var reviewList = data.reviewList;
-						var pagination = data.pagination;
+						var reviewPagination = data.reviewPagination;
 						
 						// 배열의 처음부터 끝까지 반복하면서 사원정보로 <tr/>, <td/> 태그를 생성하기
 						var rows = "";
 						if (reviewList == "") {
 							rows += "<tr>";
-							rows += "<td colspan='4' class='text-center py-3'>";
-							rows += "작성된 문의가 없습니다.";
+							rows += "<td colspan='5' class='text-center py-3'>";
+							rows += "작성된 리뷰가 없습니다.";
 							rows += "</td>";
 							rows += "</tr>";
 						} else {
 							for (var i = 0; i < reviewList.length; i++) {
 								var review = reviewList[i];
 								
-								rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
-								rows += "<td class='py-3'>" + inq.title + "</td>";
-								rows += "<td class='text-center py-3'>" + maskingName(inq.customerName) + "</td>";
-								rows += "<td class='text-center py-3'>" + moment(inq.createdDate).format('YYYY-MM-DD') + "</td>";
-								rows += "<td class='text-center py-3'>" + inq.status + "</td>";
+								rows += "<tr onclick='reviewToggleDisplay("+review.no+")'>";
+								rows += "<td class='text-center py-3'>" + review.RN + "</td>";
+								rows += "<td class='py-3'>" + review.title + "</td>";
+								rows += "<td class='text-center py-3'>" + maskingName(review.customerName) + "</td>";
+								rows += "<td class='text-center py-3'>" + moment(review.createdDate).format('YYYY-MM-DD') + "</td>";
+								rows += "<td class='text-center py-3'>" + review.views + "</td>";
 								rows += "</tr>";
 								 
 								
-								rows += "<td id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
-								rows += inq.content;
+								rows += "<td colspan='5' id='detail-row-"+ review.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += review.content;
 								rows += "</td>";
 							}
 						}
@@ -546,21 +574,21 @@
 						tbodyEl.innerHTML = rows;
 						
 						var rows2 = "";
-						if (pagination.totalRows > 0) {
+						if (reviewPagination.totalRows > 0) {
 							rows2 += "<div class='row mb-2'>";
 							rows2 += "<div class='col-12'>";
 							rows2 += "<ul class='pagination justify-content-center'>"; 
-							rows2 += "<li class='page-item " + (pagination.pageNo <= 1 ? 'disabled' : '' ) +"'>";
-							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(pagination.pageNo - 1)+")'>이전</a>";
+							rows2 += "<li class='page-item " + (reviewPagination.pageNo <= 1 ? 'disabled' : '' ) +"'>";
+							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(reviewPagination.pageNo - 1)+")'>이전</a>";
 							rows2 += "</li>"; 
-							for (var num=pagination.beginPage; num<=pagination.endPage; num++) {
-								rows2 += "<li class='page-item "+ (pagination.pageNo == num ? 'active' : '')+"'>";
+							for (var num = reviewPagination.beginPage; num<=reviewPagination.endPage; num++) {
+								rows2 += "<li class='page-item "+ (reviewPagination.pageNo == num ? 'active' : '')+"'>";
 								rows2 += "<a class='page-link' href='javascript:getInquiryList("+num+")'>"+ num +"</a>";
 								rows2 += "</li>";
 							}
 							
-							rows2 += "<li class='page-item " + (pagination.pageNo >= pagination.totalPages ? 'disabled' : '') +  "'>";
-							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(pagination.pageNo + 1)+")'>다음</a>";
+							rows2 += "<li class='page-item " + (reviewPagination.pageNo >= reviewPagination.totalPages ? 'disabled' : '') +  "'>";
+							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(reviewPagination.pageNo + 1)+")'>다음</a>";
 							rows2 += "</li>"; 
 							rows2 += "</ul>"; 
 							rows2 += "</div>"; 
@@ -571,9 +599,19 @@
 				}
 				
 				// XMLHttpRequest 객체 초기화
-				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo);
+				xhr.open("GET", "review/list?productNo=${product.no}&page=" + pageNo1);
 				// 서버로 HTTP요청 보내기
 				xhr.send();
+			}
+			
+			function reviewToggleDisplay(no) {
+				var detail = document.getElementById("detail-row-" + no);
+				
+				if (detail.style.display == 'none') {
+					detail.style.display = 'block';
+				} else {
+					detail.style.display = 'none';
+				}
 			}
 			/* 리뷰게시판 ajax 끝*/
 			
@@ -582,7 +620,7 @@
 			getInquiryList(1);
 			
 			
-			function getInquiryList(pageNo) {
+			function getInquiryList(pageNo2) {
 				
 				// 조회된 문의정보가 추가될 tbody 엘리먼트 획득하기
 				var tbodyEl = document.querySelector("#inquiry-table tbody");
@@ -618,10 +656,10 @@
 								var inq = inquiryList[i];
 								
 								if ('N' === inq.secretYN) {
-									rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+									rows += "<tr onclick='inquiryToggleDisplay("+inq.no+")'>";
 									rows += "<td class='py-3'>" + inq.title + "</td>";
 								} else if ('Y' === inq.secretYN && customerName === inq.customerName) {
-									rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+									rows += "<tr onclick='inquiryToggleDisplay("+inq.no+")'>";
 									rows += "<td class='py-3'>" + inq.title + "</td>";
 								} else {
 									rows += "<tr>";
@@ -668,12 +706,12 @@
 				}
 				
 				// XMLHttpRequest 객체 초기화
-				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo);
+				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo2);
 				// 서버로 HTTP요청 보내기
 				xhr.send();
 			}
 			
-			function toggleDisplay(no) {
+			function inquiryToggleDisplay(no) {
 				var detail = document.getElementById("detail-row-" + no);
 				
 				if (detail.style.display == 'none') {

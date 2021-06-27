@@ -9,19 +9,14 @@ public class ProductReviewDto {
 	private String content;
 	private Date createdDate;
 	private int itemNo;
+	private int views;
 	private int productNo;
+	private int orderNo;
+	private int customerNo;
+	private String customerName;
+	private int RN;
 	
 	public ProductReviewDto() {}
-	
-	public ProductReviewDto(int no, String title, String content, Date createdDate, int itemNo, int productNo) {
-		super();
-		this.no = no;
-		this.title = title;
-		this.content = content;
-		this.createdDate = createdDate;
-		this.itemNo = itemNo;
-		this.productNo = productNo;
-	}
 	
 	public int getNo() {
 		return no;
@@ -69,5 +64,45 @@ public class ProductReviewDto {
 
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
+	}
+
+	public int getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public int getCustomerNo() {
+		return customerNo;
+	}
+
+	public void setCustomerNo(int customerNo) {
+		this.customerNo = customerNo;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public int getRN() {
+		return RN;
+	}
+	
+	public void setRN(int rN) {
+		RN = rN;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
 	}
 }

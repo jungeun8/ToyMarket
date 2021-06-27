@@ -10,6 +10,7 @@ public class ProductReview {
 	private int likeCount;
 	private Date createdDate;
 	private int orderItemNo;
+	private int views;
 	
 	public ProductReview() {}
 
@@ -59,5 +60,13 @@ public class ProductReview {
 
 	public void setOrderItemNo(int orderItemNo) {
 		this.orderItemNo = orderItemNo;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
 	}
 }

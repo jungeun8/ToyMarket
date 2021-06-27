@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/product/inquiry/insert")
+@WebServlet("/product/review/insert")
 public class ProductReviewInsertServlet extends HttpServlet {
 	
 	ProductReviewDao productReviewDao = ProductReviewDao.getInstance();

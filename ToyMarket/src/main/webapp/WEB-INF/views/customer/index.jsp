@@ -19,12 +19,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 	
 	<style>
-	.slick-prev,
-	.slick-next {
-    color: red;;
-    background: purple;
+	.slick-prev:before,
+	.slick-next:before {
+    	background: purple;
 	}
-
 	</style>
 </head>
 <body id="jhw">

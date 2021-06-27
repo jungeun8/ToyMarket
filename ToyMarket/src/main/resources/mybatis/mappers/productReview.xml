@@ -7,7 +7,7 @@
 		SELECT 
 			COUNT(*)
 		FROM 
-			toy_product_review R, toy_order_items I
+			toy_product_reviews R, toy_order_items I
 		WHERE
 			R.order_item_no = I.order_item_no
 		AND
@@ -21,15 +21,25 @@
 			review_content 						as content,
 			review_created_date 				as createdDate,
 			order_item_no 						as itemNo,
-			product_no 							as productNo
+			review_view 						as views,
+			product_no 							as productNo,
+			order_no 							as orderNo,
+			customer_no 						as customerNo,
+			customer_name 						as customerName,
+			RN
 		FROM (
 			SELECT
 				row_number() OVER (ORDER BY review_no DESC) RN,
-				R.review_no, R.review_title, R.review_content, R.review_created_date, R.order_item_no, I.product_no
+				R.review_no, R.review_title, R.review_content, R.review_created_date, R.order_item_no, R.review_view, I.product_no,
+				I.order_no, O.customer_no, C.customer_name
 			FROM 
-				toy_product_review R, toy_order_items I
+				toy_product_reviews R, toy_order_items I, toy_order O, toy_customer C
 			WHERE
 				R.order_item_no = I.order_item_no
+			AND
+				I.order_no = O.order_no
+			AND
+				O.customer_no = C.customer_no
 			AND
 				I.product_no = #{productNo}
 		)
@@ -38,7 +48,7 @@
 	</select>
 
 	<insert id="insertReview" parameterType="com.toymarket.vo.ProductReview">
-		INSERT INTO toy_product_review(
+		INSERT INTO toy_product_reviews(
 			review_no, review_title, review_content, review_created_date, order_item_no
 		)
 		VALUES (
