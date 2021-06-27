@@ -75,7 +75,7 @@
     	<mapper resource="mybatis/mappers/order.xml"/>
 		<mapper resource="mybatis/mappers/products.xml"/>
 		<mapper resource="mybatis/mappers/productInquiry.xml"/>
-		<mapper resource="mybatis/mappers/products.xml"/>
+		<mapper resource="mybatis/mappers/productReview.xml"/>
 		<mapper resource="mybatis/mappers/users.xml"/>
 	</mappers>
 </configuration>

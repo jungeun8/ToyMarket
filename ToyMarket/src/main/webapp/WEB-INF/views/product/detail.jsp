@@ -407,7 +407,7 @@
 										</c:if>
 									</div>
 									<c:choose>
-										<c:when test="${empty user}">
+										<c:when test="${empty customer}">
 											<div>
 												
 											</div>
@@ -421,7 +421,7 @@
 													<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
 														<div class="modal-content p-4">
 															<form method="post" id="inquiryInsert">
-																<input type="hidden" name="customerNo" id="customerNo" value="<c:out value='${user.no}'/>"/>
+																<input type="hidden" name="customerNo" id="customerNo" value="<c:out value='${customer.no}'/>"/>
 																<input type="hidden" name="productNo" id="productNo" value="<c:out value='${product.no}'/>"/>
 																<div class="modal-header border-bottom">
 																	<h5 class="modal-title fs-3" id="staticBackdropLabel">상품 문의하기</h5>
@@ -462,9 +462,8 @@
 																		<tr>
 																			<td class="py-2"></td>
 																			<td class="py-2">
-																				<div class="form-check form-switch">
-																					<input class="form-check-input" type="checkbox" name="secretYN" id="secretYN">
-																					<label class="form-check-label" for="secretYN">비밀글로 문의하기</label>
+																				<div>
+																				  <input class="form-check-input" type="checkbox" name="secretYN" id="secretYN" aria-label="..."> 비밀글로 문의하기
 																				</div>
 																			</td>
 																		</tr>
@@ -595,29 +594,36 @@
 						
 						// 배열의 처음부터 끝까지 반복하면서 사원정보로 <tr/>, <td/> 태그를 생성하기
 						var rows = "";
-						for (var i = 0; i < inquiryList.length; i++) {
-							var inq = inquiryList[i];
-							
+						if (inquiryList == "") {
 							rows += "<tr>";
-							if ('N' === inq.secretYN) {
-								rows += "<td class='py-3' onclick='toggleDisplay("+inq.no+")'>" + inq.title + "</td>";
-							} else if ('Y' === inq.secretYN && customerName === inq.customerName) {
-								rows += "<td class='py-3' onclick='toggleDisplay("+inq.no+")'>" + inq.title + "</td>";
-							} else {
-								rows += "<td class='py-3' style='color:#A9A9A9'>비밀글입니다.<i class='fas fa-lock'></i></td>";
-							}
-							rows += "<td class='text-center py-3'>" + maskingName(inq.customerName) + "</td>";
-							rows += "<td class='text-center py-3'>" + moment(inq.createdDate).format('YYYY-MM-DD') + "</td>";
-							rows += "<td class='text-center py-3'>" + inq.status + "</td>";
+							rows += "<td colspan='4' class='text-center py-3'>";
+							rows += "작성된 문의가 없습니다.";
+							rows += "</td>";
 							rows += "</tr>";
-							if ('답변완료' == inq.status) {							
-								rows += "<tr id='detail-row-"+ inq.no +"' style='display:none;'>";
-								rows += "<td colspan='4' style='background-color:#fafafa;' class='py-5'>";
-								rows += "00000000000000010000000000000000000000000000000000000000";
-								rows += "</td>";
+						} else {
+							for (var i = 0; i < inquiryList.length; i++) {
+								var inq = inquiryList[i];
+								
+								if ('N' === inq.secretYN) {
+									rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+									rows += "<td class='py-3'>" + inq.title + "</td>";
+								} else if ('Y' === inq.secretYN && customerName === inq.customerName) {
+									rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+									rows += "<td class='py-3'>" + inq.title + "</td>";
+								} else {
+									rows += "<tr>";
+									rows += "<td class='py-3' style='color:#A9A9A9'>비밀글입니다.<i class='fas fa-lock'></i></td>";
+								}
+								rows += "<td class='text-center py-3'>" + maskingName(inq.customerName) + "</td>";
+								rows += "<td class='text-center py-3'>" + moment(inq.createdDate).format('YYYY-MM-DD') + "</td>";
+								rows += "<td class='text-center py-3'>" + inq.status + "</td>";
 								rows += "</tr>";
+								 
+								
+								rows += "<td id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += inq.content;
+								rows += "</td>";
 							}
-							
 						}
 						
 						// <tbody> 엘리먼트에 <tr>, <td>태그로 구성된 HTML 컨텐츠를 추가하기
@@ -671,9 +677,9 @@
 				var customerNo = document.getElementById('customerNo').value;
 				var InquiryTitle = document.getElementById('InquiryTitle').value;
 				var InquiryContent = document.getElementById('InquiryContent').value;
-				var secretYN = document.getElementById('secretYN').value;
-				
-				if ('on' === secretYN) {
+				var secretYN = document.querySelector("input[name=secretYN]").checked;
+
+				if (true == secretYN) {
 					secretYN = 'Y';
 				} else {
 					secretYN = 'N';					
@@ -694,7 +700,7 @@
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("productNo=" + productNo + "&customerNo=" + customerNo + "&title=" + InquiryTitle + "&content=" + InquiryContent + "&secretYN=" + secretYN);
 				
-				getInquiryList(productNo);
+				getInquiryList(1);
 				$('#modalInquiry').modal("hide");
 			});
 			/* Ajax 문의등록 끝 */
