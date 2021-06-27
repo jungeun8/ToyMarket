@@ -219,10 +219,9 @@
 									<font size="2">상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</font>
 								</div>
 								<div class="d-flex align-items-end">
-									<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-										<option value="1" selected>최근등록순</option>
-										<option value="2">좋아요순</option>
-										<option value="3">조회많은순</option>
+									<select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="refreshReviewList()">
+										<option value="최근등록순" ${param.sort eq '최근등록순' ? 'selected' : '' }>최근등록순</option>
+										<option value="조회많은순" ${param.sort eq '조회많은순' ? 'selected' : '' }>조회많은순</option>
 									</select>
 								</div>
 							</div>
@@ -244,15 +243,7 @@
 											<th class="text-center py-3">조회</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td class="text-center py-3">66</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-									</tbody>
+									<tbody></tbody>
 								</table>
 								<div class="d-flex justify-content-between">
 									<div></div>
@@ -518,6 +509,13 @@
 				}
 			}
 			/* 가운데 이름 마스킹처리 끝 */
+			
+			/* 리뷰게시판 sort 시작 */
+			function refreshReviewList() {
+				var sortValue = document.getElementById("sort").value;
+				
+			}
+			/* 리뷰게시판 sort 끝 */
 			
 			/* 리뷰게시판 ajax 시작 */
 			getReviewList(1);

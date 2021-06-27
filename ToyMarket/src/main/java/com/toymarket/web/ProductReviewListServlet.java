@@ -38,10 +38,18 @@ public class ProductReviewListServlet extends HttpServlet {
 		int productNo = Integer.parseInt(req.getParameter("productNo"));
 		// 페이지번호 조회하기
 		int pageNo = NumberUtils.toInt(req.getParameter("page"), 1);
+		String sort = req.getParameter("sort");
 		
 		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
 		Map<String, Object> param = new HashMap<String, Object>();
 		
+		// 받아오는 sort값이 null 이면 기본값으로 "신상품순"을 준다.
+		if (sort == null) {
+			sort = "최근등록순";
+		}
+		
+		// 리스트 정렬
+		param.put("sort", sort);
 		// 조회범위를 HashMap객체에 추가하기
 		param.put("beginIndex", (pageNo -1) * ROWS_PER_PAGE + 1);
 		param.put("endIndex", pageNo * ROWS_PER_PAGE);

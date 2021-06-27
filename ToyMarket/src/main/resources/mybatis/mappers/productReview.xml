@@ -29,7 +29,8 @@
 			RN
 		FROM (
 			SELECT
-				row_number() OVER (ORDER BY review_no DESC) RN,
+				<if test="sort == '최근등록순'"> row_number() OVER (ORDER BY review_no DESC) RN, </if>
+				<if test="sort == '조회많은순'"> row_number() OVER (ORDER BY review_view DESC) RN, </if>
 				R.review_no, R.review_title, R.review_content, R.review_created_date, R.order_item_no, R.review_view, I.product_no,
 				I.order_no, O.customer_no, C.customer_name
 			FROM 
