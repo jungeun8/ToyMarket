@@ -68,7 +68,7 @@
 	<select id="getItemDataByItemNo" parameterType="string" resultType="com.toymarket.dto.cart.CartItemDto">
 	select  cart_no as itemNo,
         	(select product_name from toy_products where product_no = toy_cart.product_no)  as itemName,
-        	product_buy_price 		as price,
+        	(product_amount * product_buy_price) 		as price,
         	(select product_Image from toy_products where product_no = toy_cart.product_no) as itemImage
 			from toy_cart
 		where cart_no= #{itemNo}

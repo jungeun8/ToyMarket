@@ -35,6 +35,7 @@ public class OrderServlet extends HttpServlet {
 		
 		//  총금액과 총수량을 담을 변수를 선언한다.
 		// 프론트에서 상품금액과 상품알인금액을 받는다. 
+		String orderPrice = req.getParameter("orderPrice");
 		String totalPrice = req.getParameter("totalPrice");
 		String totalDiscountRate = req.getParameter("totalDiscountRate");
 		
@@ -54,6 +55,7 @@ public class OrderServlet extends HttpServlet {
 		orderList.setOrderItems(items); //조회한 아이템 정보를을 추가
 		req.setAttribute("orderList", orderList);
 		req.setAttribute("user", user); // 주문자 정보
+		req.setAttribute("orderPrice", orderPrice);
 		req.setAttribute("totalPrice", totalPrice);
 		req.setAttribute("totalDiscountRate", totalDiscountRate);
 		
