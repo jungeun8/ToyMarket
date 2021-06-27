@@ -40,7 +40,7 @@
 
 
 	<!-- 메뉴 -->
-	<nav class="navbar navbar-expand-md navbar-light bg-light">
+	<nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
 			<div class="col-6">
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarCollapse"

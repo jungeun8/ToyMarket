@@ -35,6 +35,16 @@
 				color: black;
 				text-decoration: none;
 			}
+			
+			.page-item.active .page-link {
+				color: #fff !important;
+				background-color: #5f0080 !important;
+    			border-color: #5f0080 !important;
+			}
+			
+			.page-link {
+				color: #5f0080 !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -76,7 +86,6 @@
 													<img src="${product.image}" class="card-img-top" alt="...">
 													<div class="card-body">
 														<h5 class="card-title">[${product.brand}] ${product.name}</h5>
-														<div>
 															<span style="text-decoration-line: line-through; color: gray">
 																<fmt:formatNumber value="${product.price}"/>원
 															</span> 
@@ -86,8 +95,6 @@
 															<span style="color: red">
 																(<fmt:formatNumber type="percent" value="${product.discountRate }" />)
 															</span>
-														</div>
-<%-- 														<h4 class="bold">${product.price}원</h4> --%>
 														<p class="card-text light"><font size="2" color="#A9A9A9">${product.subTitle}</font></p>
 													</div>
 												</div>

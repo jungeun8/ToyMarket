@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="productReview">
+
+	<select id="getTotalRows" parameterType="map" resultType="int">
+		select 
+			count(*)
+		from 
+			toy_product_inquiry
+		where 
+			product_no = #{productNo}
+	</select>
+	
+	<select id="getReviewList" parameterType="map" resultType="com.toymarket.dto.ProductInquiryDto">
+		SELECT
+			review_no 							as no,
+			review_title						as title,
+			review_content 						as content,
+			review_created_date as createdDate,
+			order_item_no as itemNo
+		FROM (
+			SELECT
+				row_number() OVER (ORDER BY inquiry_no DESC) RN,
+				I.inquiry_no, I.inquiry_title, I.inquiry_content, I.inquiry_reply_content, I.inquiry_status, I.inquiry_created_date, I.inquiry_reply_created_date,
+				I.product_no, I.customer_no, C.customer_name, I.INQUIRY_SECRET_YN
+			FROM 
+				toy_product_inquiry I, toy_customer C
+			WHERE
+				I.customer_no = C.customer_no
+			AND
+				I.product_no = #{productNo}
+		)
+		WHERE
+			RN BETWEEN #{beginIndex} AND #{endIndex}
+	
+			
+	</select>
+
+	<insert id="insertReview" parameterType="com.toymarket.vo.ProductInquiry">
+		INSERT INTO toy_product_inquiry(
+			inquiry_no, inquiry_title, inquiry_content, product_no, customer_no, inquiry_secret_yn
+		)
+		VALUES (
+			product_inquiry_seq.nextval, #{title}, #{content}, #{productNo}, #{customerNo}, #{secretYN}
+		)
+	</insert>
+	
+</mapper>

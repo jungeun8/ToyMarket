@@ -25,7 +25,7 @@ public class ProductDao {
 
 	public List<Products> getDiscountedProducts() {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Products> discountedProducts = session.selectList("getDiscountedProducts");
+		List<Products> discountedProducts = session.selectList("products.getDiscountedProducts");
 		session.close();
 		return discountedProducts;
 	}
@@ -55,7 +55,7 @@ public class ProductDao {
 	public List<Products> getProductsBySearchType(Map<String,Object> searchType) {
 		SqlSession session = sqlSessionFactory.openSession();
 		System.out.println("searchType 값 확인: "+searchType.toString());
-		List<Products> searchedProducts= session.selectList("getProductsBySearchType",searchType);
+		List<Products> searchedProducts= session.selectList("products.getProductsBySearchType",searchType);
 		session.close();
 		return searchedProducts;
 	}
