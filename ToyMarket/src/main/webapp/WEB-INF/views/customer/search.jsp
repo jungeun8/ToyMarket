@@ -80,15 +80,15 @@
 										style="text-decoration: none; display: block; color: black; size: 6px">${searchedProduct.name}
 										${searchedProduct.weight }</a> <span
 										style="text-decoration-line: line-through; color: gray">
-										<fmt:formatNumber value="${searchedProduct.price}" />원
+										<fmt:formatNumber maxFractionDigits="0" value="${searchedProduct.price}" />원
 									</span> 
 									
 									<strong><span style="color: purple; font-size: 20px">
-											<fmt:formatNumber value="${searchedProduct.price-searchedProduct.price*searchedProduct.discountRate}" />원
+											<fmt:formatNumber maxFractionDigits="0" value="${searchedProduct.price-searchedProduct.price*searchedProduct.discountRate}" />원
 									</span></strong> 
 									
 									<span style="color: red"> 
-									(<fmt:formatNumber type="percent" value="${searchedProduct.discountRate }" />)
+									(<fmt:formatNumber maxFractionDigits="0" type="percent" value="${searchedProduct.discountRate }" />)
 									</span>
 								</div>
 							</div>
@@ -97,10 +97,10 @@
 				</c:choose> --%>
 			</div>
 		</div>
+		<div style="clear:both;"></div>
 		<div id="footer">
 			<%@ include file="../common/footer.jsp"%>
 		</div>
-
 	</div>
 </body>
 </html>

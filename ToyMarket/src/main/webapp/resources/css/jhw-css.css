@@ -33,6 +33,9 @@ body {
 	float: left;
 }
 
+#footer{
+	height:50px;
+}
 .footer-main {
 	width: 1050px;
 	margin: 0 auto;

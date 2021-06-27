@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <footer>
 	<div class="footer-main">
+		<div>
 		<div class="footer-cc">
 			<h4 class="nav-brand">고객행복센터</h4>
 		</div>
@@ -17,6 +18,7 @@
 		</div>
 		<div>
 			<img src="/resources/images/kurlyFooter.png" style="width:900px; object-fit:cover; margin-left:20px; alt="마켓컬리 푸터"/>
+		</div>
 		</div>
 	</div>
 </footer>
