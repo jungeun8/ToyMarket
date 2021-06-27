@@ -62,43 +62,43 @@
                     </colgroup>
                     <tr>
                         <td>카테고리</td>
-                        <td>육류</td>                        
+                        <td>${product.categoryName }</td>                        
                     </tr>
                     <tr>
                         <td>상품명</td>
-                        <td>T-BONE스테이크</td>                        
+                        <td>${product.name }</td>                        
                     </tr>
                     <tr>
                         <td>제조사</td>
-                        <td>고기집</td>                        
+                        <td>${product.brand }</td>                        
                     </tr>
                     <tr>
                         <td>상품가격</td>
-                        <td>34000</td>                        
+                        <td>${product.price }</td>                        
                     </tr>
                     <tr>
                         <td>할인율</td>
-                        <td>15%</td>                        
+                        <td>${product.discountRate }%</td>                        
                     </tr>
                     <tr>
                         <td>할인여부</td>
-                        <td>육류</td>                        
+                        <td>${product.discountYN }</td>                        
                     </tr>
                     <tr>
                         <td>재고량</td>
-                        <td>육류</td>                        
+                        <td>${product.stock }</td>                        
                     </tr>
                     <tr>
                         <td>판매단위</td>
-                        <td>육류</td>                        
+                        <td>${product.sellUnit }</td>                        
                     </tr>
                     <tr>
                         <td>중량/용량</td>
-                        <td>육류</td>                        
+                        <td>${product.weight }</td>                        
                     </tr>
                     <tr>
                         <td>판매상태</td>
-                        <td>육류</td>                        
+                        <td>${product.status }</td>                        
                     </tr>
                 </table>
             </div>

@@ -22,9 +22,9 @@ private SqlSessionFactory sqlSessionFactory;
 		return instance; 
 	}
 	
-	public List<Products> getAllProductsWithCategory() {
+	public List<Products> getAllProductsWithCategory(int productNo) {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Products> products = session.selectList("getAllProductsWithCategory");
+		List<Products> products = session.selectOne("getAllProductsWithCategory", productNo);
 		session.close();
 		
 		return products;
@@ -49,6 +49,13 @@ private SqlSessionFactory sqlSessionFactory;
 		List<Products> products = session.selectList("products.getAllProductsList", param);
 		session.close();
 		return products;
+	}
+	
+	public void insertProduct(Products product) {
+		SqlSession session = sqlSessionFactory.openSession();
+		session.insert("insertProduct", product);
+		session.close();
+		
 	}
 	
 }

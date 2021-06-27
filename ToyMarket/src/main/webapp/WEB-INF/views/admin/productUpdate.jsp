@@ -54,20 +54,21 @@
                             </div>
                         </div>
                         <div class="col-1 mt-5">
-                            <h6 class="mt-4">카테고리: </h6>
+                           	<h6 class="mt-4">카테고리: </h6>
                             <h6 style="margin-top: 47px;">상품명: </h6>
                             <h6 style="margin-top: 55px;">제조사: </h6>
                             <h6 style="margin-top: 55px;">상품가격: </h6>
                             <h6 style="margin-top: 55px;">할인율: </h6>
                             <h6 style="margin-top: 45px;">할인여부: </h6>
+                            <h6 style="margin-top: 35px;">샛별배송: </h6>
                             <h6 style="margin-top: 45px;">재고량: </h6>
                             <h6 style="margin-top: 55px;">판매단위: </h6>
                             <h6 style="margin-top: 55px;">중량/용량: </h6>
-                            <h6 style="margin-top: 45px;">판매상태: </h6>                                                
+                            <h6 style="margin-top: 45px;">판매상태: </h6>                                                                  
                         </div>
                         <div class="col-5">
                             <h3 class="mb-3 mt-3">상품 정보 수정</h3>                        
-                            <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;">
+                            <select class="form-select mb-3" aria-label="Default select example" name="" style="width: 300px;">
                                 <option selected>카테고리</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>

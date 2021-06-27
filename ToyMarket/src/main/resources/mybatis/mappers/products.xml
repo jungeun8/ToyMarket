@@ -146,31 +146,31 @@
 		WHERE
 			rn BETWEEN #{beginIndex} AND #{endIndex}	
 	</select>
-	<select id="getAllProductsWithCategory" resultType="com.toymarket.vo.Products">
+	<select id="getAllProductsWithCategory" parameterType="int" resultType="com.toymarket.dto.ProductWithCategoryDto">
 		SELECT 
-			product_no 					as no,
-			category_no 				as categoryNo,
-			product_brand 				as brand,
-			product_name 				as name,
-			product_price 				as price,
-			product_discount_rate 		as discountRate,
-			product_discount_YN 		as discountYN,
-			product_like_count 			as likeCount,
-			product_sell_unit 			as sellUnit,
-			product_weight 				as weight,
-			product_morning_delivery_YN as morningDeliveryYN,
-			product_description 		as description,
-			product_stock 				as stock,
-			product_created_date 		as createdDate,
-			product_status 				as status,
-			product_image 				as image,
-			product_sub_title 			as subTitle
+			P.product_no 					as no,
+			P.category_no 					as categoryNo,
+			C.category_name					as categoryName,
+			P.product_brand 				as brand,
+			P.product_name 					as name,
+			P.product_price 				as price,
+			P.product_discount_rate 		as discountRate,
+			P.product_discount_YN 			as discountYN,
+			P.product_like_count 			as likeCount,
+			P.product_sell_unit 			as sellUnit,
+			P.product_weight 				as weight,
+			P.product_morning_delivery_YN 	as morningDeliveryYN,
+			P.product_description 			as description,
+			P.product_stock 				as stock,
+			P.product_created_date 			as createdDate,
+			P.product_status 				as status,
+			P.product_image 				as image,
+			P.product_sub_title 			as subTitle
 		FROM 
-			toy_products
+			toy_products P, toy_categories C
 		where
-			category_no = #{value}
-        
-		ORDER BY product_no DESC	
+			toy_products.product_no = toy_categories.product_no
+			and		product_no = #{value}
 	</select>
 	
 	<select id="getAllProductsList" parameterType="map" resultType="com.toymarket.vo.Products">
@@ -253,5 +253,16 @@
 			product_no = #{value}
 	</select>
 	
+	<insert id="insertProduct" parameterType="com.toymarket.vo.Products">
+		insert into toy_products
+		(product_no, category_no, product_brand, product_name, product_price, 
+		 product_discount_rate, product_discount_yn, product_sell_unit, product_weight, 
+		 product_morning_delivery_yn, product_description, product_stock, product_status, 
+		 product_image, product_sub_title)
+		 values
+		 (products_seq.nextval, #{categoryNo}, #{brand}, #{name}, #{price}, #{discountRate}, #{discountYN}, #{sellUnit}, #{weight},
+		  #{morningDeliveryYN}, #{description}, #{stock}, #{status}, #{image}, #{subTitle} )
+	
+	</insert>
 	
 </mapper>
