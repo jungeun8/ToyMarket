@@ -227,7 +227,7 @@
 								</div>
 							</div>
 							<div id="review-table">
-								<table class="table table-hover border-top">
+								<table class="table table-hover border-top" id="review-table">
 									<colgroup>
 										<col width="10%">
 										<col width="50%">
@@ -249,54 +249,6 @@
 									<tbody>
 										<tr>
 											<td class="text-center py-3">66</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">66</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">65</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">64</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">63</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">62</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">61</td>
 											<td class="py-3">리뷰제목리뷰제목</td>
 											<td class="text-center py-3">작성자</td>
 											<td class="text-center py-3">2021-06-15</td>
@@ -327,30 +279,26 @@
 									</div>
 								</div>
 							</div>
-							<div id="review-pagenation" class="d-flex justify-content-center">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item">
-											<a class="page-link" href="#" aria-label="Previous">
-												<span aria-hidden="true">&laquo;</span>
-											</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">4</a></li>
-										<li class="page-item"><a class="page-link" href="#">5</a></li>
-										<li class="page-item"><a class="page-link" href="#">6</a></li>
-										<li class="page-item"><a class="page-link" href="#">7</a></li>
-										<li class="page-item"><a class="page-link" href="#">8</a></li>
-										<li class="page-item"><a class="page-link" href="#">9</a></li>
-										<li class="page-item"><a class="page-link" href="#">10</a></li>
-										<li class="page-item">
-											<a class="page-link" href="#" aria-label="Next">
-												<span aria-hidden="true">&raquo;</span>
-											</a>
-										</li>
-									</ul>
-								</nav>
+							<div id="review-pagenation">
+								<c:if test="${pagination.totalRows gt 0 }">
+									<div class="row mb-2">
+										<div class="col-12">
+											<ul class="pagination justify-content-center">
+												<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : ''}">
+													<a class="page-link" href="list?page=${pagination.pageNo - 1 }">이전</a>
+												</li>
+												<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
+													<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
+														<a class="page-link" href="list?page=${num }">${num }</a>
+													</li>
+												</c:forEach>
+												<li class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : ''}">
+													<a class="page-link" href="list?page=${pagination.pageNo + 1 }">다음</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</c:if>
 							</div>
 						</div>
 						<div id="product-inquiry">
@@ -385,27 +333,7 @@
 								</table>
 								<div class="d-flex justify-content-between">
 									<div></div>
-									<div id="inquiry-pagenation">
-										<c:if test="${pagination.totalRows gt 0 }">
-											<div class="row mb-2">
-												<div class="col-12">
-													<ul class="pagination justify-content-center">
-														<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : ''}">
-															<a class="page-link" href="list?page=${pagination.pageNo - 1 }">이전</a>
-														</li>
-														<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
-															<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
-																<a class="page-link" href="list?page=${num }">${num }</a>
-															</li>
-														</c:forEach>
-														<li class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : ''}">
-															<a class="page-link" href="list?page=${pagination.pageNo + 1 }">다음</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</c:if>
-									</div>
+									<div id="inquiry-pagenation"></div>
 									<c:choose>
 										<c:when test="${empty customer}">
 											<div>
@@ -539,8 +467,8 @@
 			function goBasket() {
 				var productNo = ${product.no};
 				var amount = document.getElementById("number").innerText;
-				var Price = productSum.value;
-				var buyPrice = Price.replace(/[^0-9]/g,'');
+				var productPrice = document.getElementById("productPrice"); // 상품가격
+				var buyPrice = (amount * productPrice);
 				
 				location.href = "/cart/add?productNo=" + productNo + "&amount=" + amount + "&buyPrice=" + buyPrice;
 			}
@@ -564,7 +492,92 @@
 			}
 			/* 가운데 이름 마스킹처리 끝 */
 			
+			/* 리뷰게시판 ajax 시작 */
+			getReviewList(1);
 			
+			function getReviewList(pageNo) {
+				var tbodyEl = document.querySelector("#review-table tbody");
+				tbodyEl.innerHTML = "";
+				var divEl = document.querySelector("#review-pagenation");
+				divEl.innerHTML = "";
+				
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onreadystatechange = function() {
+					// 서버로부터 성공적인 응답을 받았을 때만 응답데이터를 처리하는 수행문이 실행되게 함
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// 서버가 보낸 응답데이터(JSON표기법으로 작성된 텍스트데이터) 획득하기
+						var jsonTextData = xhr.responseText;
+						// JSON표기법으로 작성된 텍스트를 자바스크립트의 배열로 변환하기
+						// (응답데이터가 json 배열 표기법으로 작성되어 있기 때문에 자바스크립트의 배열로 변환됨)
+						var data = JSON.parse(jsonTextData);
+						var reviewList = data.reviewList;
+						var pagination = data.pagination;
+						
+						// 배열의 처음부터 끝까지 반복하면서 사원정보로 <tr/>, <td/> 태그를 생성하기
+						var rows = "";
+						if (reviewList == "") {
+							rows += "<tr>";
+							rows += "<td colspan='4' class='text-center py-3'>";
+							rows += "작성된 문의가 없습니다.";
+							rows += "</td>";
+							rows += "</tr>";
+						} else {
+							for (var i = 0; i < reviewList.length; i++) {
+								var review = reviewList[i];
+								
+								rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+								rows += "<td class='py-3'>" + inq.title + "</td>";
+								rows += "<td class='text-center py-3'>" + maskingName(inq.customerName) + "</td>";
+								rows += "<td class='text-center py-3'>" + moment(inq.createdDate).format('YYYY-MM-DD') + "</td>";
+								rows += "<td class='text-center py-3'>" + inq.status + "</td>";
+								rows += "</tr>";
+								 
+								
+								rows += "<td id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += inq.content;
+								rows += "</td>";
+							}
+						}
+						
+						// <tbody> 엘리먼트에 <tr>, <td>태그로 구성된 HTML 컨텐츠를 추가하기
+						tbodyEl.innerHTML = rows;
+						
+						var rows2 = "";
+						if (pagination.totalRows > 0) {
+							rows2 += "<div class='row mb-2'>";
+							rows2 += "<div class='col-12'>";
+							rows2 += "<ul class='pagination justify-content-center'>"; 
+							rows2 += "<li class='page-item " + (pagination.pageNo <= 1 ? 'disabled' : '' ) +"'>";
+							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(pagination.pageNo - 1)+")'>이전</a>";
+							rows2 += "</li>"; 
+							for (var num=pagination.beginPage; num<=pagination.endPage; num++) {
+								rows2 += "<li class='page-item "+ (pagination.pageNo == num ? 'active' : '')+"'>";
+								rows2 += "<a class='page-link' href='javascript:getInquiryList("+num+")'>"+ num +"</a>";
+								rows2 += "</li>";
+							}
+							
+							rows2 += "<li class='page-item " + (pagination.pageNo >= pagination.totalPages ? 'disabled' : '') +  "'>";
+							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(pagination.pageNo + 1)+")'>다음</a>";
+							rows2 += "</li>"; 
+							rows2 += "</ul>"; 
+							rows2 += "</div>"; 
+							rows2 += "</div>"; 
+						}
+						divEl.innerHTML = rows2;
+					}
+				}
+				
+				// XMLHttpRequest 객체 초기화
+				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo);
+				// 서버로 HTTP요청 보내기
+				xhr.send();
+			}
+			/* 리뷰게시판 ajax 끝*/
+			
+			/* 문의게시판 ajax 시작 */
 			var customerName = '${customer.name}';
 			getInquiryList(1);
 			

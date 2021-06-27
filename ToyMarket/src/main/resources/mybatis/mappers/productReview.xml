@@ -4,45 +4,45 @@
 <mapper namespace="productReview">
 
 	<select id="getTotalRows" parameterType="map" resultType="int">
-		select 
-			count(*)
-		from 
-			toy_product_inquiry
-		where 
-			product_no = #{productNo}
+		SELECT 
+			COUNT(*)
+		FROM 
+			toy_product_review R, toy_order_items I
+		WHERE
+			R.order_item_no = I.order_item_no
+		AND
+			I.product_no = #{productNo}
 	</select>
 	
-	<select id="getReviewList" parameterType="map" resultType="com.toymarket.dto.ProductInquiryDto">
+	<select id="getReviewList" parameterType="map" resultType="com.toymarket.dto.ProductReviewDto">
 		SELECT
 			review_no 							as no,
 			review_title						as title,
 			review_content 						as content,
-			review_created_date as createdDate,
-			order_item_no as itemNo
+			review_created_date 				as createdDate,
+			order_item_no 						as itemNo,
+			product_no 							as productNo
 		FROM (
 			SELECT
-				row_number() OVER (ORDER BY inquiry_no DESC) RN,
-				I.inquiry_no, I.inquiry_title, I.inquiry_content, I.inquiry_reply_content, I.inquiry_status, I.inquiry_created_date, I.inquiry_reply_created_date,
-				I.product_no, I.customer_no, C.customer_name, I.INQUIRY_SECRET_YN
+				row_number() OVER (ORDER BY review_no DESC) RN,
+				R.review_no, R.review_title, R.review_content, R.review_created_date, R.order_item_no, I.product_no
 			FROM 
-				toy_product_inquiry I, toy_customer C
+				toy_product_review R, toy_order_items I
 			WHERE
-				I.customer_no = C.customer_no
+				R.order_item_no = I.order_item_no
 			AND
 				I.product_no = #{productNo}
 		)
 		WHERE
 			RN BETWEEN #{beginIndex} AND #{endIndex}
-	
-			
 	</select>
 
-	<insert id="insertReview" parameterType="com.toymarket.vo.ProductInquiry">
-		INSERT INTO toy_product_inquiry(
-			inquiry_no, inquiry_title, inquiry_content, product_no, customer_no, inquiry_secret_yn
+	<insert id="insertReview" parameterType="com.toymarket.vo.ProductReview">
+		INSERT INTO toy_product_review(
+			review_no, review_title, review_content, review_created_date, order_item_no
 		)
 		VALUES (
-			product_inquiry_seq.nextval, #{title}, #{content}, #{productNo}, #{customerNo}, #{secretYN}
+			product_review_seq.nextval, #{title}, #{content}, #{createdDate}, #{itemNo}
 		)
 	</insert>
 	
