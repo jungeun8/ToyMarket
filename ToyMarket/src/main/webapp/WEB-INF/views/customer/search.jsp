@@ -61,13 +61,6 @@
 
 			<!-- 검색상품 리스트 show -->
 			<div style="width: 1050px; margin-left: 150px; padding-top: 50px;">
-				<%-- <c:choose>
-					<c:when test = "${empty searchedProducts }">
-						<div class="text-center" style="height: 400px;">
-							검색된 상품이 없습니다
-						</div>
-					</c:when>
-					<c:otherwise> --%>
 						<c:forEach var="searchedProduct" items="${searchedProducts}">
 							<div class="" style="width: 350px; float: left; margin: 0 auto">
 								<div class="" style="">
@@ -93,8 +86,6 @@
 								</div>
 							</div>
 						</c:forEach>
-				<%-- 	</c:otherwise>
-				</c:choose> --%>
 			</div>
 		</div>
 		<div style="clear:both;"></div>

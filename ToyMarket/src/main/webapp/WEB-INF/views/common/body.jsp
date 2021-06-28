@@ -34,7 +34,7 @@
 						<img src="${discountedProduct.image }" style=" height:283px; width: 222px" alt="...">
 					</a>
 					<div style="margin-left:26px;">
-						<a href="#" style="text-decoration:none;display: block; color: black; size: 6px ">${discountedProduct.name}  ${discountedProduct.weight }</a>
+						<a href="/product/detail?productNo=${discountedProduct.no }" style="text-decoration:none;display: block; color: black; size: 6px ">${discountedProduct.name}  ${discountedProduct.weight }</a>
 						<span style="text-decoration-line: line-through; color: gray">
 							<fmt:formatNumber maxFractionDigits="0" value="${discountedProduct.price}"/>원
 						</span> 
@@ -65,8 +65,8 @@
 						style="height: 283px; width: 222px" alt="...">
 					</a>
 					
-					<div>
-						<a href="#"
+					<div style="margin-left:26px;">
+						<a href="/product/detail?productNo=${randomProduct.no }"
 							style="text-decoration: none; display: block; color: black; size: 6px">${randomProduct.name} ${randomProduct.weight }
 						</a> 
 						<span style="text-decoration-line: line-through; color: gray"> <fmt:formatNumber
