@@ -19,12 +19,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
 	
 	<style>
-	.slick-prev,
-	.slick-next {
-    color: red;;
-    background: purple;
+	.slick-prev:before,
+	.slick-next:before {
+    	background: purple;
 	}
-
 	</style>
 </head>
 <body id="jhw">
@@ -43,7 +41,7 @@
 	</div>	
 	<script type="text/javascript">
 		function loginCheckAlert(){
-			var el = document.getleEmentById("btn-basket");
+			var el = document.getElementById("btn-basket");
 			var text="로그인이 필요한 서비스입니다.";
 			alert(text);
 		}

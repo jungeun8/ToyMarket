@@ -147,14 +147,14 @@
 						<br/>
 						<br/>
 						<div id="product-description">
-							<img src="//img-cf.kurly.com/shop/data/goodsview/20210609/gv40000191340_1.jpg" class="pb-4">
+							<img src="//img-cf.kurly.com/shop/data/goodsview/20200428/gv20000093154_1.jpg" class="pb-4">
 							
-							<p class="text-center fs-4">땡초의 알싸함을 더해 풍성한 맛</p>
-							<p class="text-center fs-3">[쉐푸드]</p>
-							<p class="text-center fs-2">땡초 참치마요 삼각김밥</p>
+							<p class="text-center fs-4">간편하고 맛있게 먹는 단백질</p>
+							<p class="text-center fs-3">[프레드]</p>
+							<p class="text-center fs-2">프로틴 케이크</p>
 							<hr>
 							<p class="fs-6">
-								쉐푸드는 롯데푸드에서 운영하는 가정 간편식 브랜드예요. 이번에는 매콤함을 더해 색다르게 즐기는 참치마요 삼각김밥을 선보입니다. 땡초 참치마요 삼각김밥은 바삭한 김 속에 당근, 홍피망 등 야채와 간장 양념을 넣어 비빈 밥을 담았어요. 땡초를 자잘하게 썰어 넣어 알싸한 풍미를 더했답니다. 토핑으로 넣은 짭짤한 참치마요는 땡초의 매콤함과 절묘하게 어우러지지요. 전자레인지에 간단히 데워 간식 또는 도시락 메뉴로 다양하게 즐겨 보세요.
+								식단 조절 중에도 입안 가득 보드랍게 감싸는 빵 한 조각의 기쁨을 놓칠 순 없죠. 컬리는 밀가루에 대한 부담과 걱정이 없는 프로틴 케이크를 준비했어요. 밀가루 대신 발아현미와 단백질 파우더로 만든 파운드케이크입니다. 풍부한 식이섬유와 낮은 칼로리를 자랑하는 프락토올리고당이 설탕의 자리를 대신했고, 버터는 일절 넣지 않았어요. 재료뿐만 아니라 탄수화물, 단백질, 지방의 균형까지 꼼꼼하게 계산해 설계했기에 더욱 믿음이 가는 제품이지요. 운동 전후에 간식으로 드셔도 좋고, 우유나 요거트를 곁들이면 한 끼 식사로도 부족함 없어요. 총 8가지 맛을 준비했으니 취향에 맞게 골라보세요.
 							</p>
 							<br/>
 							<br/>
@@ -181,27 +181,20 @@
 							<br/>
 							<br/>
 							<br/>
-							<img src="/resources/images/test4.PNG">
 							<br/>
 							<br/>
 							<br/>
+							<img src="/resources/images/test8.PNG">
+							<br/>
+							<br/>
+							<img src="/resources/images/test9.PNG">
 							<br/>
 							<br/>
 							<br/>
+							<img src="/resources/images/test10.PNG">
 							<br/>
 							<br/>
-							<br/>
-							<br/>
-							<img src="/resources/images/test5.PNG">
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<img src="/resources/images/test6.PNG">
-							<img src="/resources/images/test7.PNG">
+							<img src="/resources/images/test11.PNG">
 
 
 						</div>
@@ -219,19 +212,17 @@
 									<font size="2">상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</font>
 								</div>
 								<div class="d-flex align-items-end">
-									<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-										<option value="1" selected>최근등록순</option>
-										<option value="2">좋아요순</option>
-										<option value="3">조회많은순</option>
+									<select class="form-select form-select-sm" id="sort" aria-label=".form-select-sm example" onchange="refreshReviewList()">
+										<option value="최근등록순" ${param.sort eq '최근등록순' ? 'selected' : '' }>최근등록순</option>
+										<option value="조회많은순" ${param.sort eq '조회많은순' ? 'selected' : '' }>조회많은순</option>
 									</select>
 								</div>
 							</div>
 							<div id="review-table">
-								<table class="table table-hover border-top">
+								<table class="table table-hover border-top" id="review-table">
 									<colgroup>
 										<col width="10%">
-										<col width="50%">
-										<col width="10%">
+										<col width="60%">
 										<col width="10%">
 										<col width="10%">
 										<col width="10%">
@@ -242,116 +233,81 @@
 											<th class="text-center py-3">제목</th>
 											<th class="text-center py-3">작성자</th>
 											<th class="text-center py-3">작성일</th>
-											<th class="text-center py-3">도움</th>
 											<th class="text-center py-3">조회</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td class="text-center py-3">66</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">66</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">65</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">64</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">63</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">62</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-										<tr>
-											<td class="text-center py-3">61</td>
-											<td class="py-3">리뷰제목리뷰제목</td>
-											<td class="text-center py-3">작성자</td>
-											<td class="text-center py-3">2021-06-15</td>
-											<td class="text-center py-3">0</td>
-											<td class="text-center py-3">100</td>
-										</tr>
-									</tbody>
+									<tbody></tbody>
 								</table>
-								<div class="d-flex justify-content-end">
-									<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReview">후기 쓰기</button>
-									<!-- Modal -->
-									<div class="modal fade" id="modalReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-												  ...
-												</div>
-												<div class="modal-footer">
-												  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												  <button type="button" class="btn btn-primary">Understood</button>
+								<div class="d-flex justify-content-between">
+									<div></div>
+									<div id="review-pagenation"></div>
+									<c:choose>
+										<c:when test="${not empty LOGINED_USER_INFO and checkOrderItemNo != null}">
+											<div>	
+												<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReview">후기 쓰기</button>
+												<!-- Modal -->
+												<div class="modal fade" id="modalReview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+													<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+														<div class="modal-content">
+															<form method="post" id="reviewInsert">
+																<input type="hidden" name="customerNo" id="customerNo" value="<c:out value='${customer.no}'/>"/>
+																<input type="hidden" name="productNo" id="productNo" value="<c:out value='${product.no}'/>"/>
+																<div class="modal-header boder-bottom">
+																	<h5 class="modal-title fs-3" id="staticBackdropLabel">상품 리뷰하기</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body boder-bottom">
+																	<table class="table table-borderless">
+																		<colgroup>
+																			<col width="20%">
+																			<col width="80%">
+																		</colgroup>
+																		<tr>
+																			<td class="h-100">
+																				<img alt="상품 대표이미지" src="<c:out value="${product.image}"/>" class="img-thumbnail" style="width:100px; height:100px;">
+																			</td>
+																			<td class="d-flex align-items-center">
+																				<div class="h-100">
+																					<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
+																					<p class="fs-6"><c:out value="${product.subTitle}"/></p>
+																				</div>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2">
+																				<p class="fs-5">제목</p>
+																			</td>
+																			<td class="py-2">
+																				<input type="text" class="form-control" name="title" id="ReviewTitle" placeholder="제목을 입력해주세요"/>
+																			</td>
+																		</tr>
+																		<tr>
+																			<td class="py-2">
+																				<p class="fs-5">내용</p>
+																			</td>
+																			<td class="py-2">
+																				<textarea class="form-control" name="content" id="ReviewContent" style="height: 300px;" placeholder=""></textarea>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+																<div class="modal-footer d-flex justify-content-center">
+															    	<button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">취소</button>
+															    	<button type="button" id="insertReview" class="btn btn-outline-success btn-lg">등록</button>
+																</div>
+															</form>
+														</div>
+													</div>
 												</div>
 											</div>
-										</div>
-									</div>
+										</c:when>
+										<c:otherwise>
+											<div></div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
-							<div id="review-pagenation" class="d-flex justify-content-center">
-								<nav aria-label="Page navigation example">
-									<ul class="pagination">
-										<li class="page-item">
-											<a class="page-link" href="#" aria-label="Previous">
-												<span aria-hidden="true">&laquo;</span>
-											</a>
-										</li>
-										<li class="page-item"><a class="page-link" href="#">1</a></li>
-										<li class="page-item"><a class="page-link" href="#">2</a></li>
-										<li class="page-item"><a class="page-link" href="#">4</a></li>
-										<li class="page-item"><a class="page-link" href="#">5</a></li>
-										<li class="page-item"><a class="page-link" href="#">6</a></li>
-										<li class="page-item"><a class="page-link" href="#">7</a></li>
-										<li class="page-item"><a class="page-link" href="#">8</a></li>
-										<li class="page-item"><a class="page-link" href="#">9</a></li>
-										<li class="page-item"><a class="page-link" href="#">10</a></li>
-										<li class="page-item">
-											<a class="page-link" href="#" aria-label="Next">
-												<span aria-hidden="true">&raquo;</span>
-											</a>
-										</li>
-									</ul>
-								</nav>
-							</div>
+							
 						</div>
 						<div id="product-inquiry">
 							<br/>
@@ -385,27 +341,7 @@
 								</table>
 								<div class="d-flex justify-content-between">
 									<div></div>
-									<div id="inquiry-pagenation">
-										<c:if test="${pagination.totalRows gt 0 }">
-											<div class="row mb-2">
-												<div class="col-12">
-													<ul class="pagination justify-content-center">
-														<li class="page-item ${pagination.pageNo le 1 ? 'disabled' : ''}">
-															<a class="page-link" href="list?page=${pagination.pageNo - 1 }">이전</a>
-														</li>
-														<c:forEach var="num" begin="${pagination.beginPage }" end="${pagination.endPage }">
-															<li class="page-item ${pagination.pageNo eq num ? 'active' : '' }">
-																<a class="page-link" href="list?page=${num }">${num }</a>
-															</li>
-														</c:forEach>
-														<li class="page-item ${pagination.pageNo ge pagination.totalPages ? 'disabled' : ''}">
-															<a class="page-link" href="list?page=${pagination.pageNo + 1 }">다음</a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</c:if>
-									</div>
+									<div id="inquiry-pagenation"></div>
 									<c:choose>
 										<c:when test="${empty customer}">
 											<div>
@@ -435,11 +371,12 @@
 																		</colgroup>
 																		<tr>
 																			<td class="h-100">
-																				<img alt="상품 대표이미지" src="https://img-cf.kurly.com/shop/data/goods/1623216767987y0.jpg" class="img-thumbnail" style="width:100px; height:100px;">
+																				<img alt="상품 대표이미지" src="<c:out value="${product.image}"/>" class="img-thumbnail" style="width:100px; height:100px;">
 																			</td>
 																			<td class="d-flex align-items-center">
 																				<div class="h-100">
 																					<p class="fs-5"><strong>[<c:out value="${product.brand}"/>] <c:out value="${product.name}"/></strong></p>
+																					<p class="fs-6"><c:out value="${product.subTitle}"/></p>
 																				</div>
 																			</td>
 																		</tr>
@@ -539,8 +476,7 @@
 			function goBasket() {
 				var productNo = ${product.no};
 				var amount = document.getElementById("number").innerText;
-				var Price = productSum.value;
-				var buyPrice = Price.replace(/[^0-9]/g,'');
+				var buyPrice = document.getElementById("productPrice").value;
 				
 				location.href = "/cart/add?productNo=" + productNo + "&amount=" + amount + "&buyPrice=" + buyPrice;
 			}
@@ -564,12 +500,160 @@
 			}
 			/* 가운데 이름 마스킹처리 끝 */
 			
+			/* 리뷰게시판 sort 시작 */
+			function refreshReviewList() {
+				getReviewList(1)
+			}
+			/* 리뷰게시판 sort 끝 */
 			
+			/* 리뷰게시판 ajax 시작 */
+			getReviewList(1);
+			
+			function getReviewList(pageNo1) {				
+				var sort = document.getElementById("sort").value;
+				var tbodyEl = document.querySelector("#review-table tbody");
+				tbodyEl.innerHTML = "";
+				var divEl = document.querySelector("#review-pagenation");
+				divEl.innerHTML = "";
+				
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onreadystatechange = function() {
+					// 서버로부터 성공적인 응답을 받았을 때만 응답데이터를 처리하는 수행문이 실행되게 함
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// 서버가 보낸 응답데이터(JSON표기법으로 작성된 텍스트데이터) 획득하기
+						var jsonTextData = xhr.responseText;
+						// JSON표기법으로 작성된 텍스트를 자바스크립트의 배열로 변환하기
+						// (응답데이터가 json 배열 표기법으로 작성되어 있기 때문에 자바스크립트의 배열로 변환됨)
+						var data = JSON.parse(jsonTextData);
+						var reviewList = data.reviewList;
+						var reviewPagination = data.reviewPagination;
+						
+						// 배열의 처음부터 끝까지 반복하면서 사원정보로 <tr/>, <td/> 태그를 생성하기
+						var rows = "";
+						if (reviewList == "") {
+							rows += "<tr>";
+							rows += "<td colspan='5' class='text-center py-3'>";
+							rows += "작성된 리뷰가 없습니다.";
+							rows += "</td>";
+							rows += "</tr>";
+						} else {
+							for (var i = 0; i < reviewList.length; i++) {
+								var review = reviewList[i];
+								
+								rows += "<tr onclick='reviewToggleDisplay("+review.no+")'>";
+								rows += "<td class='text-center py-3'>" + review.RN + "</td>";
+								rows += "<td class='py-3'>" + review.title + "</td>";
+								rows += "<td class='text-center py-3'>" + maskingName(review.customerName) + "</td>";
+								rows += "<td class='text-center py-3'>" + moment(review.createdDate).format('YYYY-MM-DD') + "</td>";
+								rows += "<td class='text-center py-3'> <span id='review-count-"+ review.no +"'>" + review.views + "</span></td>";
+								rows += "</tr>";
+								 
+								rows += "<tr id='detail-row-"+ review.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<td></td>"
+								rows += "<td colspan='4'>";
+								rows += review.content;
+								rows += "</td>";
+								rows += "</tr>";
+							}
+						}
+						
+						// <tbody> 엘리먼트에 <tr>, <td>태그로 구성된 HTML 컨텐츠를 추가하기
+						tbodyEl.innerHTML = rows;
+						
+						var rows2 = "";
+						if (reviewPagination.totalRows > 0) {
+							rows2 += "<div class='row mb-2'>";
+							rows2 += "<div class='col-12'>";
+							rows2 += "<ul class='pagination justify-content-center'>"; 
+							rows2 += "<li class='page-item " + (reviewPagination.pageNo <= 1 ? 'disabled' : '' ) +"'>";
+							rows2 += "<a class='page-link' href='javascript:getReviewList("+(reviewPagination.pageNo - 1)+")'>이전</a>";
+							rows2 += "</li>"; 
+							for (var num = reviewPagination.beginPage; num<=reviewPagination.endPage; num++) {
+								rows2 += "<li class='page-item "+ (reviewPagination.pageNo == num ? 'active' : '')+"'>";
+								rows2 += "<a class='page-link' href='javascript:getReviewList("+num+")'>"+ num +"</a>";
+								rows2 += "</li>";
+							}
+							
+							rows2 += "<li class='page-item " + (reviewPagination.pageNo >= reviewPagination.totalPages ? 'disabled' : '') +  "'>";
+							rows2 += "<a class='page-link' href='javascript:getReviewList("+(reviewPagination.pageNo + 1)+")'>다음</a>";
+							rows2 += "</li>"; 
+							rows2 += "</ul>"; 
+							rows2 += "</div>"; 
+							rows2 += "</div>"; 
+						}
+						divEl.innerHTML = rows2;
+					}
+				}
+				
+				// XMLHttpRequest 객체 초기화
+				xhr.open("GET", "review/list?productNo=${product.no}&page=" + pageNo1 + "&sort=" + sort);
+				// 서버로 HTTP요청 보내기
+				xhr.send();
+			}
+			
+			function reviewToggleDisplay(no) {
+				var view = document.getElementById('review-count-'+ no).innerText;
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onload = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+					} else {
+						console.error(xhr.responseText);
+					}
+				};
+				xhr.open('POST', 'review/update');
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("view=" + view + "&no=" + no);
+				
+				var detail = document.getElementById("detail-row-" + no);
+				
+				if (detail.style.display == 'none') {
+					detail.style.display = '';
+				} else {
+					detail.style.display = 'none';
+				}
+			}
+			/* 리뷰게시판 ajax 끝*/
+			
+			/* Ajax 리뷰등록 시작 */
+			$('#insertReview').click(function() {
+				var productNo = document.getElementById('productNo').value;
+				var customerNo = document.getElementById('customerNo').value;
+				var ReviewTitle = document.getElementById('ReviewTitle').value;
+				var ReviewContent = document.getElementById('ReviewContent').value;
+				
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onload = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+					} else {
+						console.error(xhr.responseText);
+					}
+				};
+				xhr.open('POST', 'review/insert');
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("productNo=" + productNo + "&customerNo=" + customerNo + "&title=" + ReviewTitle + "&content=" + ReviewContent);
+				
+				getReviewList(1);
+				$('#modalReview').modal("hide");
+			});
+			/* Ajax 리뷰등록 끝 */
+			
+			/* 문의게시판 ajax 시작 */
 			var customerName = '${customer.name}';
 			getInquiryList(1);
 			
 			
-			function getInquiryList(pageNo) {
+			function getInquiryList(pageNo2) {
 				
 				// 조회된 문의정보가 추가될 tbody 엘리먼트 획득하기
 				var tbodyEl = document.querySelector("#inquiry-table tbody");
@@ -605,10 +689,10 @@
 								var inq = inquiryList[i];
 								
 								if ('N' === inq.secretYN) {
-									rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+									rows += "<tr onclick='inquiryToggleDisplay("+inq.no+")'>";
 									rows += "<td class='py-3'>" + inq.title + "</td>";
 								} else if ('Y' === inq.secretYN && customerName === inq.customerName) {
-									rows += "<tr onclick='toggleDisplay("+inq.no+")'>";
+									rows += "<tr onclick='inquiryToggleDisplay("+inq.no+")'>";
 									rows += "<td class='py-3'>" + inq.title + "</td>";
 								} else {
 									rows += "<tr>";
@@ -619,10 +703,11 @@
 								rows += "<td class='text-center py-3'>" + inq.status + "</td>";
 								rows += "</tr>";
 								 
-								
-								rows += "<td id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<tr id='inquiryDetail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<td colspan='4'>";
 								rows += inq.content;
 								rows += "</td>";
+								rows += "</tr>";
 							}
 						}
 						
@@ -655,16 +740,16 @@
 				}
 				
 				// XMLHttpRequest 객체 초기화
-				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo);
+				xhr.open("GET", "inquiry/list?productNo=${product.no}&page=" + pageNo2);
 				// 서버로 HTTP요청 보내기
 				xhr.send();
 			}
 			
-			function toggleDisplay(no) {
-				var detail = document.getElementById("detail-row-" + no);
+			function inquiryToggleDisplay(no) {
+				var detail = document.getElementById("inquiryDetail-row-" + no);
 				
 				if (detail.style.display == 'none') {
-					detail.style.display = 'block';
+					detail.style.display = '';
 				} else {
 					detail.style.display = 'none';
 				}
