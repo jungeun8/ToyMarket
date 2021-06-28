@@ -83,7 +83,7 @@
 			review_no, review_title, review_content, review_created_date, order_item_no
 		)
 		VALUES (
-			product_reviews_seq.nextval, #{title}, #{content}, #{createdDate}, #{itemNo}
+			product_reviews_seq.nextval, #{title}, #{content}, SYSDATE, #{itemNo}
 		)
 	</insert>
 	

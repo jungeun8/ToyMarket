@@ -147,14 +147,14 @@
 						<br/>
 						<br/>
 						<div id="product-description">
-							<img src="//img-cf.kurly.com/shop/data/goodsview/20210609/gv40000191340_1.jpg" class="pb-4">
+							<img src="//img-cf.kurly.com/shop/data/goodsview/20200428/gv20000093154_1.jpg" class="pb-4">
 							
-							<p class="text-center fs-4">땡초의 알싸함을 더해 풍성한 맛</p>
-							<p class="text-center fs-3">[쉐푸드]</p>
-							<p class="text-center fs-2">땡초 참치마요 삼각김밥</p>
+							<p class="text-center fs-4">간편하고 맛있게 먹는 단백질</p>
+							<p class="text-center fs-3">[프레드]</p>
+							<p class="text-center fs-2">프로틴 케이크</p>
 							<hr>
 							<p class="fs-6">
-								쉐푸드는 롯데푸드에서 운영하는 가정 간편식 브랜드예요. 이번에는 매콤함을 더해 색다르게 즐기는 참치마요 삼각김밥을 선보입니다. 땡초 참치마요 삼각김밥은 바삭한 김 속에 당근, 홍피망 등 야채와 간장 양념을 넣어 비빈 밥을 담았어요. 땡초를 자잘하게 썰어 넣어 알싸한 풍미를 더했답니다. 토핑으로 넣은 짭짤한 참치마요는 땡초의 매콤함과 절묘하게 어우러지지요. 전자레인지에 간단히 데워 간식 또는 도시락 메뉴로 다양하게 즐겨 보세요.
+								식단 조절 중에도 입안 가득 보드랍게 감싸는 빵 한 조각의 기쁨을 놓칠 순 없죠. 컬리는 밀가루에 대한 부담과 걱정이 없는 프로틴 케이크를 준비했어요. 밀가루 대신 발아현미와 단백질 파우더로 만든 파운드케이크입니다. 풍부한 식이섬유와 낮은 칼로리를 자랑하는 프락토올리고당이 설탕의 자리를 대신했고, 버터는 일절 넣지 않았어요. 재료뿐만 아니라 탄수화물, 단백질, 지방의 균형까지 꼼꼼하게 계산해 설계했기에 더욱 믿음이 가는 제품이지요. 운동 전후에 간식으로 드셔도 좋고, 우유나 요거트를 곁들이면 한 끼 식사로도 부족함 없어요. 총 8가지 맛을 준비했으니 취향에 맞게 골라보세요.
 							</p>
 							<br/>
 							<br/>
@@ -181,27 +181,20 @@
 							<br/>
 							<br/>
 							<br/>
-							<img src="/resources/images/test4.PNG">
 							<br/>
 							<br/>
 							<br/>
+							<img src="/resources/images/test8.PNG">
+							<br/>
+							<br/>
+							<img src="/resources/images/test9.PNG">
 							<br/>
 							<br/>
 							<br/>
+							<img src="/resources/images/test10.PNG">
 							<br/>
 							<br/>
-							<br/>
-							<br/>
-							<img src="/resources/images/test5.PNG">
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<br/>
-							<img src="/resources/images/test6.PNG">
-							<img src="/resources/images/test7.PNG">
+							<img src="/resources/images/test11.PNG">
 
 
 						</div>
@@ -710,7 +703,7 @@
 								rows += "<td class='text-center py-3'>" + inq.status + "</td>";
 								rows += "</tr>";
 								 
-								rows += "<tr id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<tr id='inquiryDetail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
 								rows += "<td colspan='4'>";
 								rows += inq.content;
 								rows += "</td>";
@@ -753,7 +746,7 @@
 			}
 			
 			function inquiryToggleDisplay(no) {
-				var detail = document.getElementById("detail-row-" + no);
+				var detail = document.getElementById("inquiryDetail-row-" + no);
 				
 				if (detail.style.display == 'none') {
 					detail.style.display = '';
