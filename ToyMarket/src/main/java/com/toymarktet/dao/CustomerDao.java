@@ -93,6 +93,11 @@ public class CustomerDao {
 		session.close();
 	}
 	
+	/**
+	 * 탈퇴처리된 고객정보를 찾는다.
+	 * @param param	페이징처리 값(몇개 행을 불러올지)
+	 * @return	탈퇴처리된 고객정보
+	 */
 	public List<Customer> getExpiredCustomers(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();
 		List<Customer> customers = session.selectList("getExpiredCustomers", param);
@@ -100,9 +105,58 @@ public class CustomerDao {
 		return customers;
 	}
 	
+	/**
+	 * delete페이지 페이징처리
+	 * @param param
+	 * @return	탈퇴처리된 인원수 반환
+	 */
 	public int dGetTotalRows(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();
 		int totalRows = session.selectOne("dGetTotalRows", param);
+		session.close();
+		return totalRows;
+	}
+	
+	/**
+	 * 최근회원가입한 고객정보를 찾는다.
+	 * @return	고객정보
+	 */
+	public List<Customer> getStatusNCustomers() {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Customer> customers = session.selectList("getStatusNCustomers");
+		session.close();
+		return customers;
+	}
+	
+	/**
+	 * 최근회원가입한 고객수
+	 * @return	고객수
+	 */
+	public int getStatusNTotalRows() {
+		SqlSession session = sqlSessionFactory.openSession();
+		int totalRows = session.selectOne("getStatusNTotalRows");
+		session.close();
+		return totalRows;
+	}
+	
+	/**
+	 * 최근 탈퇴한 고객정보를 찾는다.
+	 * @return 고객정보
+	 */
+	public List<Customer> getStatusYCustomers() {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Customer> customers = session.selectList("getStatusYCustomers");
+		session.close();
+		return customers;
+	}
+	
+	/**
+	 * 최근 탈퇴한 고객수
+	 * @return 고객수
+	 */
+	public int getStatusYTotalRows() {
+		SqlSession session = sqlSessionFactory.openSession();
+		int totalRows = session.selectOne("getStatusYTotalRows");
 		session.close();
 		return totalRows;
 	}

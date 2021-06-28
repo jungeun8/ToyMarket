@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="customers">
+
    
    <!-- 이동규 -->
    <!-- 고객번호로 고객정보 찾기 -->
@@ -322,6 +323,9 @@
    
    <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
    <!-- 태원님 -->
+
+
+
    <insert id="insertCustomer" parameterType="com.toymarket.vo.Customer">
    insert into TOY_CUSTOMER
    (customer_no, customer_id, customer_password, customer_name, customer_email, customer_phone,
@@ -418,5 +422,5 @@
          customer_deleted_date = SYSDATE
       where customer_id = #{id}   
    </update>
-   
+
 </mapper>

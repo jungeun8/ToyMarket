@@ -123,10 +123,12 @@
 								<c:param name="gender">${param.gender }</c:param>
 							</c:if>
 						</c:url>
-						<a href="${deleteURL }" class="btn" id="button">삭제</a>
+						<input type="hidden" name="deleteURL" value="${deleteURL }">
+						<a class="btn" id="button" onclick="buttonForm()">삭제</a>
 					</c:when>
 					<c:otherwise>
-						<a href="admincustomerupdate?no=${customer.no }&page=${param.page }" class="btn" id="button">복구</a>
+						<input type="hidden" name="updateURL" value="admincustomerupdate?no=${customer.no }&page=${param.page }">
+						<a class="btn" id="button" onclick="buttonForm2()">복구</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -218,5 +220,29 @@
 		</div>
 	</main>
 </div>
+<script type="text/javascript">
+	function buttonForm() {
+		var confirm = window.confirm("해당 사용자를 삭제하시겠습니까?");
+		var deleteURL = document.querySelector("input[name='deleteURL']").value;
+		if(confirm == true){
+			alert("삭제가 완료되었습니다.")
+			location.href=deleteURL
+		}
+		else {
+			return;
+		}
+	}
+	function buttonForm2() {
+		var confirm = window.confirm("해당 사용자를 복구하시겠습니까?");
+		var updateURL = document.querySelector("input[name='updateURL']").value;
+		if(confirm == true){
+			alert("복구가 완료되었습니다.")
+			location.href=updateURL;
+		}
+		else {
+			return;
+		}
+	}
+</script>
 </body>
 </html>
