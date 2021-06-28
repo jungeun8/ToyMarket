@@ -94,7 +94,7 @@
 										<td>${customer.id }</td>
 										<td>${customer.email }</td>
 										<td><a class="btn btn-sm" id="button2" href="admincustomerdetail?no=${customer.no }&page=${pagination.pageNo}"> ></a></td>	<!-- 상세보기 -->
-										<td><a class="btn btn-sm" id="button2" href="admincustomerupdate?no=${customer.no }&page=${pagination.pageNo}"> +</a></td>	<!-- 복구 -->
+										<td><a class="btn btn-sm" id="button2" href="admincustomerupdate?no=${customer.no }&page=${pagination.pageNo}" onclick="return buttonForm()"> +</a></td>	<!-- 복구 -->
 									</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -124,5 +124,10 @@
 		</c:if>
 	</main>
 </div>
+<script type="text/javascript">
+	function buttonForm() {
+		return confirm("해당 사용자를 복구하시겠습니까?")
+	}
+</script>
 </body>
 </html>
