@@ -104,22 +104,21 @@ public class AdminProductInsertServlet extends HttpServlet{
 		String description = req.getParameter("description");
 		String subTitle = req.getParameter("subTitle");
 		
-		
-		
-		
-		
 		if(brand.isBlank() || name.isBlank() || sellUnit.isBlank() || weight.isBlank() || description.isBlank() || 
 				categoryNo.isBlank() || price.isBlank()) {
 			resp.sendRedirect("insert?fail=blank");
 			return;	
 		}
+		
 		Products product = new Products();
 		product.setImage(image);
 		product.setCategoryNo(Integer.parseInt(categoryNo));
 		product.setName(name);
 		product.setBrand(brand);
 		product.setPrice(Integer.parseInt(price));
-		product.setDiscountRate(Integer.parseInt(discountRate));
+		if(!discountRate.isBlank()) {
+			product.setDiscountRate(Double.parseDouble(discountRate)/100);
+		}
 		product.setDiscountYN(discountYN);
 		product.setMorningDeliveryYN(morningDeliveryYN);
 		product.setStock(Integer.parseInt(stock)); 
@@ -131,7 +130,7 @@ public class AdminProductInsertServlet extends HttpServlet{
 		
 		adminProductDao.insertProduct(product);
 		
-		resp.sendRedirect("../../WEB-INF/views/admin/productMain.jsp");
+		resp.sendRedirect("/admin/product/list");
 		
 	}
 }

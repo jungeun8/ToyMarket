@@ -1,13 +1,9 @@
 package com.toymarket.web;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.math.NumberUtils;
 
-import com.toymarket.vo.Products;
+import com.toymarket.dto.ProductWithCategoryDto;
 import com.toymarktet.dao.AdminProductDao;
 
 import jakarta.servlet.ServletException;
@@ -25,12 +21,12 @@ public class AdminProductDetailServlet extends HttpServlet{
 		AdminProductDao adminProductDao = AdminProductDao.getInstance();
 		
 		// 파라미터값 조회
-		int productno = NumberUtils.toInt(req.getParameter("no"));
+		int productno = Integer.parseInt(req.getParameter("no"));
 		
 	
 		
-		List<Products> product = adminProductDao.getAllProductsWithCategory(productno);
-		req.setAttribute("getAllProductsWithCategory", product);
+		ProductWithCategoryDto product = adminProductDao.getAllProductsWithCategory(productno);
+		req.setAttribute("product", product);
 		
 		
 		

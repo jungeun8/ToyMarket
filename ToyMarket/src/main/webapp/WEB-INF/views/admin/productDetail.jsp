@@ -1,8 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  	<title>Bootstrap 5.0.1 Example</title>
+  	<title>상품상세정보</title>
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
@@ -51,7 +53,7 @@
         <div class="row">
             <div class="col-6 mt-3">               
                 <div id="img-container">
-                    <img src="https://im-media.voltron.voanews.com/Drupal/01live-211/styles/892x501/s3/ap-images/2020/03/_2.jpg?itok=fBojLU8M" alt="" class="" style="width: 630px; height: 360PX;object-fit: scale-down;">
+                    <img src="${product.image }" alt="" class="" style="width: 630px; height: 480PX;object-fit: scale-down;">
                 </div>            
             </div>
             <div class="col-6 mt-3">
@@ -60,6 +62,10 @@
                         <col width=20%>
                         <col width=80%>
                     </colgroup>
+                    <tr>
+                        <td>상품번호</td>
+                        <td>${product.no }</td>                        
+                    </tr>
                     <tr>
                         <td>카테고리</td>
                         <td>${product.categoryName }</td>                        
@@ -74,15 +80,19 @@
                     </tr>
                     <tr>
                         <td>상품가격</td>
-                        <td>${product.price }</td>                        
+                        <td><fmt:formatNumber value="${product.price}"/></td>                        
                     </tr>
                     <tr>
                         <td>할인율</td>
-                        <td>${product.discountRate }%</td>                        
+                        <td>${product.discountRate *100}%</td>                        
                     </tr>
                     <tr>
-                        <td>할인여부</td>
-                        <td>${product.discountYN }</td>                        
+                        <td>좋아요수</td>
+                        <td>${product.likeCount }</td>                        
+                    </tr>
+                    <tr>
+                        <td>샛별배송 여부</td>
+                        <td>${product.morningDeliveryYN }</td>                        
                     </tr>
                     <tr>
                         <td>재고량</td>
@@ -100,6 +110,7 @@
                         <td>판매상태</td>
                         <td>${product.status }</td>                        
                     </tr>
+                    
                 </table>
             </div>
         </div>
@@ -112,29 +123,36 @@
                     </colgroup>
                     <tr style="height: 200px !important;">
                         <td>상품설명</td>
-                        <td></td>
+                        <td>${product.description }</td>
                     </tr>
                     <tr style="height: 100px !important;">
                         <td>상품추가설명</td>
-                        <td></td>
+                        <td>${product.subTitle }</td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="row">
             <div class="col-6">
-                <a class="btn btn-outline-primary mb-2" href="">수정</a>
-                <a class="btn btn-outline-danger mb-2" href>삭제</a>
+                <a class="btn btn-outline-primary mb-2" href="/admin/product//update?updateNo=${param.no }">수정</a>
+                <a class="btn btn-outline-danger mb-2" onclick="removeCheck(${product.no})">삭제</a>
             </div>     
             <div class="col-6 d-flex justify-content-end">
-                <a class="btn btn-outline-info mb-2" href="">목록</a>
+                <a class="btn btn-outline-info mb-2" href="/admin/product/list">목록</a>
             </div>       
         </div>             
     </div>
     </main>
-	
 </div>
-	
 </div>
+<script type="text/javascript">
+function removeCheck(no) {
+	// 상품삭제시 경고창 
+	var result = confirm("상품을 삭제 하시겠습니까?");
+	if (result) {
+		location.href = '/admin/product/delete?deleteNo=' + no
+	}
+}
+</script>
 </body>
 </html>

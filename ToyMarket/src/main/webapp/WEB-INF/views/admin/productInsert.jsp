@@ -83,7 +83,7 @@
                         <div class="col-5">
                             <h3 class="mb-3 mt-3">상품 정보 수정</h3>                        
                             <select class="form-select mb-3" aria-label="Default select example" name="categoryNo" style="width: 300px;">
-                            <option selected value="0">카테고리</option>
+                            <option selected value="0" disabled>카테고리</option>
                             <c:forEach var="category" items="${category }" varStatus="loop">
                                 <option value="${category.no }" >${category.name }</option>
                             </c:forEach>
@@ -93,7 +93,7 @@
                                 <label for="floatingInput">상품명</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="제조사" name="brand">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="제조사" >
                                 <label for="floatingInput">제조사</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -105,12 +105,12 @@
                                 <label for="floatingInput">할인율</label>
                             </div>
                             <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;" name="discountYN">
-                                <option selected>할인여부</option>
+                                <option selected disabled>할인여부</option>
                                 <option value="Y">Y</option>
                                 <option value="N">N</option>
                             </select>
                             <select class="form-select mb-3" aria-label="Default select example" style="width: 300px;" name="morningDeliveryYN">
-                                    <option selected>샛별배송여부</option>
+                                    <option selected disabled>샛별배송여부</option>
                                     <option value="Y">Y</option>
                                     <option value="N">N</option>
                             </select>
@@ -151,7 +151,8 @@
             </div>            
         </main>
     </div>
-<script> function setThumbnail(event) { 
+<script> 
+	function setThumbnail(event) { 
 	document.querySelector("div#image_container").innerHTML = "";
 
 	var reader = new FileReader(); 
