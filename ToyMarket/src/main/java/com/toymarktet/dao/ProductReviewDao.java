@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.toymarket.dto.ProductReviewDto;
 import com.toymarket.utils.MybatisUtils;
 import com.toymarket.vo.ProductReview;
+import com.toymarket.vo.order.OrderItems;
 
 public class ProductReviewDao {
 
@@ -31,9 +32,9 @@ public class ProductReviewDao {
 		return productReview;
 	}
 	
-	public int checkOrderItemNo(Map<String, Object> param) {
+	public OrderItems checkOrderItemNo(Map<String, Object> param) {
 		SqlSession session = sqlSessionFactory.openSession();
-		int check = session.selectOne("productReview.checkOrderItemNo", param);
+		OrderItems check = session.selectOne("productReview.checkOrderItemNo", param);
 		session.close();
 		return check;
 	}
@@ -44,10 +45,23 @@ public class ProductReviewDao {
 		session.close();
 		return totalRows;
 	}
+	
+	public ProductReview getReviewByReviewNo(int reviewNo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		ProductReview productReview = session.selectOne("productReview.getReviewByReviewNo", reviewNo);
+		session.close();
+		return productReview;
+	}
 
 	public void insertReview(ProductReview review) {
 		SqlSession session = sqlSessionFactory.openSession(true);
 		session.insert("productReview.insertReview", review);
+		session.close();
+	}
+	
+	public void updateReviewView(ProductReview review) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.update("productReview.updateReviewView", review);
 		session.close();
 	}
 

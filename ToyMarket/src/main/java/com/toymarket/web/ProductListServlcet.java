@@ -82,6 +82,4 @@ public class ProductListServlcet extends HttpServlet {
 		req.getRequestDispatcher("/WEB-INF/views/product/list.jsp").forward(req, res);
 		
 	}
-	
-	
 }

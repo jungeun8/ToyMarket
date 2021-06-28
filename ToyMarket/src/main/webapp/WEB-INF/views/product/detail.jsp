@@ -219,7 +219,7 @@
 									<font size="2">상품에 대한 문의를 남기는 공간입니다. 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</font>
 								</div>
 								<div class="d-flex align-items-end">
-									<select class="form-select form-select-sm" aria-label=".form-select-sm example" onchange="refreshReviewList()">
+									<select class="form-select form-select-sm" id="sort" aria-label=".form-select-sm example" onchange="refreshReviewList()">
 										<option value="최근등록순" ${param.sort eq '최근등록순' ? 'selected' : '' }>최근등록순</option>
 										<option value="조회많은순" ${param.sort eq '조회많은순' ? 'selected' : '' }>조회많은순</option>
 									</select>
@@ -249,13 +249,7 @@
 									<div></div>
 									<div id="review-pagenation"></div>
 									<c:choose>
-										<c:when test="${empty customer}">
-											<div>
-												
-											</div>
-										</c:when>
-										
-										<c:otherwise>
+										<c:when test="${not empty LOGINED_USER_INFO and checkOrderItemNo != null}">
 											<div>	
 												<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalReview">후기 쓰기</button>
 												<!-- Modal -->
@@ -313,6 +307,9 @@
 													</div>
 												</div>
 											</div>
+										</c:when>
+										<c:otherwise>
+											<div></div>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -512,15 +509,15 @@
 			
 			/* 리뷰게시판 sort 시작 */
 			function refreshReviewList() {
-				var sortValue = document.getElementById("sort").value;
-				
+				getReviewList(1)
 			}
 			/* 리뷰게시판 sort 끝 */
 			
 			/* 리뷰게시판 ajax 시작 */
 			getReviewList(1);
 			
-			function getReviewList(pageNo1) {
+			function getReviewList(pageNo1) {				
+				var sort = document.getElementById("sort").value;
 				var tbodyEl = document.querySelector("#review-table tbody");
 				tbodyEl.innerHTML = "";
 				var divEl = document.querySelector("#review-pagenation");
@@ -558,13 +555,15 @@
 								rows += "<td class='py-3'>" + review.title + "</td>";
 								rows += "<td class='text-center py-3'>" + maskingName(review.customerName) + "</td>";
 								rows += "<td class='text-center py-3'>" + moment(review.createdDate).format('YYYY-MM-DD') + "</td>";
-								rows += "<td class='text-center py-3'>" + review.views + "</td>";
+								rows += "<td class='text-center py-3'> <span id='review-count-"+ review.no +"'>" + review.views + "</span></td>";
 								rows += "</tr>";
 								 
-								
-								rows += "<td colspan='5' id='detail-row-"+ review.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<tr id='detail-row-"+ review.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<td></td>"
+								rows += "<td colspan='4'>";
 								rows += review.content;
 								rows += "</td>";
+								rows += "</tr>";
 							}
 						}
 						
@@ -577,16 +576,16 @@
 							rows2 += "<div class='col-12'>";
 							rows2 += "<ul class='pagination justify-content-center'>"; 
 							rows2 += "<li class='page-item " + (reviewPagination.pageNo <= 1 ? 'disabled' : '' ) +"'>";
-							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(reviewPagination.pageNo - 1)+")'>이전</a>";
+							rows2 += "<a class='page-link' href='javascript:getReviewList("+(reviewPagination.pageNo - 1)+")'>이전</a>";
 							rows2 += "</li>"; 
 							for (var num = reviewPagination.beginPage; num<=reviewPagination.endPage; num++) {
 								rows2 += "<li class='page-item "+ (reviewPagination.pageNo == num ? 'active' : '')+"'>";
-								rows2 += "<a class='page-link' href='javascript:getInquiryList("+num+")'>"+ num +"</a>";
+								rows2 += "<a class='page-link' href='javascript:getReviewList("+num+")'>"+ num +"</a>";
 								rows2 += "</li>";
 							}
 							
 							rows2 += "<li class='page-item " + (reviewPagination.pageNo >= reviewPagination.totalPages ? 'disabled' : '') +  "'>";
-							rows2 += "<a class='page-link' href='javascript:getInquiryList("+(reviewPagination.pageNo + 1)+")'>다음</a>";
+							rows2 += "<a class='page-link' href='javascript:getReviewList("+(reviewPagination.pageNo + 1)+")'>다음</a>";
 							rows2 += "</li>"; 
 							rows2 += "</ul>"; 
 							rows2 += "</div>"; 
@@ -597,16 +596,32 @@
 				}
 				
 				// XMLHttpRequest 객체 초기화
-				xhr.open("GET", "review/list?productNo=${product.no}&page=" + pageNo1);
+				xhr.open("GET", "review/list?productNo=${product.no}&page=" + pageNo1 + "&sort=" + sort);
 				// 서버로 HTTP요청 보내기
 				xhr.send();
 			}
 			
 			function reviewToggleDisplay(no) {
+				var view = document.getElementById('review-count-'+ no).innerText;
+				// XMLHttpRequest 객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				// XMLHttpRequest객체에서 onreadyStateChange 이벤트 발생시 실행할 콜백함수 등록
+				xhr.onload = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						console.log(xhr.responseText);
+					} else {
+						console.error(xhr.responseText);
+					}
+				};
+				xhr.open('POST', 'review/update');
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("view=" + view + "&no=" + no);
+				
 				var detail = document.getElementById("detail-row-" + no);
 				
 				if (detail.style.display == 'none') {
-					detail.style.display = 'block';
+					detail.style.display = '';
 				} else {
 					detail.style.display = 'none';
 				}
@@ -695,10 +710,11 @@
 								rows += "<td class='text-center py-3'>" + inq.status + "</td>";
 								rows += "</tr>";
 								 
-								
-								rows += "<td id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<tr id='detail-row-"+ inq.no +"' style='display:none; background-color:#fafafa;'>";
+								rows += "<td colspan='4'>";
 								rows += inq.content;
 								rows += "</td>";
+								rows += "</tr>";
 							}
 						}
 						
@@ -740,7 +756,7 @@
 				var detail = document.getElementById("detail-row-" + no);
 				
 				if (detail.style.display == 'none') {
-					detail.style.display = 'block';
+					detail.style.display = '';
 				} else {
 					detail.style.display = 'none';
 				}

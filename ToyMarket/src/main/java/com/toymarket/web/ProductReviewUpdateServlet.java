@@ -21,35 +21,22 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/product/review/insert")
-public class ProductReviewInsertServlet extends HttpServlet {
+@WebServlet("/product/review/update")
+public class ProductReviewUpdateServlet extends HttpServlet {
 	
 	ProductReviewDao productReviewDao = ProductReviewDao.getInstance();
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		int view = Integer.parseInt(req.getParameter("view"));
+		int no = Integer.parseInt(req.getParameter("no"));
 		
-		int productNo = Integer.parseInt(req.getParameter("productNo"));
-		int customerNo = Integer.parseInt(req.getParameter("customerNo"));
+		ProductReview productReview = productReviewDao.getReviewByReviewNo(no);
 		
-		// SQL 실행에 필요한 파라미터값을 담는 HashMap객체 생성하기
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("productNo", productNo);
-		param.put("customerNo", customerNo);
+		productReview.setViews(view + 1);
 		
-		OrderItems orderItems =	productReviewDao.checkOrderItemNo(param);
-		int itemNo = orderItems.getItemNo(); 
-		
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
-		
-		ProductReview productReview = new ProductReview();
-		productReview.setTitle(title);
-		productReview.setContent(content);
-		productReview.setItemNo(itemNo);
-		
-		productReviewDao.insertReview(productReview);
+		productReviewDao.updateReviewView(productReview);
 	}
 }
 

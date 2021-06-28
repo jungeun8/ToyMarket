@@ -7,9 +7,8 @@ public class ProductReview {
 	private int no;
 	private String title;
 	private String content;
-	private int likeCount;
 	private Date createdDate;
-	private int orderItemNo;
+	private int itemNo;
 	private int views;
 	
 	public ProductReview() {}
@@ -38,14 +37,6 @@ public class ProductReview {
 		this.content = content;
 	}
 
-	public int getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -54,19 +45,19 @@ public class ProductReview {
 		this.createdDate = createdDate;
 	}
 
-	public int getOrderItemNo() {
-		return orderItemNo;
-	}
-
-	public void setOrderItemNo(int orderItemNo) {
-		this.orderItemNo = orderItemNo;
-	}
-
 	public int getViews() {
 		return views;
 	}
 
 	public void setViews(int views) {
 		this.views = views;
+	}
+
+	public int getItemNo() {
+		return itemNo;
+	}
+
+	public void setItemNo(int itemNo) {
+		this.itemNo = itemNo;
 	}
 }

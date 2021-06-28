@@ -14,9 +14,14 @@
 			I.product_no = #{productNo}
 	</select>
 	
-	<select id="checkOrderItemNo" parameterType="map" resultType="int">
+	<select id="checkOrderItemNo" parameterType="map" resultType="com.toymarket.vo.order.OrderItems">
 		SELECT
-			order_item_no as orderItemNo
+			DISTINCT order_item_no 			as itemNo,
+			order_no 						as orderNo,
+			product_no 						as productNo,
+			price_price 					as price,
+			order_amount 					as amount,
+			order_price 					as orderPrice
 		FROM
 			toy_order_items 
 		WHERE
@@ -40,8 +45,8 @@
 			RN
 		FROM (
 			SELECT
-				<if test="sort == '최근등록순'"> row_number() OVER (ORDER BY review_no ASC) RN, </if>
-				<if test="sort == '조회많은순'"> row_number() OVER (ORDER BY review_view ASC) RN, </if>
+				<if test="sort == '최근등록순'"> row_number() OVER (ORDER BY review_no DESC) RN, </if>
+				<if test="sort == '조회많은순'"> row_number() OVER (ORDER BY review_view DESC) RN, </if>
 				R.review_no, R.review_title, R.review_content, R.review_created_date, R.order_item_no, R.review_view, I.product_no,
 				I.order_no, O.customer_no, C.customer_name
 			FROM 
@@ -57,8 +62,20 @@
 		)
 		WHERE
 			RN BETWEEN #{beginIndex} AND #{endIndex}
-		ORDER BY
-			RN DESC
+	</select>
+	
+	<select id="getReviewByReviewNo" parameterType="int" resultType="com.toymarket.vo.ProductReview">
+		SELECT 
+			review_no 							as no,
+			review_title						as title,
+			review_content 						as content,
+			review_created_date 				as createdDate,
+			order_item_no 						as itemNo,
+			review_view 						as views
+		FROM
+			toy_product_reviews
+		WHERE
+			review_no = #{value}
 	</select>
 
 	<insert id="insertReview" parameterType="com.toymarket.vo.ProductReview">
@@ -66,8 +83,18 @@
 			review_no, review_title, review_content, review_created_date, order_item_no
 		)
 		VALUES (
-			product_reviews_seq.nextval, #{title}, #{content}, #{createdDate}, #{orderItemNo}
+			product_reviews_seq.nextval, #{title}, #{content}, #{createdDate}, #{itemNo}
 		)
 	</insert>
+	
+	<update id="updateReviewView" parameterType="com.toymarket.vo.ProductReview">
+		UPDATE 
+			toy_product_reviews
+		SET
+			review_view = #{views}
+		WHERE
+			review_no = #{no}
+			
+	</update>
 	
 </mapper>
