@@ -18,7 +18,7 @@ public class AddressServlet extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse rep) throws ServletException, IOException {
-		
+	/*	
 
 		//front에서 파라미터 받기
 		HttpSession session = req.getSession();
@@ -26,7 +26,7 @@ public class AddressServlet extends HttpServlet {
 		if (user == null) { // 만약로그인이 안되어있다면 그아래에 sendRedirect가 로그인안되어있음
 			rep.sendRedirect("/user/login");
 			return;
-		}
+		}*/
 				
 		
 		
