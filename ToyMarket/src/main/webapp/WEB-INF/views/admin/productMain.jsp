@@ -38,7 +38,17 @@
   		#linkNone{
   		 a:link { color: black; text-decoration: none;}
  		}
-
+		.page-item.active .page-link {
+          color: #fff;
+          background-color: #5F0080;
+          border-color: #5F0080;
+          font-weight: bold;
+       }
+       .page-link {
+          color: #5F0080;
+          font-weight: bold;
+       }
+		
   	</style>
 </head>
 <body>
@@ -47,12 +57,6 @@
 	<main>
 		<div class="row">
 			<div class="col-3">
-				<!-- <nav class="nav flex-column border border-dark border-1 rounded">
-					<span class="navbar-text text-center fs-3">카테고리</span>
-					<a class="nav-link" href="#">전체상품</a>
-					<a class="nav-link" href="#">육류</a>
-					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-				</nav> -->
 				<table class="table table-light table-hover border">
 					<thead>
 						<tr>
@@ -80,14 +84,6 @@
 				<table class="table table-light table-hover table-text text-center align-middle" >
 					<thead>
 						<tr>
-							<th>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-   									전체선택
-								</label>
-							</div> 
-							</th>
 								<th>상품번호</th>
 								<th>상품이미지</th>
 								<th>상품명</th>
@@ -112,65 +108,10 @@
 								<td colspan="9" class="text-center">등록된 상품이 존재하지 않습니다.</td>
 							</tr>
 						</c:when>
-						<c:when test="${param.category eq 0 }">
-						<c:forEach var="products" items="${products }" varStatus="loop">
-							<tr>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">
-		   									선택
-										</label>
-									</div>
-								</td>
-								<td>${products.no }</td>
-								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: scale-down;"></td>
-								<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
-								<td>${products.brand }</td>
-								<td>${products.status }</td>
-								<td>${products.stock }</td>
-								<td>
-								<a class="btn btn-outline-danger"  href="/admin/product/delete?deleteNo=${products.no }">삭제</a>
-								</td>
-							</c:forEach>
-						</tr>
-						</c:when>
-						<c:when test="${param.category ne 0 }">
-							<c:forEach var="products" items="${products }" varStatus="loop">
-						<!-- 상품primary키 값으로 상품 디테일 페이지(업데이트)로 보내주기 -->
-							<tr>
-								<td>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">
-		   									선택
-										</label>
-									</div>
-								</td>
-								<td>${products.no }</td>
-								<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: scale-down;"></td>
-								<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
-								<td>${products.brand }</td>
-								<td>${products.status }</td>
-								<td>${products.stock }</td>
-								<td>
-								<a class="btn btn-outline-danger"  href="/admin/product/delete?deleteNo=${products.no }">삭제</a>
-								</td>
-							</tr>
-							</c:forEach>
-						</c:when>
 						<c:otherwise>
 						<c:forEach var="products" items="${products }" varStatus="loop">
 						<!-- 상품primary키 값으로 상품 디테일 페이지(업데이트)로 보내주기 -->
 						<tr>
-							<td>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								<label class="form-check-label" for="flexCheckDefault">
-   									선택
-								</label>
-							</div>
-							</td>
 							<td>${products.no }</td>
 							<td><img alt="상품이미지" src="${products.image }" style="width : 150px; height : 70px; object-fit: scale-down;"></td>
 							<td><a href="javascript:goToDetail(${products.no })">${products.name }</a></td>
@@ -178,7 +119,7 @@
 							<td>${products.status }</td>
 							<td>${products.stock }</td>
 							<td>
-							<a class="btn btn-outline-danger"  href="/admin/product/delete?deleteNo=${products.no }">삭제</a>
+							<a class="btn btn-outline-danger"  onclick="removeCheck(${products.no})">삭제</a>
 							</td>
 						</tr>
 						</c:forEach>
@@ -285,10 +226,20 @@
 			document.querySelector("input[name='keyword']").disabled = true;
 		}
 		document.querySelector("input[name='category']").disabled = true;
+		document.querySelector("input[name='sort']").disabled = true;
+		document.querySelector("input[name='page']").disabled = true;
+		
 		
 		document.querySelector("input[name='no']").value = productNo;
 		document.querySelector("#form-search").setAttribute("action", "detail");
 		document.querySelector("#form-search").submit();
+	}
+	function removeCheck(no) {
+		// 상품삭제시 경고창 
+		var result = confirm("상품을 삭제 하시겠습니까?");
+		if (result) {
+			location.href = '/admin/product/delete?deleteNo=' + no
+		}
 	}
 </script>
 </body>

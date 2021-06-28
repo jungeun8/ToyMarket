@@ -31,6 +31,48 @@
   			border-bottom: 2px solid #5F0080 !important;
   		}
   		
+  		
+  		#h4Border{
+  			border-bottom: 3px solid #5F0080 !important;
+  		}
+  		h2{
+    		 font-weight: bolder;
+    	}
+    	
+    	#form-text{
+    		border: 3px solid #000 !important;
+    		border-radius: 20px;
+    		background-color: #F2F2F2;
+    	}
+    	#form-text1{
+    		border: 3px solid #000 !important;
+    		border-radius: 20px;
+    		background-color: #5F0080; 
+    		color: white;
+    	}
+    	#form-text2{
+    		border: 3px solid #000 !important;
+    		border-radius: 20px;
+    		background-color: #dc3545; 
+    		color: white;
+    	}
+    	#text1{
+    		font-size: 26px;
+    		text-align: center;
+    		font-weight: bolder;
+    	}
+  		#text2{
+  			font-size: 20px;
+  			text-align: right;
+  		}
+  		#tableBorder{
+  			border-bottom: 2px solid #000 !important;
+  			text-align:center;
+  		}
+  		
+  		#link{ 
+    		color: white;
+  		}
   	</style>
 </head>
 	<c:choose>
@@ -79,38 +121,167 @@
 	<div class="container">
 	<%@ include file="../common/adminHeader.jsp" %>
 		<main>
-			<div>
-				<div class="border-bottom" id="bodyBorder">
-					<h2>상품분석</h2>
+			<div class="row">
+				<div class="col-12">
+					<div class="p-3" id="h4Border">
+						<h2>상품 분석</h2>
+					</div>
 				</div>
 			</div>
-			<div class="row mt-3 mb-5 ">
-				<div class="col-4 d-flex justify-content-start">
-					<h3>차트1</h3>
-				</div>		
-				<div class="col-4 d-flex justify-content-center">
-					<h3>차트2</h3>
-				</div>		
-				<div class="col-4 d-flex justify-content-end">
-					<h3>차트3</h3>
+			<div class="row mt-3 ">
+				<div class="d-flex justify-content-center">
+					<div id="piechart" style="width: 600px; height: 300px;"></div>
 				</div>		
 			</div>
-			<div class="border-bottom" id="bodyBorder">
-				<h2>고객분석</h2>
-			</div>
-			<div class="row mt-3">
-				<div class="col-6 d-flex justify-content-around">
-					<h3>차트1</h3>
+			
+			<div class="row">
+				<div class="col-12">
+					<div class="p-3" id="h4Border">
+						<h2>고객 분석</h2>
+					</div>
 				</div>
-				<div class="col-6 d-flex justify-content-around">
-					<h3>차트2</h3>
+			</div>
+			
+			<!-- 테이블 -->
+			<div class="row">
+				<div class="col-1">
+				</div>
+				<div class="col-4">
+					<div class="p-3 mt-4">
+						<div class="rounded-bottom" id="form-text">
+							<div class="pt-2 me-5" id="text1">
+								신규회원
+							</div>
+							<div class="me-5 mb-2" id="text2">
+								<a style="font-size: 30px; color: #A901DB;">${nTotalTows }</a>
+								<span> 명</span>
+							</div>
+						</div>
+						<table class="table" id="tableBorder">
+							<colgroup>
+								<col width="40%">
+								<col width="30%">
+								<col width="30%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>가입일시</th>
+									<th>아이디</th>
+									<th>이름</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+							<c:when test="${empty nCustomers }">
+								<tr>
+									<td colspan="8">최근가입한 회원이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="nCustomer" items="${nCustomers }">
+									<tr style="border-bottom: 1px solid #D8D8D8 !important;">
+										<td><fmt:formatDate value="${nCustomer.createdDate }" pattern="yyyy-MM-dd"/></td>
+										<td>${nCustomer.id }</td>
+										<td>${nCustomer.name }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+							</tbody>
+						</table>
+						<div class="rounded-top" id="form-text1">
+							<div class="p-2" id="text1">
+								<a class="" href="admincustomerinfo" id="link">회원정보</a>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-2">
+				</div>
+				<div class="col-4">
+					<div class="p-3 mt-4">
+						<div class="rounded-bottom" id="form-text">
+							<div class="pt-2 me-5" id="text1">
+								탈퇴회원
+							</div>
+							<div class="me-5 mb-2" id="text2">
+								<a style="font-size: 30px; color: #dc3545;">${yTotalRows }</a>
+								<span> 명</span>
+							</div>
+						</div>
+						<table class="table" id="tableBorder">
+							<colgroup>
+								<col width="40%">
+								<col width="30%">
+								<col width="30%">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>탈퇴일시</th>
+									<th>아이디</th>
+									<th>이름</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+							<c:when test="${empty yCustomers }">
+								<tr>
+									<td colspan="8">최근탈퇴한 회원이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="yCustomer" items="${yCustomers }">
+									<tr style="border-bottom: 1px solid #D8D8D8 !important;">
+										<td><fmt:formatDate value="${yCustomer.deletedDate }" pattern="yyyy-MM-dd"/></td>
+										<td>${yCustomer.id }</td>
+										<td>${yCustomer.name }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+							</tbody>
+						</table>
+						<div class="rounded-top" id="form-text2">
+							<div class="p-2" id="text1">
+								<a class="" href="admincustomerdelete" id="link">삭제관리</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-1">
 				</div>
 			</div>
 		</main>
 	</div>
-	
 </body>
-
-	</c:otherwise>
+</c:otherwise>
 </c:choose>	
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['category', '판매개수'],
+          ['채소',     11],
+          ['수산물',      2],
+          ['고기류',  2],
+          ['인스턴트', 2],
+          ['베이커리',    7]
+        ]);
+
+        var options = {
+          title: '카테고리별 주문사항'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+      
+           
+    </script>
 </html>

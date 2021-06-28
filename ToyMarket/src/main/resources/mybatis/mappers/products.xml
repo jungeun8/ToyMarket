@@ -169,8 +169,8 @@
 		FROM 
 			toy_products P, toy_categories C
 		where
-			toy_products.product_no = toy_categories.product_no
-			and		product_no = #{value}
+			p.category_no = c.category_no
+			and	product_no = #{value}
 	</select>
 	
 	<select id="getAllProductsList" parameterType="map" resultType="com.toymarket.vo.Products">
@@ -293,6 +293,27 @@
 		  #{morningDeliveryYN}, #{description}, #{stock}, #{status}, #{image}, #{subTitle} )
 	
 	</insert>
-
+	
+	<update id="updateProduct" parameterType="com.toymarket.vo.Products" >
+		update toy_products
+		set
+			product_image = #{image},
+			category_no = #{categoryNo},
+			product_name = #{name},
+			product_brand = #{brand},
+			product_price = #{price},
+			product_discount_rate = #{discountRate},
+			product_discount_yn = #{discountYN},
+			product_morning_delivery_yn = #{morningDeliveryYN},
+			product_stock = #{stock},
+			product_description = #{description},
+			product_sell_unit = #{sellUnit},
+			product_weight = #{weight},
+			product_status = #{status},
+			product_description = #{description},
+			product_sub_title = #{subTitle}
+		where
+			product_no = #{no}	
+	</update>
 	
 </mapper>

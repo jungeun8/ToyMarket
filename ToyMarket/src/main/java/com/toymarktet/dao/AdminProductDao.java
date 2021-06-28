@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.toymarket.dto.ProductWithCategoryDto;
 import com.toymarket.utils.MybatisUtils;
 import com.toymarket.vo.Category;
 import com.toymarket.vo.Products;
@@ -22,9 +23,9 @@ private SqlSessionFactory sqlSessionFactory;
 		return instance; 
 	}
 	
-	public List<Products> getAllProductsWithCategory(int productNo) {
+	public ProductWithCategoryDto getAllProductsWithCategory(int productNo) {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Products> products = session.selectOne("getAllProductsWithCategory", productNo);
+		ProductWithCategoryDto products = session.selectOne("getAllProductsWithCategory", productNo);
 		session.close();
 		
 		return products;
@@ -52,10 +53,15 @@ private SqlSessionFactory sqlSessionFactory;
 	}
 	
 	public void insertProduct(Products product) {
-		SqlSession session = sqlSessionFactory.openSession();
+		SqlSession session = sqlSessionFactory.openSession(true);
 		session.insert("insertProduct", product);
 		session.close();
-		
+	}
+	
+	public void updateProduct(Products product) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.update("updateProduct", product);
+		session.close();
 	}
 	
 }
