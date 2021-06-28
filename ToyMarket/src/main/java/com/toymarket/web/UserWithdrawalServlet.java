@@ -26,7 +26,6 @@ public class UserWithdrawalServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		 //로그인 후 장바구니 이용가능 
 		
 		Customer userSession = (Customer) session.getAttribute("LOGINED_USER_INFO");
 		
@@ -36,7 +35,7 @@ public class UserWithdrawalServlet extends HttpServlet {
 		
 		// 아이디로 사용자 정보 조회
 		UserDao userDao = UserDao.getInstance();
-		Customer savedUser = userDao.getUserById(id);
+		Customer savedUser = userDao.getCustomerById(id);
 		
 		if (savedUser == null) {
 			resp.sendRedirect("/user/withdrawal?fail=invalid");
@@ -49,7 +48,7 @@ public class UserWithdrawalServlet extends HttpServlet {
 		}
 		
 		// deleteUserInfo실행해서 사용자정보를 탈퇴상태로 변경한다.
-		userDao.deleteUserInfo(id);
+		userDao.deleteCustomer(id);
 		
 		//세션을 폐기한다.
 		session.invalidate();

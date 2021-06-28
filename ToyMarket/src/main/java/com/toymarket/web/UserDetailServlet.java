@@ -1,6 +1,7 @@
 package com.toymarket.web;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -32,13 +33,30 @@ public class UserDetailServlet extends HttpServlet {
 		
 		// 폼 입력값을 요청파라미터로 조회
 		String id = userSession.getId();
-		String name = req.getParameter("name");
 		String password = req.getParameter("password");
+		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		String phone = req.getParameter("phone");
-
+	    String postalCode = req.getParameter("postalCode");;
+		String address1 = req.getParameter("address1");
+		String address2 = req.getParameter("address2");
+		
 		// SAMPLE_USERS 테이블에 대한 CRUD 기능이 구현된 UserDao객체를 획득한다.
 		UserDao userDao = UserDao.getInstance();
+		
+		// 이메일 중복확인
+		Customer savedUserEmail = userDao.getCustomerByEmail(email);
+		if (savedUserEmail != null) {
+			resp.sendRedirect("detail?fail=emailOverlap");
+			return;
+		}
+		
+		// 전화번호 중복확인
+		Customer savedUserPhone = userDao.getCustomerByPhone(phone);
+		if (savedUserPhone != null) {
+			resp.sendRedirect("detail?fail=phoneOverlap");
+			return;
+		}
 		
 		// 비밀번호를 암호화하기
 		String sha256Password = DigestUtils.sha256Hex(password);
@@ -46,15 +64,17 @@ public class UserDetailServlet extends HttpServlet {
 		// User객체를 생성해서 사용자정보를 저장한다.
 		Customer user = new Customer();
 		user.setId(id);
-		user.setName(name);
 		user.setPassword(sha256Password);
+		user.setName(name);
 		user.setEmail(email);
 		user.setPhone(phone);
+		user.setPostalCode(postalCode);
+		user.setAddress1(address1);
+		user.setAddress2(address2);
 		
 		// 사용자 정보를 데이터베이스에 업데이트합니다.
-		userDao.updateUserInfo(user);
-		
+		userDao.updateCustomerInfo(user);
 		// 브라우저에게 재요청 URL을 응답으로 보낸다.
-		resp.sendRedirect("/home");
+		resp.sendRedirect("/result?success=updateMembership");
 	}
 }	
