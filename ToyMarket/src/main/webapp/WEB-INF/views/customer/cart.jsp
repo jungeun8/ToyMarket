@@ -70,10 +70,10 @@
 						</table>
 
 					
-						<!-- <div scope="col">
+						 <div scope="col">
 							<input type="checkbox" id="checkbox-all" name="check-all" onclick="toggleAgreementCheckbox()" checked/>
 							<label for="check-all">전체선택</label>
-						</div>	  -->
+						</div>	  
 					</div>
 				</div>
 	
@@ -111,7 +111,7 @@
 </div>
 			
 			<div class="text-right">
-				<button type="button" class="btn btn-primary" onclick="checkForm()">주문하기</button>
+				<input type="button" id="btn" class="btn btn-primary" onclick="checkForm()" value="주문하기">
 			</div>
 </div>
 	
@@ -126,7 +126,7 @@
 			checkboxes[i].checked = checkboxAllChecked;
 		}
 		
-		var orderPriceEl = document.getElementById("order-price");   // 구매가격 엘리먼트
+		var orderPriceEl = document.getElementById("order-price");   // 상품금액 엘리먼트
 		var discountPriceEl = document.getElementById("discount-price");// 구매 할인 가격 엘리먼트
 		var totalPriceEl = document.getElementById("total-price"); // 최종가격
 		
@@ -138,10 +138,49 @@
 			 totalPriceEl.innerText = 0;
 			 return;
 		}else{  // 전체선택 체크 할 경우
+			// 총상품금액, 총상품할인금액을 저장할 변수를 선언한다.
+			var orderPrice = 0; // 상품금액 가격
+			var discountPrice = 0; // 구매할인 가격
+			// 체크박스중 체크된 엘리먼트들을 가져온다.
+			var checkbox = document.querySelectorAll('input[name="itemNo"]:checked');
+
+				// 해당 엘리먼트수만큼 반복문을 실행한다.
+			for(var i=0; i<checkbox.length; i++){
+
+				// 가격을 가져와서 , 기호와 '원' 문자열을 제거한다.
+				var price = checkbox[i].parentElement.parentElement.children[5].innerText.replace(/,/g, '').replace(' 원','');
+				// 그리고 총 상품금액가격 변수에 누적합한다.
+				orderPrice += Number(price);
+				
+				// 할인율을 가져온다.
+				var discount = checkbox[i].parentElement.parentElement.children[7].value;
+				// 할인율을 계산아여 구매할인가격 변수에 누적합한다.
+				discountPrice += ((Math.ceil(Number(price)*Number(discount)))/10)*10;
+				
+				//var payPriceEl = document.getElementById("item-payPrice-" + cartNo);
+				//var discountEl = document.getElementById("item-discountRate-" + cartNo);
+				
+				//orderPriceAll += (checkbox[i].payPriceEl.value);
+				//discountPriceAll += (checkbox[i].discountEl.value);
+			}
+
+			// 상품금액, 상품할인금액,결제예상금액 엘리먼트들을 가져온다
+			var orderPriceAll = document.getElementById("order-price");   // 상품금액 엘리먼트
+			var discountPriceAll = document.getElementById("discount-price");// 구매 할인 가격 엘리먼트
+			var totalPriceEl = document.getElementById("total-price"); // 최종가격 
+			
+			var totalPrice = Number(orderPrice) - Number(discountPrice);
+			orderPrice = new Number(orderPrice).toLocaleString();
+			discountPrice = new Number(discountPrice).toLocaleString();
+			totalPrice = new Number(totalPrice).toLocaleString();
+			
+			
+			// 계산한 변수(총상품금액,총상품할인금액을 위 엘리먼트들의 .innerText안에 넣어준다.
+			orderPriceAll.innerText = orderPrice;
+			discountPriceAll.innerText = discountPrice;
+			totalPriceEl.innerText = totalPrice
 
 		}
-		
-		
 		
  	}
 	
@@ -168,7 +207,7 @@
 		}
 		
 		var orderPriceA = Number(allItemPrice) + (price * checked);
-		var discountPriceA =  Number(discountPrice) + (itemDiscountRate * (price * checked)); // 계산된 할인가
+		var discountPriceA =  ((Math.ceil(Number(discountPrice) + (itemDiscountRate * (price * checked))))/10)*10; // 계산된 할인가
 		var totalPriceA =  Number(orderPriceA) - Number(discountPriceA);
 
 		  // 구매가격을 ,가 포함된 통화표기법으로 변경
@@ -229,7 +268,7 @@
 		   
 			
 		   
-		   // 총가격계
+		   // 총가격계산
 		   var orderPriceEl = document.getElementById("order-price");   // 상품금액 엘리먼트
 		   var discountPriceEl = document.getElementById("discount-price");// 구매 할인 가격 엘리먼트
 		   var itemDiscountRate = document.getElementById("item-discountRate-"+ cartNo).value; // 할인률 엘리먼트 
@@ -249,7 +288,7 @@
 		   // 가격 계산
 		   var itemPrice = price * amountEl.value;
 		   var orderPrice = Number(allItemPrice) + (price * val);
-		   var discountPrice = Number(allDiscountPrice) +((price * itemDiscountRate)* val);
+		   var discountPrice = ((Math.ceil(Number(allDiscountPrice) +((price * itemDiscountRate)* val)))/10)*10;
 		   var totalPrice = (orderPrice - discountPrice);	//  총 구매가격
 		   
 		   // 구매가격을 ,가 포함된 통화표기법으로 변경
@@ -279,7 +318,16 @@
 	}
 	
 	
+	
 </script>
+ <style>
+   #btn{
+  		 background-color:darkviolet;
+        border: slateblue;
+        font-style: normal;
+        color: white;
+   }
 
+</style>
 </body>
-</html>
+</html> 

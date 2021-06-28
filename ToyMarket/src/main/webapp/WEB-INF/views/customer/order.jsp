@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
 <div class="container">
 	<div id="header">
 			<%@ include file="../common/header.jsp"%>
@@ -34,10 +35,10 @@
 				<thead>
 						<tr style=" color : #981098;">
 						<th colspan="3">주문상품</th>
-						<th><button type="button" onclick="toggleCartBox()" id="btn-cart-toggle"><i class="fas fa-angle-down"></i></button></th>
+						<!-- <th><button type="button" onclick="toggleCartBox()" id="btn-cart-toggle"><i class="fas fa-angle-down"></i></button></th> -->
 					</tr>
 				</thead>
-				<tbody id="cart-box" style="display: none;">
+				<tbody id="cart-box">
 			
 				<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
 					<tr>
@@ -50,29 +51,6 @@
 			
 				</tbody>
 			</table>
-			
-			<%-- <div class="collapse navbar-collapse" id="navbarCollapse">
-				<table class="table">
-					<thead>
-						<tr>
-							<th colspan="3">주문상품</th>
-						</tr>
-					</thead>
-					
-					
-					<tbody>
-				
-					<c:forEach var="order" items="${orderList.orderItems }" varStatus="loop">
-						<tr>
-							<td><img width= "100px" height= "75px" src="${order.itemImage }" alt="${order.itemName }"></td>
-							<td>${order.itemName }</td>
-							<td>${order.price }</td>
-							<input type="hidden" name="items" value="${order.itemNo }"/>
-						</tr>
-					</c:forEach>
-					</tbody>
-				</table>
-			</div> --%>
 		</div>
 		
 		
@@ -160,7 +138,7 @@
 	</form>	
 			
 		<div class="text-right">
-			<button type="button" class="btn btn-primary" onclick="checkForm()" >결제하기</button>
+			<input type="button" id="btn" class="btn btn-primary" onclick="checkForm()" value="결제하기" >
 		</div>
 		
 	</div>
@@ -210,7 +188,15 @@ function toggleCartBox() {
 }
 
 </script>
+ <style>
+   #btn{
+  		 background-color:darkviolet;
+        border: slateblue;
+        font-style: normal;
+        color: white;
+   }
 
+</style>
 </body>
 </html>
 
