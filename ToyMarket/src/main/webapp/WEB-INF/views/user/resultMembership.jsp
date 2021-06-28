@@ -34,7 +34,13 @@
 					</div>
 				</div>
 			</c:if>
-			
+			<c:if test="${param.success eq 'updateMembership' }">
+				<div class="col-6 offset-3">
+					<div class="alert alert-danger">
+						<h1>회원수정 완료.</h1>
+					</div>
+				</div>
+			</c:if>
 		</div>
 	</main>
 </div>

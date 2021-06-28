@@ -16,7 +16,7 @@ public class AdminMainServlet extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		session.setMaxInactiveInterval(60*10);
+		session.setMaxInactiveInterval(60*15);
 		req.getRequestDispatcher("WEB-INF/views/admin/main.jsp").forward(req, resp);
 	}
 }

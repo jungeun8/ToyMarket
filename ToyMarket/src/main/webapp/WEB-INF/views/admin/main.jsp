@@ -75,7 +75,6 @@
 			</div>
 		</c:when>	
 	<c:otherwise>
-
 <body>
 	<div class="container">
 	<%@ include file="../common/adminHeader.jsp" %>
@@ -109,7 +108,9 @@
 			</div>
 		</main>
 	</div>
+	
 </body>
+
 	</c:otherwise>
 </c:choose>	
 </html>

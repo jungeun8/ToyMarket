@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 		
 		// 아이디로 사용자 정보 조회
 		UserDao userDao = UserDao.getInstance();
-		Customer savedUser = userDao.getUserById(id);
+		Customer savedUser = userDao.getCustomerById(id);
 		
 		// 카카오사용자인지 조회 and 아니라면 회원가입으로 iskakao,id,이름을 받아서 넘어감
 		if (iskakao.equals("yes") && savedUser == null) {
@@ -45,12 +45,6 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		
-		// 사용자정보가 존재하지 않으면 로그인폼을 재요청
-//		if (savedUser == null) {
-//			resp.sendRedirect("/user/login?fail=invalid");
-//			return;
-//		}
 		if (savedUser == null) {
 			if (isadmin.equals("yes")) {
 				resp.sendRedirect("/admin?fail=invalid");

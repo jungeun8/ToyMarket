@@ -1,7 +1,5 @@
 package com.toymarktet.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -30,9 +28,9 @@ public class UserDao {
 	 * 새 사용자정보를 전달받아서 USER_INFO 테이블에 추가한다.
 	 * @param user 새 사용자 정보
 	 */
-	public void insertUser(Customer user) {
+	public void insertCustomer(Customer user) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		session.insert("insertUser", user);
+		session.insert("insertCustomer", user);
 		session.close();
 	}
 	
@@ -41,9 +39,9 @@ public class UserDao {
 	 * @param userId 조회할 사용자 아이디
 	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
 	 */
-	public Customer getUserById(String userId) {
+	public Customer getCustomerById(String userId) {
 		SqlSession session = sqlSessionFactory.openSession();
-		Customer user = session.selectOne("getUserById", userId);
+		Customer user = session.selectOne("getCustomerById", userId);
 		session.close();
 		return user;
 	}
@@ -53,9 +51,9 @@ public class UserDao {
 	 * @param userEmail 조회할 사용자 이메일
 	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
 	 */
-	public Customer getUserByEmail(String userEmail) {
+	public Customer getCustomerByEmail(String userEmail) {
 		SqlSession session = sqlSessionFactory.openSession();
-		Customer user = session.selectOne("getUserByEmail", userEmail);
+		Customer user = session.selectOne("getCustomerByEmail", userEmail);
 		session.close();
 		return user;
 	}
@@ -65,32 +63,21 @@ public class UserDao {
 	 * @param userPhone 조회할 사용자 이메일
 	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
 	 */
-	public Customer getUserByPhone(String userPhone) {
+	public Customer getCustomerByPhone(String userPhone) {
 		SqlSession session = sqlSessionFactory.openSession();
-		Customer user = session.selectOne("getUserByPhone", userPhone);
+		Customer user = session.selectOne("getCustomerByPhone", userPhone);
 		session.close();
 		return user;
 	}
 	
 	/**
 	 * 
-	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
-	 */
-	public List<Customer> getAllUsers() {
-		SqlSession session = sqlSessionFactory.openSession();
-		List<Customer> user = session.selectList("getAllUsers");
-		session.close();
-		return user;
-	}
-
-	/**
-	 * 
 	 * @param userId 조회할 사용자 아이디
 	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
 	 */
-	public void updateUserInfo(Customer user) {
+	public void updateCustomer(Customer user) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		session.update("updateUserInfo", user);
+		session.update("updateCustomer", user);
 		session.close();
 	}
 	
@@ -99,9 +86,20 @@ public class UserDao {
 	 * @param userId 조회할 사용자 아이디
 	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
 	 */
-	public void deleteUserInfo(String userId) {
+	public void updateCustomerInfo(Customer user) {
 		SqlSession session = sqlSessionFactory.openSession(true);
-		session.update("deleteUserInfo", userId);
+		session.update("updateCustomerInfo", user);
+		session.close();
+	}
+	
+	/**
+	 * 
+	 * @param userId 조회할 사용자 아이디
+	 * @return 사용자 정보, 아이디에 해당하는 사용자가 존재하지 않을 경우 null값이 반환된다.
+	 */
+	public void deleteCustomer(String userId) {
+		SqlSession session = sqlSessionFactory.openSession(true);
+		session.update("deleteCustomer", userId);
 		session.close();
 	}
 }

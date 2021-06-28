@@ -44,7 +44,7 @@ public class RegisterServlet extends HttpServlet {
 		UserDao userDao = UserDao.getInstance();
 		
 		// 아이디 중복확인
-		Customer savedUserId = userDao.getUserById(id);
+		Customer savedUserId = userDao.getCustomerById(id);
 		if (savedUserId != null) {
 			if ("yes".equals(iskakao)) {
 				resp.sendRedirect("register?fail=idOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		// 이메일 중복확인
-		Customer savedUserEmail = userDao.getUserByEmail(email);
+		Customer savedUserEmail = userDao.getCustomerByEmail(email);
 		if (savedUserEmail != null) {
 			if ("yes".equals(iskakao)) {
 				resp.sendRedirect("register?fail=emailOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
@@ -66,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		// 전화번호 중복확인
-		Customer savedUserPhone = userDao.getUserByPhone(phone);
+		Customer savedUserPhone = userDao.getCustomerByPhone(phone);
 		if (savedUserPhone != null) {
 			if ("yes".equals(iskakao)) {
 				resp.sendRedirect("register?fail=phoneOverlap&iskakao=yes&id="+ id + "&name=" + URLEncoder.encode(name, "utf-8"));
@@ -93,7 +93,7 @@ public class RegisterServlet extends HttpServlet {
 		user.setBirth(birth);
 		
 		// 사용자 정보를 데이터베이스에 저장합니다.
-		userDao.insertUser(user);
+		userDao.insertCustomer(user);
 		
 		// 브라우저에게 재요청 URL을 응답으로 보낸다.
 		resp.sendRedirect("/result?success=joinMembership");

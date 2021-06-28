@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-</script>
 <header class="my-3">
 	<nav class="navbar navbar-expand-sm navbar-dark" class="d-flex justify-content-between">
  	<div class="container border-bottom" id="headerBorder">
@@ -50,8 +49,14 @@
  	</div>
  	</nav>
 </header>
-
-
-
-
-
+<script type="text/javascript">
+scrip
+$.ajaxSetup({
+	error: function(xhr, status, err) {
+		if (xhr.status == 403) {
+			location.href = "/admin";
+			return false;
+		}
+	}
+});
+</script>
