@@ -150,7 +150,7 @@
                             <div class="">
                                 <textarea class="form-control" style="height: 100px;" name="subTitle">${product.subTitle }</textarea>
                             </div>
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-end mt-2">
                                 <button type="submit" class="btn btn-primary">등록</button>
                             </div>
                         </div>

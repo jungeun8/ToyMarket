@@ -104,6 +104,14 @@ public class AdminProductInsertServlet extends HttpServlet{
 		String description = req.getParameter("description");
 		String subTitle = req.getParameter("subTitle");
 		
+		System.out.println(brand);
+		System.out.println(name);
+		System.out.println(sellUnit);
+		System.out.println(weight);
+		System.out.println(description);
+		System.out.println(categoryNo);
+		System.out.println(price);
+		
 		if(brand.isBlank() || name.isBlank() || sellUnit.isBlank() || weight.isBlank() || description.isBlank() || 
 				categoryNo.isBlank() || price.isBlank()) {
 			resp.sendRedirect("insert?fail=blank");

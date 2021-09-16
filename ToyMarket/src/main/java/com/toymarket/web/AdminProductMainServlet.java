@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/admin/product/list")
 public class AdminProductMainServlet extends HttpServlet{
 	
+	// 1. 한 페이지당 게시글수와 표시할 페이지번호 갯수를 선언한다. 
 	// 한 페이지당 표시할 게시글 행의 갯수
 	private static final int ROWS_PER_PAGE = 7;
 	// 페이지 블록당 한번에 표시할 페이지번호 갯수

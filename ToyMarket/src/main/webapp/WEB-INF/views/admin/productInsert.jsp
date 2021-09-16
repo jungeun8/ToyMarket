@@ -93,7 +93,7 @@
                                 <label for="floatingInput">상품명</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="제조사" >
+                                <input type="text" class="form-control" id="floatingInput" placeholder="제조사" name="brand">
                                 <label for="floatingInput">제조사</label>
                             </div>
                             <div class="form-floating mb-3">
@@ -142,7 +142,7 @@
                                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;" name="subTitle"></textarea>
                                 <label for="floatingTextarea">상품추가설명</label>
                             </div>
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-end mt-2">
                                 <button type="submit" class="btn btn-primary">등록</button>
                             </div>
                         </div>

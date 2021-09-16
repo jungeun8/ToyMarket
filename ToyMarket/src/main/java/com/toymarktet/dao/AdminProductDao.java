@@ -47,7 +47,7 @@ private SqlSessionFactory sqlSessionFactory;
 	
 	public List<Products> getAllProductsList(Map<String, Object> param){
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Products> products = session.selectList("products.getAllProductsList", param);
+		List<Products> products = session.selectList("getAllProductsList", param);
 		session.close();
 		return products;
 	}

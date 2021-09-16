@@ -140,7 +140,8 @@
 				product_no, category_no, product_brand, product_name, product_price, product_discount_rate, product_discount_YN,
 				product_like_count, product_sell_unit, product_weight, product_morning_delivery_YN, product_description,
 				product_stock, product_created_date, product_status, product_image, product_sub_title
-			FROM toy_products
+			FROM 
+				toy_products
 		
 		)
 		WHERE
@@ -210,13 +211,12 @@
 		 						product_name like '%' || #{keyword} || '%'
 		 				</when>
 		 				<when test="opt != null and opt == 'brand'">
-		 					and product_ brand like '%' || #{keyword} || '%'
+		 					and product_brand like '%' || #{keyword} || '%'
 		 				</when>
 		 			</choose>
 		 			<if test="catNo != null">
 		 				and category_no = #{catNo}
 		 			</if>
-		 			
 		 		</where>
 		)
 		where 
